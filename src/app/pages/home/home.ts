@@ -1,9 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { WardrobeService } from '../../services/wardrobe';
 
 @Component({
   selector: 'app-home',
-  imports: [],
   templateUrl: './home.html',
-  styleUrl: './home.css',
+  styleUrls: ['./home.css']
 })
-export class Home {}
+
+export class Home implements OnInit {
+
+  pantaloni: any[] = [];
+  pantofi: any[] = [];
+  rochii: any[] = [];
+  tricouri: any[] = [];
+  topuri: any[] = [];
+  sacouri: any[] = [];
+  parfumuri: any[] = [];
+
+  constructor(private wardrobeService: WardrobeService) {}
+
+  ngOnInit(): void {
+
+    this.pantaloni = this.wardrobeService.getPantaloni();
+    this.pantofi = this.wardrobeService.getPantofi();
+    this.rochii = this.wardrobeService.getRochii();
+    this.tricouri = this.wardrobeService.getTricouri();
+    this.topuri = this.wardrobeService.getTopuri();
+    this.sacouri = this.wardrobeService.getSacouri();
+    this.parfumuri = this.wardrobeService.getParfumuri();
+
+  }
+
+}

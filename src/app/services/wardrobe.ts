@@ -1,64 +1,66 @@
 import { Injectable } from '@angular/core';
 
-export interface ClothingItem {
-  id: string;
-  name: string;
-  category: string; // 'Tops', 'Bottoms', 'Outerwear', 'Shoes', 'Accessories'
-  brand: string;
-  season: string;
-  image: string; // URL sau Base64
-}
+import { PANTALONI_DATA } from '../data/pantaloni';
+import { PANTOFI_DATA } from '../data/pantofi';
+import { ROCHII_DATA } from '../data/rochie';
+import { TRICOURI_DATA } from '../data/tricouri';
+import { TOPURI_DATA } from '../data/top';
+import { SACOURI_DATA } from '../data/sacou';
+import { PARFUMURI_DATA } from '../data/parfum';
+import { ClothingItem } from '../models/wardrobe';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class WardrobeService {
-  private dbKey = 'wearwise_db';
-  private items: ClothingItem[] = [];
 
-  constructor() {
-    this.loadDb();
-  }
+  getPantaloni() { return PANTALONI_DATA; }
 
-  // Încarcă datele din localStorage sau pune date default
-  private loadDb() {
-    const saved = localStorage.getItem(this.dbKey);
-    if (saved) {
-      this.items = JSON.parse(saved);
-    } else {
-      // Date default (Mock data-ul nostru inițial)
-      this.items = [
-        { id: '1', name: 'Essential White Tee', category: 'Tops', brand: 'Everlane', season: 'Summer', image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=500&auto=format&fit=crop' },
-        { id: '2', name: 'Vintage Wash Denim', category: 'Bottoms', brand: "Levi's", season: 'All Season', image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=500&auto=format&fit=crop' },
-        { id: '3', name: 'Classic Moto Jacket', category: 'Outerwear', brand: 'AllSaints', season: 'Fall/Winter', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=500&auto=format&fit=crop' },
-        { id: '4', name: 'Air Force 1', category: 'Shoes', brand: 'Nike', season: 'Spring/Summer', image: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?q=80&w=500&auto=format&fit=crop' },
-        { id: '5', name: 'Oxford Button-Down', category: 'Tops', brand: 'Ralph Lauren', season: 'Workwear', image: 'https://images.unsplash.com/photo-1596755094514-f87e32f6b717?q=80&w=500&auto=format&fit=crop' },
-        { id: '6', name: 'Navy Trousers', category: 'Bottoms', brand: 'Zara', season: 'Workwear', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=500&auto=format&fit=crop' }
-      ];
-      this.saveDb();
+  getPantofi() { return PANTOFI_DATA; }
+
+  getRochii() { return ROCHII_DATA; }
+
+  getTricouri() { return TRICOURI_DATA; }
+
+  getTopuri() { return TOPURI_DATA; }
+
+  getSacouri() { return SACOURI_DATA; }
+
+  getParfumuri() { return PARFUMURI_DATA; }
+
+  getAllItems() {
+  return [
+    ...PANTALONI_DATA.map(item => ({ ...item, category: 'Bottoms', image: item.img_url })),
+    ...PANTOFI_DATA.map(item => ({ ...item, category: 'Shoes', image: item.img_url })),
+    ...ROCHII_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url })),
+    ...TRICOURI_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url })),
+    ...TOPURI_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url })),
+    ...SACOURI_DATA.map(item => ({ ...item, category: 'Outerwear', image: item.img_url }))
+  ];
+}
+
+  getRandomItem(category: string): any {
+
+    let items: any[] = [];
+
+    switch (category) {
+      case 'Pantaloni': items = this.getPantaloni(); break;
+      case 'Pantofi': items = this.getPantofi(); break;
+      case 'Rochii': items = this.getRochii(); break;
+      case 'Tricouri': items = this.getTricouri(); break;
+      case 'Topuri': items = this.getTopuri(); break;
+      case 'Sacouri': items = this.getSacouri(); break;
+      case 'Parfumuri': items = this.getParfumuri(); break;
     }
+
+    if (items.length === 0) return null;
+
+    return items[Math.floor(Math.random() * items.length)];
   }
 
-  private saveDb() {
-    localStorage.setItem(this.dbKey, JSON.stringify(this.items));
+  addItem(item: any) {
+    console.log('Item adăugat:', item);
   }
 
-  // Returnează toate hainele pentru pagina Wardrobe
-  getAllItems(): ClothingItem[] {
-    return this.items;
-  }
-
-  // Adaugă o haină nouă (folosit de Scanner)
-  addItem(item: ClothingItem) {
-    this.items.unshift(item); // O punem prima în listă
-    this.saveDb();
-  }
-
-  // Extrage o haină random dintr-o anumită categorie (folosit de Outfit AI)
-  getRandomItem(category: string): ClothingItem | null {
-    const filtered = this.items.filter(i => i.category === category);
-    if (filtered.length === 0) return null;
-    const randomIndex = Math.floor(Math.random() * filtered.length);
-    return filtered[randomIndex];
-  }
 }

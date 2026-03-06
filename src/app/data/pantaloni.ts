@@ -1,0 +1,146 @@
+import { Pantalon } from '../models/wardrobe';
+
+export const PANTALONI_DATA: Pantalon[] = [
+    {
+        cod_articol: "5252/014/406-1",
+        model: "JEANS CU TALIE PLIATĂ TRF",
+        pret_ron: 169.90,
+        culoare: "Albastru deschis",
+        img_url: "wardrobe/pantaloni/pantaloni1.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'All Season',
+        stil_general: ['casual', 'streetwear'],
+        ocazie: ['daily'],
+        detalii: {
+            tip_talie: 'Medie',
+            croiala: "Largă",
+            inchidere: ["fermoar", "nasture metalic"]
+        }
+    },
+    {
+        cod_articol: "5252/014/406-2",
+        model: "JEANS CU TALIE PLIATĂ TRF (V2)",
+        pret_ron: 169.90,
+        culoare: "Albastru deschis",
+        img_url: "wardrobe/pantaloni/pantaloni2.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'All Season',
+        detalii: {
+            tip_talie: 'Medie',
+            croiala: "Standard",
+            inchidere: ["fermoar", "nasture metalic"]
+        }
+    },
+    {
+        cod_articol: "8228/021/250",
+        model: "JEANS Z.03 STRAIGHT",
+        pret_ron: 139.90,
+        culoare: "Alb",
+        img_url: "wardrobe/pantaloni/pantaloni3.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'Vară',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "dreaptă",
+            inchidere: ["fermoar", "nasture"]
+        }
+    },
+    {
+        cod_articol: "5575/229/800",
+        model: "JEANS TRF WIDE LEG",
+        pret_ron: 149.90,
+        culoare: "Negru",
+        img_url: "wardrobe/pantaloni/pantaloni4.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'All Season',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "Wide leg",
+            inchidere: ["fermoar", "nasture metalic"]
+        }
+    },
+    {
+        cod_articol: "5575/025/251",
+        model: "JEANS TRF EXTRA WIDE LEG",
+        pret_ron: 169.90,
+        culoare: "Alburiu",
+        img_url: "wardrobe/pantaloni/pantaloni5.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'Primăvară/Toamnă',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "Extra wide leg",
+            inchidere: ["fermoar", "nasture metalic"]
+        }
+    },
+    {
+        cod_articol: "8316/696/711",
+        model: "PANTALONI DREPȚI TALIE CONTRASTANTĂ",
+        pret_ron: 149.90,
+        culoare: "Nisip",
+        img_url: "wardrobe/pantaloni/pantaloni6.jpg",
+        marimi_disponibile: ["XS", "S", "M", "L", "XL"],
+        sezon: 'Primăvară/Toamnă',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "Dreaptă",
+            inchidere: ["fermoar", "nasture interior", "cârlig"]
+        }
+    },
+    {
+        cod_articol: "1478/631/707",
+        model: "PANTALONI CU TALIE ÎNALTĂ",
+        pret_ron: 129.90,
+        culoare: "ocru",
+        img_url: "wardrobe/pantaloni/pantaloni7.jpg",
+        marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
+        sezon: 'All Season',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "Standard",
+            inchidere: ["fermoar", "nasture interior", "cârlig metalic"]
+        }
+    },
+    {
+        cod_articol: "4661/408/753",
+        model: "PANTALONI BALLOON CU PLIURI",
+        pret_ron: 149.90,
+        culoare: "Maro ciocolatiu",
+        img_url: "wardrobe/pantaloni/pantaloni8.jpg",
+        marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
+        sezon: 'Iarnă',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "balloon",
+            inchidere: ["fermoar", "nasture interior", "cârlige metalice"]
+        }
+    },
+    {
+        cod_articol: "3607/332/401",
+        model: "JEANS TRF WIDE LEG ÎNCRUCIȘATĂ",
+        pret_ron: 149.90,
+        culoare: "Bleumarin",
+        img_url: "wardrobe/pantaloni/pantaloni9.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'All Season',
+        detalii: {
+            tip_talie: 'Înaltă',
+            croiala: "Wide leg",
+            inchidere: ["fermoar", "nasturi metalici"]
+        }
+    },
+    {
+        cod_articol: "5575/214/800",
+        model: "JEANS CU TALIE PLIATĂ TRF NEGRU",
+        pret_ron: 169.90,
+        culoare: "Negru",
+        img_url: "wardrobe/pantaloni/pantaloni10.jpg",
+        marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
+        sezon: 'All Season',
+        detalii: {
+            tip_talie: 'Medie',
+            croiala: "Standard",
+            inchidere: ["fermoar", "nasture metalic"]
+        }
+    }
+];

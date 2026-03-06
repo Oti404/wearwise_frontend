@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { WardrobeService, ClothingItem } from '../../services/wardrobe';
+import { WardrobeService } from '../../services/wardrobe';
+import { ClothingItem } from '../../models/wardrobe';
 
 @Component({
   selector: 'app-outfit-ai',

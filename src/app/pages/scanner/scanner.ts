@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { WardrobeService } from '../../services/wardrobe'; // IMPORT NOU
-
+import { WardrobeService } from '../../services/wardrobe';
+import { ClothingItem } from '../../models/wardrobe';
 @Component({
   selector: 'app-scanner',
   imports: [RouterLink, CommonModule],
