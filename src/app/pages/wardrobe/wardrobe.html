@@ -1,0 +1,54 @@
+<header class="flex items-center p-4 justify-between bg-off-white border-b border-gray-200 text-charcoal sticky top-0 z-10 shadow-sm">
+  <div class="flex h-10 w-10 shrink-0 items-center justify-center text-royal-purple rounded-full bg-royal-purple/10">
+    <span class="material-symbols-outlined text-[24px]">dry_cleaning</span>
+  </div>
+  <h1 class="text-lg font-bold leading-tight flex-1 text-center tracking-wide">WearWise</h1>
+  <div class="flex w-10 items-center justify-end">
+    <button class="flex items-center justify-center h-10 w-10 rounded-full hover:bg-black/5 text-charcoal transition-colors">
+      <span class="material-symbols-outlined text-[24px]">more_vert</span>
+    </button>
+  </div>
+</header>
+
+<main class="flex-1 overflow-y-auto pb-24 bg-cream min-h-screen">
+  
+  <div class="px-4 py-4 flex gap-2 items-center">
+    <div class="flex-1 relative">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-charcoal/50">search</span>
+      <input class="w-full bg-off-white border border-gray-200 rounded-lg pl-10 pr-4 py-2.5 text-sm focus:ring-1 focus:ring-royal-purple focus:border-royal-purple outline-none placeholder:text-charcoal/50 text-charcoal shadow-sm transition-all" placeholder="Search inventory..." type="text"/>
+    </div>
+    <button class="flex items-center justify-center h-10 w-10 rounded-lg bg-off-white text-plum border border-gray-200 shrink-0 shadow-sm hover:border-royal-purple transition-colors">
+      <span class="material-symbols-outlined text-[20px]">tune</span>
+    </button>
+  </div>
+
+  <div class="flex gap-3 px-4 py-2 overflow-x-auto no-scrollbar">
+    <button *ngFor="let cat of categories" 
+            (click)="setActiveCategory(cat)"
+            [ngClass]="{
+              'bg-royal-purple text-white shadow-sm border-transparent': activeCategory === cat,
+              'bg-off-white text-charcoal border-gray-200 hover:border-royal-purple': activeCategory !== cat
+            }"
+            class="flex h-8 shrink-0 items-center justify-center rounded-full px-5 font-bold text-sm border transition-colors">
+      {{ cat }}
+    </button>
+  </div>
+
+  <div class="p-4 grid grid-cols-2 gap-4">
+    <div *ngFor="let item of clothingItems" class="flex flex-col gap-2 relative group cursor-pointer hover:scale-[1.02] transition-transform">
+      <div class="aspect-[3/4] rounded-xl bg-white border border-gray-200 shadow-sm overflow-hidden relative flex items-center justify-center p-0">
+        <img [src]="item.image" [alt]="item.name" class="w-full h-full object-cover"/>
+        
+        <div class="absolute top-2 right-2 bg-white/80 border border-plum/30 rounded-full px-2 py-0.5 text-[10px] font-bold text-plum shadow-sm backdrop-blur-sm">
+          {{ item.season }}
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="font-bold text-sm text-charcoal truncate">{{ item.name }}</h3>
+        <p class="text-xs text-charcoal/60 truncate tracking-wide font-medium">{{ item.brand }}</p>
+      </div>
+    </div>
+  </div>
+
+</main>

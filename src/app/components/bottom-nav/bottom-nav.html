@@ -1,0 +1,24 @@
+<button routerLink="/scanner" class="fixed bottom-24 right-4 bg-primary text-white h-14 w-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform z-20 border border-primary/50">
+  <span class="material-symbols-outlined text-2xl">add</span>
+</button>
+
+<nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 px-4 pb-4 pt-2 z-20 shadow-[0_-4px_15px_rgba(0,0,0,0.05)]">
+  <div class="flex justify-between items-center max-w-md mx-auto">
+    <a routerLink="/home" routerLinkActive="text-primary font-bold" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-all">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+      <span class="text-[10px]">Home</span>
+    </a>
+    <a routerLink="/wardrobe" routerLinkActive="text-primary font-bold" class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-all">
+      <span class="material-symbols-outlined">checkroom</span>
+      <span class="text-[10px]">Wardrobe</span>
+    </a>
+    <a routerLink="/outfit-ai" routerLinkActive="text-primary font-bold" class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-all">
+      <span class="material-symbols-outlined">auto_awesome</span>
+      <span class="text-[10px]">Outfit AI</span>
+    </a>
+    <a routerLink="/profile" routerLinkActive="text-primary font-bold" class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-all">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[10px]">Profile</span>
+    </a>
+  </div>
+</nav>

@@ -1,0 +1,71 @@
+<div class="fixed inset-0 z-[100] flex h-[100dvh] w-full flex-col bg-cream overflow-hidden">
+  
+  <div class="flex flex-col h-full w-full max-w-md mx-auto bg-cream shadow-2xl relative">
+    
+    <div class="flex items-center p-4 pb-2 justify-between shrink-0">
+      <button routerLink="/home" aria-label="Close" class="flex h-12 w-12 shrink-0 items-center justify-center text-charcoal hover:bg-black/5 rounded-full transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
+      </button>
+      <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center text-charcoal">Add Clothing</h2>
+      <div class="flex w-12 items-center justify-end">
+        <button aria-label="Help" class="flex cursor-pointer items-center justify-center rounded-full h-12 w-12 text-charcoal hover:bg-black/5 transition-colors">
+          <span class="material-symbols-outlined text-2xl">help</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex-1 p-4 flex flex-col min-h-0 relative">
+      <div class="relative flex-1 bg-black rounded-xl overflow-hidden shadow-[inset_0_0_20px_rgba(244,197,66,0.2)] flex flex-col justify-end p-0">
+        
+        <video #videoElement *ngIf="!photoTaken" autoplay playsinline class="absolute inset-0 w-full h-full object-cover"></video>
+        
+        <img *ngIf="photoTaken" [src]="photoUrl" class="absolute inset-0 w-full h-full object-cover" alt="Captured clothing" />
+        <canvas #canvasElement class="hidden"></canvas>
+
+        <div class="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-gold opacity-90 z-10"></div>
+        <div class="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-gold opacity-90 z-10"></div>
+        <div class="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-gold opacity-90 z-10"></div>
+        <div class="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-gold opacity-90 z-10"></div>
+        
+        <div *ngIf="!photoTaken" class="absolute inset-0 bg-gradient-to-b from-transparent via-royal-purple/30 to-transparent pointer-events-none flex items-center animate-[pulse_2s_ease-in-out_infinite] z-10">
+          <div class="w-full h-[2px] bg-royal-purple shadow-[0_0_15px_4px_rgba(90,45,130,0.7)]"></div>
+        </div>
+        
+        <div class="relative z-20 flex items-center justify-between mt-auto p-4 w-full" style="background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);">
+          <div *ngIf="!photoTaken" class="text-gold text-base font-bold drop-shadow-md flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm animate-pulse">document_scanner</span>
+            Align item
+          </div>
+          <button *ngIf="photoTaken" (click)="retakePhoto()" class="text-white text-sm font-bold bg-black/50 px-3 py-1.5 rounded-full border border-white/20 hover:bg-black/70 transition-colors">
+            Retake
+          </button>
+          <button *ngIf="!photoTaken" (click)="takePhoto()" class="bg-gold/90 backdrop-blur-md border-[3px] border-white rounded-full h-14 w-14 hover:scale-105 transition-transform shadow-[0_0_15px_rgba(244,197,66,0.5)] flex items-center justify-center">
+            <span class="material-symbols-outlined text-white text-2xl">camera</span>
+          </button>
+          <div *ngIf="photoTaken" class="h-14 w-14"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="shrink-0 pb-8 px-4 bg-cream z-20">
+      <h3 class="text-lg font-bold leading-tight pb-3 pt-2 text-charcoal">Detected Features</h3>
+      <div class="flex gap-3 flex-wrap pb-6">
+        <div class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-gold/20 border border-gold px-4">
+          <span class="material-symbols-outlined text-sm text-charcoal">checkroom</span>
+          <p class="text-charcoal text-xs font-bold uppercase">Type: T-shirt</p>
+        </div>
+        <div class="flex h-8 items-center justify-center gap-x-2 rounded-full bg-gold/20 border border-gold px-4">
+          <span class="material-symbols-outlined text-sm text-charcoal">palette</span>
+          <p class="text-charcoal text-xs font-bold uppercase">Color: Black</p>
+        </div>
+      </div>
+      
+      <button [disabled]="!photoTaken" (click)="saveAndAdd()" [class.opacity-50]="!photoTaken" class="w-full flex cursor-pointer items-center justify-center rounded-xl h-14 px-5 bg-royal-purple hover:bg-royal-purple/90 transition-colors shadow-lg">
+        <span class="text-gold text-lg font-extrabold tracking-widest uppercase">
+          {{ photoTaken ? 'Confirm & Add' : 'Take a photo first' }}
+        </span>
+      </button>
+    </div>
+    
+  </div>
+</div>
