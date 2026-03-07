@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // ← adaugă ChangeDetectorRef
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WardrobeService } from '../../services/wardrobe';
@@ -48,8 +48,10 @@ export class Home implements OnInit {
   isGenerating: boolean = false;
   generatedOutfit: any = null;
 
-  constructor(private wardrobeService: WardrobeService) {}
-
+  constructor(
+    private wardrobeService: WardrobeService,
+    private cdr: ChangeDetectorRef  // ← injectează aici
+  ) {}
   // ... (Păstrează ngOnInit și funcția generateOutfit exact cum le-am scris în mesajul anterior)
   // NOTĂ: Dacă ai funcția generateOutfit deja scrisă, ea va funcționa perfect cu aceste noi variabile!
 
@@ -64,85 +66,47 @@ export class Home implements OnInit {
     this.parfumuri = this.wardrobeService.getParfumuri();
 
     // Generăm un outfit default când utilizatorul intră prima dată pe pagină
-    this.generateOutfit();
+    //this.generateOutfit();
   }
 
   generateOutfit(): void {
-  this.isGenerating = true;
+    this.isGenerating = true;
+    this.cdr.detectChanges(); // ← forțăm loading state să apară imediat
 
-  setTimeout(() => {
-    const toateTopurile = [...this.topuri, ...this.tricouri];
+    setTimeout(() => {
+      const toateTopurile = [...this.topuri, ...this.tricouri];
 
-    // ─── SISTEM DE SCORING ───────────────────────────────────────────────────
+      const scoreItem = (item: any, context: { partener?: any } = {}): number => {
+        let score = 0;
+        if (item.stil_general?.includes(this.filterStil)) score += 25;
+        if (item.ocazie?.includes(this.filterEveniment)) score += 25;
+        if (item.sezon === this.filterAnotimp) score += 20;
+        else if (item.sezon === Sezon.ALL_SEASON) score += 12;
 
-    /**
-     * Calculează un scor de relevanță [0-100] pentru un item față de filtrele active.
-     * Criteriile sunt ponderate: stilul și ocazia contează cel mai mult,
-     * urmate de sezon, fit și compatibilitate cromatică.
-     */
-    const scoreItem = (item: any, context: { partener?: any } = {}): number => {
-      let score = 0;
+        const croiala = (item.croiala || item.detalii?.croiala || item.detalii?.stil || '').toLowerCase();
+        const isOversized = ['oversize', 'larg', 'wide', 'balloon'].some(k => croiala.includes(k));
+        const isFitted = ['cambrat', 'mulat', 'strâmt', 'standard', 'dreaptă', 'regular', 'rib', 'corset'].some(k => croiala.includes(k));
 
-      // 1. STIL (25 pts) — item-ul se potrivește stilului selectat
-      if (item.stil_general?.includes(this.filterStil)) score += 25;
+        if (this.filterFit === FitPreference.OVERSIZED && isOversized)        score += 20;
+        else if (this.filterFit === FitPreference.FITTED && isFitted)         score += 20;
+        else if (this.filterFit === FitPreference.MIX_MATCH)                  score += 10;
+        else if (!isOversized && !isFitted)                                   score += 5;
 
-      // 2. OCAZIE (25 pts) — item-ul e potrivit pentru evenimentul ales
-      if (item.ocazie?.includes(this.filterEveniment)) score += 25;
+        if (context.partener) score += this.scoreColorHarmony(item, context.partener);
+        return score;
+      };
 
-      // 3. SEZON (20 pts) — item-ul e sezonier relevant
-      if (item.sezon === this.filterAnotimp) score += 20;
-      else if (item.sezon === Sezon.ALL_SEASON) score += 12;
-
-      // 4. FIT PREFERENCE (20 pts) — potrivire cu preferința de croială
-      const croiala = (
-        item.croiala || item.detalii?.croiala || item.detalii?.stil || ''
-      ).toLowerCase();
-
-      const isOversized = ['oversize', 'larg', 'wide', 'balloon'].some(k => croiala.includes(k));
-      const isFitted    = ['cambrat', 'mulat', 'strâmt', 'standard', 'dreaptă', 'regular', 'rib', 'corset']
-                          .some(k => croiala.includes(k));
-
-      if (this.filterFit === FitPreference.OVERSIZED && isOversized)   score += 20;
-      else if (this.filterFit === FitPreference.FITTED && isFitted)    score += 20;
-      else if (this.filterFit === FitPreference.MIX_MATCH)             score += 10; // ambele sunt ok
-      else if (!isOversized && !isFitted)                              score += 5;  // croială neutră
-
-      // 5. ARMONIE CROMATICĂ cu partenerul (10 pts)
-      if (context.partener) {
-        score += this.scoreColorHarmony(item, context.partener);
-      }
-
-      return score;
-    };
-
-    // ─── SELECȚIE PONDERATĂ ──────────────────────────────────────────────────
-
-    /**
-     * Alege un item folosind selecție ponderată pe baza scorurilor,
-     * cu un fallback progresiv dacă niciun item nu trece pragul minim.
-     */
-    const weightedPick = <T>(items: T[], scorer: (item: T) => number, minScore = 20): T => {
-      const scored = items
-        .map(item => ({ item, score: scorer(item) }))
-        .filter(({ score }) => score >= minScore)
-        .sort((a, b) => b.score - a.score);
-
-      // Fallback progresiv: relaxăm pragul până găsim ceva
-      const pool = scored.length > 0
-        ? scored
-        : items.map(item => ({ item, score: scorer(item) })).sort((a, b) => b.score - a.score);
-
-      // Selecție ponderată — scorurile mai mari = probabilitate mai mare
-      const totalWeight = pool.reduce((sum, { score }) => sum + Math.max(score, 1), 0);
-      let rand = Math.random() * totalWeight;
-
-      for (const { item, score } of pool) {
-        rand -= Math.max(score, 1);
-        if (rand <= 0) return item;
-      }
-
-      return pool[0].item; // safety net
-    };
+      const weightedPick = <T>(items: T[], scorer: (item: T) => number, minScore = 20): T => {
+        const scored = items.map(item => ({ item, score: scorer(item) })).filter(({ score }) => score >= minScore).sort((a, b) => b.score - a.score);
+        const pool = scored.length > 0 ? scored : items.map(item => ({ item, score: scorer(item) })).sort((a, b) => b.score - a.score);
+        const totalWeight = pool.reduce((sum, { score }) => sum + Math.max(score, 1), 0);
+        let rand = Math.random() * totalWeight;
+        for (const { item, score } of pool) {
+          rand -= Math.max(score, 1);
+          if (rand <= 0) return item;
+        }
+        return pool[0].item;
+      };
 
     // ─── LOGICA MIX & MATCH ──────────────────────────────────────────────────
 
@@ -152,43 +116,35 @@ export class Home implements OnInit {
      * cu scorul total mai mare.
      */
     const pickMixMatch = () => {
-      const combo1Top    = weightedPick(toateTopurile, i => scoreItem(i) + (this.isFitted(i) ? 15 : 0));
-      const combo1Bottom = weightedPick(this.pantaloni, i => scoreItem(i, { partener: combo1Top }) + (this.isOversized(i) ? 15 : 0));
-
-      const combo2Top    = weightedPick(toateTopurile, i => scoreItem(i) + (this.isOversized(i) ? 15 : 0));
-      const combo2Bottom = weightedPick(this.pantaloni, i => scoreItem(i, { partener: combo2Top }) + (this.isFitted(i) ? 15 : 0));
-
-      // Alegem combo-ul cu scorul total mai bun
-      const score1 = scoreItem(combo1Top) + scoreItem(combo1Bottom, { partener: combo1Top });
-      const score2 = scoreItem(combo2Top) + scoreItem(combo2Bottom, { partener: combo2Top });
-
-      return score1 >= score2
-        ? { top: combo1Top, bottom: combo1Bottom }
-        : { top: combo2Top, bottom: combo2Bottom };
-    };
+        const combo1Top    = weightedPick(toateTopurile, i => scoreItem(i) + (this.isFitted(i) ? 15 : 0));
+        const combo1Bottom = weightedPick(this.pantaloni, i => scoreItem(i, { partener: combo1Top }) + (this.isOversized(i) ? 15 : 0));
+        const combo2Top    = weightedPick(toateTopurile, i => scoreItem(i) + (this.isOversized(i) ? 15 : 0));
+        const combo2Bottom = weightedPick(this.pantaloni, i => scoreItem(i, { partener: combo2Top }) + (this.isFitted(i) ? 15 : 0));
+        const score1 = scoreItem(combo1Top) + scoreItem(combo1Bottom, { partener: combo1Top });
+        const score2 = scoreItem(combo2Top) + scoreItem(combo2Bottom, { partener: combo2Top });
+        return score1 >= score2 ? { top: combo1Top, bottom: combo1Bottom } : { top: combo2Top, bottom: combo2Bottom };
+      };
 
     // ─── ASAMBLARE OUTFIT ────────────────────────────────────────────────────
 
     let top: any, bottom: any;
+      if (this.filterFit === FitPreference.MIX_MATCH) {
+        ({ top, bottom } = pickMixMatch());
+      } else {
+        top    = weightedPick(toateTopurile, i => scoreItem(i));
+        bottom = weightedPick(this.pantaloni, i => scoreItem(i, { partener: top }));
+      }
 
-    if (this.filterFit === FitPreference.MIX_MATCH) {
-      ({ top, bottom } = pickMixMatch());
-    } else {
-      top    = weightedPick(toateTopurile, i => scoreItem(i));
-      bottom = weightedPick(this.pantaloni, i => scoreItem(i, { partener: top }));
-    }
+      const shoes = weightedPick(
+        this.pantofi,
+        i => scoreItem(i, { partener: top }) + (i.ocazie?.includes(this.filterEveniment) ? 20 : 0)
+      );
 
-    // Pantofii sunt scorați ținând cont atât de ocazie cât și de stilul outfit-ului deja ales
-    const shoes = weightedPick(
-      this.pantofi,
-      i => scoreItem(i, { partener: top }) + (i.ocazie?.includes(this.filterEveniment) ? 20 : 0)
-    );
-
-    this.generatedOutfit = { top, bottom, shoes };
-    this.isGenerating = false;
-
-  }, 1500);
-}
+      this.generatedOutfit = { top, bottom, shoes };
+      this.isGenerating = false;
+      this.cdr.detectChanges(); // ← ← ← ACEASTA E LINIA CARE REZOLVĂ BUG-UL
+    }, 1500);
+  }
 
 // ─── HELPERS (adaugă în clasă) ──────────────────────────────────────────────
 

@@ -15,114 +15,181 @@
 </header>
 
 <main class="flex flex-col gap-6 p-4 fade-in">
-  
+
+  <!-- ── AI FILTERS ─────────────────────────────────────────────────────── -->
   <section class="bg-white rounded-2xl shadow-sm border border-primary/10 p-4">
     <div class="flex items-center gap-2 mb-4">
       <span class="material-symbols-outlined text-accent">tune</span>
       <h2 class="text-md font-bold text-primary">AI Context Setup</h2>
     </div>
-    
-<div class="grid grid-cols-2 gap-3 mb-4">
+
+    <div class="grid grid-cols-2 gap-3 mb-4">
+
       <div class="flex flex-col gap-1">
         <label class="text-[10px] font-black uppercase tracking-widest text-primary/60 ml-1">Weather</label>
-        <select [(ngModel)]="filterVreme" class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
+        <select [(ngModel)]="filterVreme"
+                class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
           <option *ngFor="let vreme of vremeDisponibile" [value]="vreme">{{ vreme }}</option>
         </select>
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-[10px] font-black uppercase tracking-widest text-primary/60 ml-1">Season</label>
-        <select [(ngModel)]="filterAnotimp" class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
+        <select [(ngModel)]="filterAnotimp"
+                class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
           <option *ngFor="let sezon of sezoaneDisponibile" [value]="sezon">{{ sezon }}</option>
         </select>
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-[10px] font-black uppercase tracking-widest text-primary/60 ml-1">Mood</label>
-        <select [(ngModel)]="filterMood" class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
+        <select [(ngModel)]="filterMood"
+                class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
           <option *ngFor="let mood of moodsDisponibile" [value]="mood">{{ mood }}</option>
         </select>
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-[10px] font-black uppercase tracking-widest text-primary/60 ml-1">Style</label>
-        <select [(ngModel)]="filterStil" class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent capitalize">
+        <select [(ngModel)]="filterStil"
+                class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent capitalize">
           <option *ngFor="let stil of stiluriDisponibile" [value]="stil" class="capitalize">{{ stil }}</option>
         </select>
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-[10px] font-black uppercase tracking-widest text-primary/60 ml-1">Fit / Silhouette</label>
-        <select [(ngModel)]="filterFit" class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
+        <select [(ngModel)]="filterFit"
+                class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent">
           <option *ngFor="let fit of fitDisponibile" [value]="fit">{{ fit }}</option>
         </select>
       </div>
 
       <div class="flex flex-col gap-1">
         <label class="text-[10px] font-black uppercase tracking-widest text-primary/60 ml-1">Event Type</label>
-        <select [(ngModel)]="filterEveniment" class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent capitalize">
+        <select [(ngModel)]="filterEveniment"
+                class="bg-gray-50 border border-primary/10 rounded-xl px-3 py-2 text-sm font-medium text-textlight outline-none focus:border-accent capitalize">
           <option *ngFor="let eveniment of evenimenteDisponibile" [value]="eveniment" class="capitalize">{{ eveniment }}</option>
         </select>
       </div>
+
     </div>
 
-
-    <button (click)="generateOutfit()" [disabled]="isGenerating" class="w-full bg-primary text-white py-3 rounded-xl font-bold tracking-wide shadow-md shadow-primary/20 hover:bg-accent transition-all flex items-center justify-center gap-2">
+    <button (click)="generateOutfit()"
+            [disabled]="isGenerating"
+            class="w-full bg-primary text-white py-3 rounded-xl font-bold tracking-wide shadow-md shadow-primary/20 hover:bg-accent transition-all flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
       <span *ngIf="!isGenerating" class="material-symbols-outlined">magic_button</span>
       <span *ngIf="isGenerating" class="material-symbols-outlined animate-spin">refresh</span>
       {{ isGenerating ? 'AI is thinking...' : 'Generate Perfect Outfit' }}
     </button>
   </section>
 
-  <section *ngIf="generatedOutfit" class="pb-10"> <div class="flex items-center justify-between mb-4 mt-2">
+  <!-- ── PLACEHOLDER (înainte de prima generare) ────────────────────────── -->
+  <section *ngIf="!generatedOutfit && !isGenerating"
+           class="flex flex-col items-center justify-center gap-3 py-12 text-center opacity-50">
+    <span class="material-symbols-outlined text-5xl text-primary/40">styler</span>
+    <p class="text-sm font-semibold text-primary/50 uppercase tracking-widest">Set your vibe & hit generate</p>
+  </section>
+
+  <!-- ── LOADING STATE ──────────────────────────────────────────────────── -->
+  <section *ngIf="isGenerating"
+           class="flex flex-col items-center justify-center gap-3 py-12 text-center">
+    <span class="material-symbols-outlined text-5xl text-accent animate-pulse">auto_awesome</span>
+    <p class="text-sm font-bold text-primary uppercase tracking-widest">Analysing your wardrobe...</p>
+    <p class="text-xs text-textlight/60">Finding the perfect match for your vibe</p>
+  </section>
+
+  <!-- ── OUTFIT RESULT ──────────────────────────────────────────────────── -->
+  <section *ngIf="generatedOutfit && !isGenerating" class="pb-10">
+
+    <div class="flex items-center justify-between mb-4 mt-2">
       <h2 class="text-xl font-black text-primary tracking-tight">Your Match</h2>
+      <button (click)="generateOutfit()"
+              class="flex items-center gap-1 text-xs font-bold text-accent border border-accent/30 px-3 py-1.5 rounded-full hover:bg-accent/10 transition-all">
+        <span class="material-symbols-outlined text-sm">refresh</span>
+        Regenerate
+      </button>
     </div>
-    
+
     <div class="outfit-card bg-white rounded-3xl shadow-xl shadow-primary/5 overflow-hidden flex flex-col border border-primary/10 relative">
-      
+
+      <!-- Imagini -->
       <div class="w-full bg-gradient-to-br from-gray-50 to-gray-200 grid grid-cols-2 gap-px p-1.5">
-         
-         <div class="h-48 bg-white rounded-tl-2xl rounded-bl-lg relative group flex items-center justify-center p-2 shadow-sm">
-           <span class="absolute top-2 left-2 text-[10px] font-black text-gray-400 uppercase tracking-widest z-10">Top</span>
-           <img [src]="generatedOutfit.top.img_url" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md" alt="Top">
-         </div>
-         
-         <div class="h-48 bg-white rounded-tr-2xl rounded-br-lg relative group flex items-center justify-center p-2 shadow-sm">
-           <span class="absolute top-2 right-2 text-[10px] font-black text-gray-400 uppercase tracking-widest z-10">Bottom</span>
-           <img [src]="generatedOutfit.bottom.img_url" class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md" alt="Bottom">
-         </div>
-         
-         <div class="col-span-2 h-36 bg-white rounded-b-2xl relative group flex items-center justify-center p-4 mt-1 shadow-sm">
-           <span class="absolute top-2 left-2 text-[10px] font-black text-gray-400 uppercase tracking-widest z-10">Footwear</span>
-           <img [src]="generatedOutfit.shoes.img_url" class="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md" alt="Shoes">
-         </div>
+
+        <div class="h-48 bg-white rounded-tl-2xl rounded-bl-lg relative group flex items-center justify-center p-2 shadow-sm">
+          <span class="absolute top-2 left-2 text-[10px] font-black text-gray-400 uppercase tracking-widest z-10">Top</span>
+          <img [src]="generatedOutfit.top.img_url"
+               class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md"
+               alt="Top">
+        </div>
+
+        <div class="h-48 bg-white rounded-tr-2xl rounded-br-lg relative group flex items-center justify-center p-2 shadow-sm">
+          <span class="absolute top-2 right-2 text-[10px] font-black text-gray-400 uppercase tracking-widest z-10">Bottom</span>
+          <img [src]="generatedOutfit.bottom.img_url"
+               class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md"
+               alt="Bottom">
+        </div>
+
+        <div class="col-span-2 h-36 bg-white rounded-b-2xl relative group flex items-center justify-center p-4 mt-1 shadow-sm">
+          <span class="absolute top-2 left-2 text-[10px] font-black text-gray-400 uppercase tracking-widest z-10">Footwear</span>
+          <img [src]="generatedOutfit.shoes.img_url"
+               class="h-full w-auto object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md"
+               alt="Shoes">
+        </div>
 
       </div>
-      
+
+      <!-- Info Card -->
       <div class="p-6 flex flex-col gap-4 relative bg-white z-10 rounded-t-3xl -mt-4 shadow-[0_-10px_20px_-5px_rgba(0,0,0,0.05)]">
-        
+
         <div class="flex justify-between items-start">
           <div>
             <div class="flex items-center gap-2 mb-2">
               <span class="ai-pulse h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_8px_rgba(255,165,0,0.6)]"></span>
               <p class="text-accent text-xs font-black uppercase tracking-widest">AI Recommended</p>
             </div>
-            <h3 class="text-2xl font-black leading-tight text-primary capitalize">{{ filterMood }} <br> <span class="text-textlight font-medium">& {{ filterStil }}</span></h3>
+            <h3 class="text-2xl font-black leading-tight text-primary capitalize">
+              {{ filterMood }} <br>
+              <span class="text-textlight font-medium">& {{ filterStil }}</span>
+            </h3>
           </div>
-          
+
           <button class="favorite-btn bg-gray-50 text-primary p-3 rounded-full hover:bg-primary hover:text-white border border-primary/10 transition-all duration-300 shadow-sm">
             <span class="material-symbols-outlined text-2xl">favorite</span>
           </button>
         </div>
-        
-        <div class="insight-box p-4 rounded-2xl mt-2 flex items-start gap-3 bg-accent/5 border border-accent/20">
+
+        <!-- Detalii piese -->
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="bg-gray-50 rounded-xl p-2 border border-primary/5">
+            <p class="text-[9px] font-black uppercase tracking-widest text-primary/40 mb-1">Top</p>
+            <p class="text-xs font-semibold text-textlight leading-tight line-clamp-2">{{ generatedOutfit.top.model }}</p>
+            <p *ngIf="generatedOutfit.top.pret_ron" class="text-xs font-black text-accent mt-1">{{ generatedOutfit.top.pret_ron }} RON</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-2 border border-primary/5">
+            <p class="text-[9px] font-black uppercase tracking-widest text-primary/40 mb-1">Bottom</p>
+            <p class="text-xs font-semibold text-textlight leading-tight line-clamp-2">{{ generatedOutfit.bottom.model }}</p>
+            <p *ngIf="generatedOutfit.bottom.pret_ron" class="text-xs font-black text-accent mt-1">{{ generatedOutfit.bottom.pret_ron }} RON</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-2 border border-primary/5">
+            <p class="text-[9px] font-black uppercase tracking-widest text-primary/40 mb-1">Shoes</p>
+            <p class="text-xs font-semibold text-textlight leading-tight line-clamp-2">{{ generatedOutfit.shoes.model }}</p>
+            <p *ngIf="generatedOutfit.shoes.pret_ron" class="text-xs font-black text-accent mt-1">{{ generatedOutfit.shoes.pret_ron }} RON</p>
+          </div>
+        </div>
+
+        <!-- Why it works -->
+        <div class="insight-box p-4 rounded-2xl flex items-start gap-3 bg-accent/5 border border-accent/20">
           <div class="bg-white p-2 rounded-full shadow-sm shrink-0">
             <span class="material-symbols-outlined text-accent text-xl block">auto_awesome</span>
           </div>
           <div>
             <p class="text-sm font-black text-primary mb-1 uppercase tracking-wider">Why it works</p>
             <p class="text-sm text-textlight/90 leading-relaxed font-medium">
-              Perfect for <span class="text-primary font-bold">{{ filterVreme }}</span> and a <span class="text-primary font-bold">{{ filterEveniment }}</span> event. The {{ generatedOutfit.top.detalii?.material || 'comfortable' }} material matches your <span class="text-primary font-bold">{{ filterFit | lowercase }}</span> silhouette preference.
+              Perfect for <span class="text-primary font-bold">{{ filterVreme }}</span> and a
+              <span class="text-primary font-bold">{{ filterEveniment }}</span> event.
+              The {{ generatedOutfit.top.detalii?.material || 'comfortable' }} material matches
+              your <span class="text-primary font-bold">{{ filterFit | lowercase }}</span> silhouette preference.
             </p>
           </div>
         </div>
@@ -130,4 +197,5 @@
       </div>
     </div>
   </section>
+
 </main>
