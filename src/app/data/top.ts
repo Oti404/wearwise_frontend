@@ -1,6 +1,10 @@
 import { Top } from '../models/wardrobe';
 import { Sezon } from '../models/sezon.enum';
 import { Stil } from '../models/style.enum';
+import { Mood } from '../models/mood.enum';
+import { Vreme } from '../models/weather.enum';
+import { Eveniment } from '../models/events.enum';
+import { Fit } from '../models/fit.enum';
 
 export const TOPURI_DATA: Top[] = [
   {
@@ -10,14 +14,13 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Negru",
     img_url: "wardrobe/top/top1.jpg",
     marimi_disponibile: ["XS", "S", "M", "L"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.ALL_SEASON],
     stil_general: [Stil.ELEGANT, Stil.STRUCTURED],
-    ocazie: ["party", "evening out"],
-    detalii: {
-      stil: "Corset / Cambrată",
-      inchidere: ["fermoar frontal"],
-      tip_maneca: "Fără mâneci"
-    }
+    ocazie: [Eveniment.PARTY, Eveniment.EVENING],
+    mood: [Mood.BOLD, Mood.CONFIDENT, Mood.MYSTERIOUS, Mood.PARTY],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.FITTED,
+    detalii: { stil: "Corset / Cambrată", inchidere: ["fermoar frontal"], tip_maneca: "Fără mâneci" }
   },
   {
     cod_articol: "3253/301/250-1",
@@ -26,14 +29,13 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Alb",
     img_url: "wardrobe/top/top2.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.VARA,
+    sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA],
     stil_general: [Stil.CASUAL, Stil.MINIMALIST],
-    ocazie: ["daily", "beach"],
-    detalii: {
-      stil: "Rib",
-      inchidere: [],
-      tip_maneca: "Fără mâneci"
-    }
+    ocazie: [Eveniment.DAILY, Eveniment.BEACH, Eveniment.BRUNCH],
+    mood: [Mood.CHILL, Mood.MINIMALIST, Mood.ENERGETIC],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.FITTED,
+    detalii: { stil: "Rib", inchidere: [], tip_maneca: "Fără mâneci" }
   },
   {
     cod_articol: "3253/301/250-2",
@@ -42,14 +44,13 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Alb",
     img_url: "wardrobe/top/top3.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.VARA,
+    sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA],
     stil_general: [Stil.CASUAL, Stil.BASIC],
-    ocazie: ["daily"],
-    detalii: {
-      stil: "Rib",
-      inchidere: [],
-      tip_maneca: "Fără mâneci"
-    }
+    ocazie: [Eveniment.DAILY, Eveniment.BEACH],
+    mood: [Mood.CHILL, Mood.MINIMALIST],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.FITTED,
+    detalii: { stil: "Rib", inchidere: [], tip_maneca: "Fără mâneci" }
   },
   {
     cod_articol: "3641/871/700",
@@ -58,14 +59,13 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Maro",
     img_url: "wardrobe/top/top4.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA, Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CASUAL, Stil.EARTH_TONES],
-    ocazie: ["daily", "brunch"],
-    detalii: {
-      stil: "Mulat",
-      inchidere: [],
-      tip_maneca: "Fără mâneci"
-    }
+    ocazie: [Eveniment.DAILY, Eveniment.BRUNCH, Eveniment.CASUAL_OUTING],
+    mood: [Mood.CHILL, Mood.VINTAGE, Mood.MINIMALIST],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.FITTED,
+    detalii: { stil: "Mulat", inchidere: [], tip_maneca: "Fără mâneci" }
   },
   {
     cod_articol: "5755/043/052",
@@ -74,14 +74,13 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Bej deschis",
     img_url: "wardrobe/top/top5.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CHIC, Stil.KNITWEAR],
-    ocazie: ["date night", "casual office"],
-    detalii: {
-      stil: "Tricot cu nod",
-      inchidere: [],
-      tip_maneca: "Fără mâneci"
-    }
+    ocazie: [Eveniment.DATE, Eveniment.OFFICE, Eveniment.BRUNCH],
+    mood: [Mood.ROMANTIC, Mood.CONFIDENT, Mood.MAIN_CHARACTER, Mood.TRENDY],
+    vreme: [Vreme.CLOUDY],
+    fit: Fit.FITTED,
+    detalii: { stil: "Tricot cu nod", inchidere: [], tip_maneca: "Fără mâneci" }
   },
   {
     cod_articol: "NEW-T006",
@@ -90,13 +89,12 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Maro taupe",
     img_url: "wardrobe/top/top6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.ALL_SEASON],
     stil_general: [Stil.CHIC, Stil.GLAM],
-    ocazie: ["evening out", "party"],
-    detalii: {
-      stil: "Texturat / Sclipitor",
-      inchidere: [],
-      tip_maneca: "Mânecă foarte scurtă / Cap sleeve"
-    }
+    ocazie: [Eveniment.EVENING, Eveniment.PARTY, Eveniment.DATE],
+    mood: [Mood.BOLD, Mood.MAIN_CHARACTER, Mood.PARTY, Mood.CONFIDENT],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.FITTED,
+    detalii: { stil: "Texturat / Sclipitor", inchidere: [], tip_maneca: "Mânecă foarte scurtă / Cap sleeve" }
   }
 ];

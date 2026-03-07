@@ -1,6 +1,10 @@
 import { Tricou } from '../models/wardrobe';
 import { Sezon } from '../models/sezon.enum';
 import { Stil } from '../models/style.enum';
+import { Mood } from '../models/mood.enum';
+import { Vreme } from '../models/weather.enum';
+import { Eveniment } from '../models/events.enum';
+import { Fit } from '../models/fit.enum';
 
 export const TRICOURI_DATA: Tricou[] = [
   {
@@ -10,9 +14,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb",
     img_url: "wardrobe/tricou/tricou1.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.VARA,
+    sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA],
     stil_general: [Stil.CASUAL, Stil.MINIMALIST],
-    ocazie: ["daily", "brunch"],
+    ocazie: [Eveniment.DAILY, Eveniment.BRUNCH],
+    mood: [Mood.CHILL, Mood.MINIMALIST, Mood.ENERGETIC],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.FITTED,
     detalii: { material: "Bumbac", croiala: "Regular Fit", tip_maneca: "Scurtă" }
   },
   {
@@ -22,9 +29,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb",
     img_url: "wardrobe/tricou/tricou2.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.VARA,
+    sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA],
     stil_general: [Stil.CASUAL],
-    ocazie: ["daily"],
+    ocazie: [Eveniment.DAILY, Eveniment.BRUNCH],
+    mood: [Mood.CHILL, Mood.MINIMALIST],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.FITTED,
     detalii: { material: "Bumbac", croiala: "Regular Fit", tip_maneca: "Scurtă" }
   },
   {
@@ -34,9 +44,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Portocaliu",
     img_url: "wardrobe/tricou/tricou3.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CHIC, Stil.KNITWEAR],
-    ocazie: ["office", "lunch date"],
+    ocazie: [Eveniment.OFFICE, Eveniment.DATE],
+    mood: [Mood.CONFIDENT, Mood.TRENDY, Mood.MAIN_CHARACTER],
+    vreme: [Vreme.CLOUDY],
+    fit: Fit.FITTED,
     detalii: { material: "Tricot", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
@@ -46,9 +59,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Roz bonbon",
     img_url: "wardrobe/tricou/tricou4.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.IARNA,
+    sezon: [Sezon.IARNA],
     stil_general: [Stil.ELEGANT, Stil.PREMIUM],
-    ocazie: ["office", "evening"],
+    ocazie: [Eveniment.OFFICE, Eveniment.EVENING],
+    mood: [Mood.CONFIDENT, Mood.ROMANTIC, Mood.MAIN_CHARACTER],
+    vreme: [Vreme.COLD, Vreme.SNOWY],
+    fit: Fit.FITTED,
     detalii: { material: "Lână 100%", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
@@ -58,9 +74,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Fistic",
     img_url: "wardrobe/tricou/tricou6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.VARA,
+    sezon: [Sezon.VARA],
     stil_general: [Stil.STREETWEAR, Stil.CASUAL],
-    ocazie: ["daily", "outing"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.BOLD, Mood.ENERGETIC, Mood.TRENDY],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.OVERSIZED,
     detalii: { material: "Standard", croiala: "Oversize", tip_maneca: "Scurtă" }
   },
   {
@@ -70,9 +89,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Bleumarin",
     img_url: "wardrobe/tricou/tricou7.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CLASSIC, Stil.MINIMALIST],
-    ocazie: ["business casual", "office"],
+    ocazie: [Eveniment.BUSINESS, Eveniment.OFFICE],
+    mood: [Mood.PRODUCTIVE, Mood.CONFIDENT, Mood.MINIMALIST],
+    vreme: [Vreme.CLOUDY],
+    fit: Fit.FITTED,
     detalii: { material: "Tricot cu lână", croiala: "Strâmt", tip_maneca: "Fără/Scurtă" }
   },
   {
@@ -82,9 +104,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Albastru deschis",
     img_url: "wardrobe/tricou/tricou8.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CHIC, Stil.SOFT],
-    ocazie: ["daily", "office"],
+    ocazie: [Eveniment.DAILY, Eveniment.OFFICE],
+    mood: [Mood.CHILL, Mood.MINIMALIST, Mood.PRODUCTIVE],
+    vreme: [Vreme.CLOUDY],
+    fit: Fit.FITTED,
     detalii: { material: "Tricot tușeu moale", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
@@ -94,9 +119,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb",
     img_url: "wardrobe/tricou/tricou10.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA, Sezon.VARA],
     stil_general: [Stil.CASUAL, Stil.RUSTIC],
-    ocazie: ["weekend", "daily"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.CHILL, Mood.VINTAGE],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.OVERSIZED,
     detalii: { material: "Bumbac Rustic", croiala: "Oversize", tip_maneca: "Trei sferturi" }
   },
   {
@@ -106,9 +134,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb / Roz",
     img_url: "wardrobe/tricou/tricou11.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.PRIMAVARA_VARA,
+    sezon: [Sezon.PRIMAVARA_VARA, Sezon.VARA],
     stil_general: [Stil.CASUAL, Stil.GIRLY],
-    ocazie: ["daily", "brunch"],
+    ocazie: [Eveniment.DAILY, Eveniment.BRUNCH],
+    mood: [Mood.ROMANTIC, Mood.ENERGETIC, Mood.TRENDY],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.FITTED,
     detalii: { material: "Bumbac", croiala: "Regular Fit", tip_maneca: "Scurtă" }
   },
   {
@@ -118,9 +149,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Negru / Roșu",
     img_url: "wardrobe/tricou/tricou13.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.ALL_SEASON],
     stil_general: [Stil.STREETWEAR],
-    ocazie: ["daily", "outing"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.BOLD, Mood.MYSTERIOUS, Mood.TRENDY],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.OVERSIZED,
     detalii: { material: "Bumbac", croiala: "Oversize", tip_maneca: "Scurtă" }
   },
   {
@@ -130,9 +164,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Negru",
     img_url: "wardrobe/tricou/tricou14.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.ALL_SEASON],
     stil_general: [Stil.SPORTIVE, Stil.CASUAL],
-    ocazie: ["gym", "daily"],
+    ocazie: [Eveniment.GYM, Eveniment.DAILY],
+    mood: [Mood.SPORTY, Mood.ENERGETIC],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.FITTED,
     detalii: { material: "Bumbac / Elastan", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
@@ -142,9 +179,12 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Fucsia",
     img_url: "wardrobe/tricou/tricou15.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.VARA,
+    sezon: [Sezon.VARA],
     stil_general: [Stil.MINIMALIST, Stil.VIBRANT],
-    ocazie: ["daily", "outing"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING, Eveniment.PARTY],
+    mood: [Mood.BOLD, Mood.ENERGETIC, Mood.PARTY],
+    vreme: [Vreme.SUNNY],
+    fit: Fit.FITTED,
     detalii: { material: "Sintetic / Elastic", croiala: "Strâmt", tip_maneca: "Scurtă" }
   }
 ];

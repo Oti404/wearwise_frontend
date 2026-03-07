@@ -1,6 +1,10 @@
 import { Bluza } from '../models/wardrobe';
 import { Sezon } from '../models/sezon.enum';
 import { Stil } from '../models/style.enum';
+import { Mood } from '../models/mood.enum';
+import { Vreme } from '../models/weather.enum';
+import { Eveniment } from '../models/events.enum';
+import { Fit } from '../models/fit.enum';
 
 export const BLUZE_DATA: Bluza[] = [
   {
@@ -10,9 +14,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza1.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CHIC, Stil.MINIMALIST],
-    ocazie: ["daily", "office"],
+    ocazie: [Eveniment.DAILY, Eveniment.OFFICE],
+    mood: [Mood.CONFIDENT, Mood.PRODUCTIVE, Mood.MINIMALIST],
+    vreme: [Vreme.CLOUDY],
+    fit: Fit.FITTED,
     detalii: { stil: "Casual-Elegant", tip_guler: "Bărcuță", material: "Tricot fin", tip_maneca: "Lungă" }
   },
   {
@@ -22,9 +29,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza2.jpg",
     marimi_disponibile: ["XS", "S", "M"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.ROMANTIC, Stil.STRUCTURED],
-    ocazie: ["date night", "party"],
+    ocazie: [Eveniment.DATE, Eveniment.PARTY, Eveniment.EVENING],
+    mood: [Mood.ROMANTIC, Mood.BOLD, Mood.MAIN_CHARACTER],
+    vreme: [Vreme.CLOUDY, Vreme.SUNNY],
+    fit: Fit.FITTED,
     detalii: { stil: "Elegant", tip_guler: "Rotund", material: "Bumbac dens", tip_maneca: "Bufantă / Lungă" }
   },
   {
@@ -34,9 +44,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Gri melanj",
     img_url: "wardrobe/bluza/bluza3.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.IARNA,
+    sezon: [Sezon.IARNA, Sezon.TOAMNA_IARNA],
     stil_general: [Stil.BASIC, Stil.MINIMALIST],
-    ocazie: ["daily", "office"],
+    ocazie: [Eveniment.DAILY, Eveniment.OFFICE],
+    mood: [Mood.MINIMALIST, Mood.PRODUCTIVE, Mood.CHILL],
+    vreme: [Vreme.COLD, Vreme.CLOUDY],
+    fit: Fit.REGULAR,
     detalii: { stil: "Casual", tip_guler: "Turtleneck", material: "Tricot", tip_maneca: "Lungă" }
   },
   {
@@ -46,9 +59,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Maro taupe",
     img_url: "wardrobe/bluza/bluza4.jpg",
     marimi_disponibile: ["S-M", "L-XL"],
-    sezon: Sezon.IARNA,
+    sezon: [Sezon.IARNA, Sezon.TOAMNA_IARNA],
     stil_general: [Stil.COZY, Stil.CASUAL],
-    ocazie: ["daily", "home office"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.COZY, Mood.CHILL, Mood.VINTAGE],
+    vreme: [Vreme.COLD, Vreme.CLOUDY, Vreme.SNOWY],
+    fit: Fit.OVERSIZED,
     detalii: { stil: "Knitwear", tip_guler: "Deschis", material: "Lână / Acril", tip_maneca: "Lungă / Oversize" }
   },
   {
@@ -58,9 +74,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Gri antracit",
     img_url: "wardrobe/bluza/bluza5.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.IARNA,
+    sezon: [Sezon.IARNA, Sezon.TOAMNA_IARNA],
     stil_general: [Stil.CASUAL, Stil.SOFT],
-    ocazie: ["daily", "weekend"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.COZY, Mood.CHILL, Mood.MINIMALIST],
+    vreme: [Vreme.COLD, Vreme.CLOUDY, Vreme.SNOWY],
+    fit: Fit.REGULAR,
     detalii: { stil: "Knitwear", tip_guler: "Semi-înalt", material: "Chenille / Catifelat", tip_maneca: "Lungă" }
   },
   {
@@ -70,9 +89,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Gri închis",
     img_url: "wardrobe/bluza/bluza6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA],
     stil_general: [Stil.CASUAL, Stil.OFFICE],
-    ocazie: ["work", "daily"],
+    ocazie: [Eveniment.OFFICE, Eveniment.DAILY, Eveniment.BUSINESS],
+    mood: [Mood.PRODUCTIVE, Mood.CONFIDENT, Mood.MINIMALIST],
+    vreme: [Vreme.CLOUDY],
+    fit: Fit.FITTED,
     detalii: { stil: "Casual-Office", tip_guler: "Polo / Cămașă", material: "Tricot reiat", tip_maneca: "Lungă" }
   },
   {
@@ -82,9 +104,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza7.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.ALL_SEASON],
     stil_general: [Stil.SPORTIVE, Stil.STREETWEAR],
-    ocazie: ["gym", "daily"],
+    ocazie: [Eveniment.GYM, Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.SPORTY, Mood.ENERGETIC, Mood.BOLD],
+    vreme: [Vreme.CLOUDY, Vreme.COLD, Vreme.RAINY],
+    fit: Fit.OVERSIZED,
     detalii: { stil: "Sport", tip_guler: "Glugă", material: "Bumbac / Poliester", tip_maneca: "Lungă" }
   },
   {
@@ -94,9 +119,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza8.jpg",
     marimi_disponibile: ["XS", "S", "M", "L"],
-    sezon: Sezon.ALL_SEASON,
+    sezon: [Sezon.ALL_SEASON],
     stil_general: [Stil.SPORTIVE, Stil.MINIMALIST],
-    ocazie: ["gym", "running"],
+    ocazie: [Eveniment.GYM, Eveniment.DAILY],
+    mood: [Mood.SPORTY, Mood.ENERGETIC, Mood.CONFIDENT],
+    vreme: [Vreme.CLOUDY, Vreme.COLD],
+    fit: Fit.FITTED,
     detalii: { stil: "Slim fit sport", tip_guler: "Înalt", material: "Sintetic elastic", tip_maneca: "Lungă" }
   },
   {
@@ -106,9 +134,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Alb / Verde",
     img_url: "wardrobe/bluza/bluza9.jpg",
     marimi_disponibile: ["S-M", "L-XL"],
-    sezon: Sezon.IARNA,
+    sezon: [Sezon.IARNA, Sezon.TOAMNA_IARNA],
     stil_general: [Stil.CASUAL, Stil.COZY],
-    ocazie: ["daily", "weekend"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+    mood: [Mood.COZY, Mood.CHILL, Mood.ENERGETIC],
+    vreme: [Vreme.COLD, Vreme.CLOUDY, Vreme.SNOWY],
+    fit: Fit.OVERSIZED,
     detalii: { stil: "Oversize", tip_guler: "Rotund", material: "Tricot", tip_maneca: "Lungă / Largă" }
   },
   {
@@ -118,9 +149,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Bej / Maro",
     img_url: "wardrobe/bluza/bluza10.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.IARNA,
+    sezon: [Sezon.IARNA, Sezon.TOAMNA_IARNA],
     stil_general: [Stil.CASUAL, Stil.VINTAGE],
-    ocazie: ["daily", "outing"],
+    ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING, Eveniment.BRUNCH],
+    mood: [Mood.VINTAGE, Mood.CHILL, Mood.COZY],
+    vreme: [Vreme.COLD, Vreme.CLOUDY],
+    fit: Fit.CROPPED,
     detalii: { stil: "Crop / Boxy", tip_guler: "Rotund", material: "Tricot texturat", tip_maneca: "Lungă" }
   },
   {
@@ -130,9 +164,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Multicolor / Maro",
     img_url: "wardrobe/bluza/bluza11.jpg",
     marimi_disponibile: ["XS", "S", "M"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA, Sezon.VARA],
     stil_general: [Stil.CHIC, Stil.MODERN],
-    ocazie: ["party", "date night"],
+    ocazie: [Eveniment.PARTY, Eveniment.DATE, Eveniment.EVENING],
+    mood: [Mood.BOLD, Mood.MYSTERIOUS, Mood.TRENDY, Mood.MAIN_CHARACTER],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.REGULAR,
     detalii: { stil: "Transparent / Mesh", tip_guler: "Asimetric", material: "Mesh / Poliester", tip_maneca: "Lungă" }
   },
   {
@@ -142,9 +179,12 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Alb",
     img_url: "wardrobe/bluza/bluza12.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: Sezon.PRIMAVARA_TOAMNA,
+    sezon: [Sezon.PRIMAVARA_TOAMNA, Sezon.PRIMAVARA_VARA],
     stil_general: [Stil.MINIMALIST, Stil.CLEAN_LOOK],
-    ocazie: ["daily", "brunch"],
+    ocazie: [Eveniment.DAILY, Eveniment.BRUNCH, Eveniment.OFFICE],
+    mood: [Mood.MINIMALIST, Mood.CHILL, Mood.TRENDY],
+    vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+    fit: Fit.CROPPED,
     detalii: { stil: "Crop", tip_guler: "Decolteu în V", material: "Tricot reiat fin", tip_maneca: "Lungă" }
   }
 ];

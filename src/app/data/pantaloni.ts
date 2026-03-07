@@ -1,6 +1,10 @@
 import { Pantalon } from '../models/wardrobe';
 import { Sezon } from '../models/sezon.enum';
 import { Stil } from '../models/style.enum';
+import { Mood } from '../models/mood.enum';
+import { Vreme } from '../models/weather.enum';
+import { Eveniment } from '../models/events.enum';
+import { Fit } from '../models/fit.enum';
 
 export const PANTALONI_DATA: Pantalon[] = [
     {
@@ -10,9 +14,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Albastru deschis",
         img_url: "wardrobe/pantaloni/pantaloni1.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.CHILL, Mood.ENERGETIC, Mood.TRENDY],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Medie', croiala: "Largă", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
@@ -22,9 +29,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Albastru deschis",
         img_url: "wardrobe/pantaloni/pantaloni2.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.CHILL, Mood.ENERGETIC],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.REGULAR,
         detalii: { tip_talie: 'Medie', croiala: "Standard", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
@@ -34,9 +44,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Alb",
         img_url: "wardrobe/pantaloni/pantaloni3.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.VARA,
+        sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA],
         stil_general: [Stil.CASUAL, Stil.MINIMALIST],
-        ocazie: ['daily', 'brunch'],
+        ocazie: [Eveniment.DAILY, Eveniment.BRUNCH],
+        mood: [Mood.CHILL, Mood.MINIMALIST, Mood.ENERGETIC],
+        vreme: [Vreme.SUNNY],
+        fit: Fit.REGULAR,
         detalii: { tip_talie: 'Înaltă', croiala: "dreaptă", inchidere: ["fermoar", "nasture"] }
     },
     {
@@ -46,9 +59,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni4.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily', 'outing'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.BOLD, Mood.TRENDY, Mood.MAIN_CHARACTER],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
@@ -58,9 +74,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Alburiu",
         img_url: "wardrobe/pantaloni/pantaloni5.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.PRIMAVARA_TOAMNA,
+        sezon: [Sezon.PRIMAVARA_TOAMNA],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.BOLD, Mood.TRENDY, Mood.MAIN_CHARACTER],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Extra wide leg", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
@@ -70,21 +89,27 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Nisip",
         img_url: "wardrobe/pantaloni/pantaloni6.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-        sezon: Sezon.PRIMAVARA_TOAMNA,
+        sezon: [Sezon.PRIMAVARA_TOAMNA],
         stil_general: [Stil.ELEGANT, Stil.CLASSIC],
-        ocazie: ['office', 'business'],
+        ocazie: [Eveniment.OFFICE, Eveniment.BUSINESS],
+        mood: [Mood.CONFIDENT, Mood.PRODUCTIVE, Mood.MINIMALIST],
+        vreme: [Vreme.CLOUDY],
+        fit: Fit.REGULAR,
         detalii: { tip_talie: 'Înaltă', croiala: "Dreaptă", inchidere: ["fermoar", "nasture interior", "cârlig"] }
     },
     {
         cod_articol: "1478/631/707",
         model: "PANTALONI CU TALIE ÎNALTĂ",
         pret_ron: 129.90,
-        culoare: "ocru",
+        culoare: "Ocru",
         img_url: "wardrobe/pantaloni/pantaloni7.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.CLASSIC],
-        ocazie: ['daily', 'office'],
+        ocazie: [Eveniment.DAILY, Eveniment.OFFICE],
+        mood: [Mood.CHILL, Mood.PRODUCTIVE, Mood.MINIMALIST],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.REGULAR,
         detalii: { tip_talie: 'Înaltă', croiala: "Standard", inchidere: ["fermoar", "nasture interior", "cârlig metalic"] }
     },
     {
@@ -94,9 +119,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Maro ciocolatiu",
         img_url: "wardrobe/pantaloni/pantaloni8.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
-        sezon: Sezon.IARNA,
+        sezon: [Sezon.IARNA, Sezon.TOAMNA_IARNA],
         stil_general: [Stil.CHIC, Stil.ELEGANT],
-        ocazie: ['office', 'date night'],
+        ocazie: [Eveniment.OFFICE, Eveniment.DATE, Eveniment.EVENING],
+        mood: [Mood.CONFIDENT, Mood.MAIN_CHARACTER, Mood.TRENDY],
+        vreme: [Vreme.COLD, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "balloon", inchidere: ["fermoar", "nasture interior", "cârlige metalice"] }
     },
     {
@@ -106,9 +134,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bleumarin",
         img_url: "wardrobe/pantaloni/pantaloni9.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.BOLD, Mood.TRENDY, Mood.ENERGETIC],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasturi metalici"] }
     },
     {
@@ -118,9 +149,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni10.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.CLASSIC],
-        ocazie: ['daily', 'office'],
+        ocazie: [Eveniment.DAILY, Eveniment.OFFICE],
+        mood: [Mood.CHILL, Mood.MINIMALIST, Mood.MYSTERIOUS],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.REGULAR,
         detalii: { tip_talie: 'Medie', croiala: "Standard", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
@@ -130,9 +164,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni11.jpg",
         marimi_disponibile: ["S", "M", "L", "XL"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.SPORTY, Stil.CASUAL],
-        ocazie: ['gym', 'daily'],
+        ocazie: [Eveniment.GYM, Eveniment.DAILY],
+        mood: [Mood.SPORTY, Mood.ENERGETIC, Mood.CHILL],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.JOGGER,
         detalii: { tip_talie: 'Medie', croiala: "Jogger", inchidere: ["șnur", "bandă elastică"] }
     },
     {
@@ -142,9 +179,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni12.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42"],
-        sezon: Sezon.TOAMNA_IARNA,
+        sezon: [Sezon.TOAMNA_IARNA],
         stil_general: [Stil.CHIC, Stil.ELEGANT],
-        ocazie: ['evening', 'party'],
+        ocazie: [Eveniment.EVENING, Eveniment.PARTY, Eveniment.DATE],
+        mood: [Mood.BOLD, Mood.MYSTERIOUS, Mood.MAIN_CHARACTER, Mood.CONFIDENT],
+        vreme: [Vreme.COLD, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
@@ -154,9 +194,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Gri antracit",
         img_url: "wardrobe/pantaloni/pantaloni13.jpg",
         marimi_disponibile: ["XS/S", "M/L"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.SPORTY, Stil.MINIMALIST],
-        ocazie: ['gym', 'daily'],
+        ocazie: [Eveniment.GYM, Eveniment.DAILY],
+        mood: [Mood.SPORTY, Mood.ENERGETIC, Mood.MINIMALIST],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.SKINNY,
         detalii: { tip_talie: 'Înaltă', croiala: "Skinny", inchidere: ["fără închidere"] }
     },
     {
@@ -166,9 +209,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bleumarin",
         img_url: "wardrobe/pantaloni/pantaloni14.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42", "44"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily', 'outing'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.BOLD, Mood.TRENDY, Mood.ENERGETIC],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Dreaptă/Wide", inchidere: ["fermoar", "nasture"] }
     },
     {
@@ -178,9 +224,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Verde/Negru",
         img_url: "wardrobe/pantaloni/pantaloni15.jpg",
         marimi_disponibile: ["S", "M", "L"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.SPORTY],
-        ocazie: ['gym', 'daily'],
+        ocazie: [Eveniment.GYM, Eveniment.DAILY],
+        mood: [Mood.SPORTY, Mood.ENERGETIC, Mood.BOLD],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.SKINNY,
         detalii: { tip_talie: 'Înaltă', croiala: "Skinny", inchidere: ["fără închidere"] }
     },
     {
@@ -190,9 +239,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Maro/Negru",
         img_url: "wardrobe/pantaloni/pantaloni16.jpg",
         marimi_disponibile: ["S", "M", "L"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.SPORTY],
-        ocazie: ['gym', 'daily'],
+        ocazie: [Eveniment.GYM, Eveniment.DAILY],
+        mood: [Mood.SPORTY, Mood.ENERGETIC],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.SKINNY,
         detalii: { tip_talie: 'Înaltă', croiala: "Skinny", inchidere: ["fără închidere"] }
     },
     {
@@ -202,9 +254,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Kaki/Bej închis",
         img_url: "wardrobe/pantaloni/pantaloni17.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-        sezon: Sezon.PRIMAVARA_TOAMNA,
+        sezon: [Sezon.PRIMAVARA_TOAMNA],
         stil_general: [Stil.ELEGANT, Stil.CLASSIC],
-        ocazie: ['office', 'business'],
+        ocazie: [Eveniment.OFFICE, Eveniment.BUSINESS],
+        mood: [Mood.CONFIDENT, Mood.PRODUCTIVE, Mood.MAIN_CHARACTER],
+        vreme: [Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["bandă elastică"] }
     },
     {
@@ -214,9 +269,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Maro spălat",
         img_url: "wardrobe/pantaloni/pantaloni18.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42", "44"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily', 'outing'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.BOLD, Mood.ENERGETIC, Mood.VINTAGE],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.REGULAR,
         detalii: { tip_talie: 'Medie', croiala: "Straight", inchidere: ["fermoar", "nasture"] }
     },
     {
@@ -226,9 +284,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bleumarin",
         img_url: "wardrobe/pantaloni/pantaloni19.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42"],
-        sezon: Sezon.ALL_SEASON,
+        sezon: [Sezon.ALL_SEASON],
         stil_general: [Stil.CASUAL, Stil.STREETWEAR],
-        ocazie: ['daily'],
+        ocazie: [Eveniment.DAILY, Eveniment.CASUAL_OUTING],
+        mood: [Mood.BOLD, Mood.TRENDY, Mood.CHILL],
+        vreme: [Vreme.SUNNY, Vreme.CLOUDY],
+        fit: Fit.OVERSIZED,
         detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasture"] }
     },
     {
@@ -238,9 +299,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Albastru deschis",
         img_url: "wardrobe/pantaloni/pantaloni20.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42"],
-        sezon: Sezon.PRIMAVARA_VARA,
+        sezon: [Sezon.PRIMAVARA_VARA, Sezon.VARA],
         stil_general: [Stil.CASUAL, Stil.BOHO],
-        ocazie: ['daily', 'brunch'],
+        ocazie: [Eveniment.DAILY, Eveniment.BRUNCH, Eveniment.CASUAL_OUTING],
+        mood: [Mood.ENERGETIC, Mood.VINTAGE, Mood.TRENDY, Mood.ROMANTIC],
+        vreme: [Vreme.SUNNY],
+        fit: Fit.FLARED,
         detalii: { tip_talie: 'Medie', croiala: "Flared (evazat)", inchidere: ["fermoar", "nasture"] }
     },
     {
@@ -250,9 +314,12 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bej deschis",
         img_url: "wardrobe/pantaloni/pantaloni21.jpg",
         marimi_disponibile: ["XS/S", "M/L"],
-        sezon: Sezon.VARA,
+        sezon: [Sezon.VARA, Sezon.PRIMAVARA_VARA],
         stil_general: [Stil.SPORTY, Stil.MINIMALIST],
-        ocazie: ['gym', 'daily'],
+        ocazie: [Eveniment.GYM, Eveniment.DAILY, Eveniment.BEACH],
+        mood: [Mood.SPORTY, Mood.ENERGETIC, Mood.CHILL],
+        vreme: [Vreme.SUNNY],
+        fit: Fit.FITTED,
         detalii: { tip_talie: 'Înaltă', croiala: "Short", inchidere: ["fără închidere"] }
     }
 ];
