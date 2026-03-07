@@ -1,4 +1,6 @@
 import { Sacou } from '../models/wardrobe';
+import { Sezon } from '../models/sezon.enum';
+import { Stil } from '../models/style.enum';
 
 export const SACOURI_DATA: Sacou[] = [
   {
@@ -9,9 +11,9 @@ export const SACOURI_DATA: Sacou[] = [
     croiala: "Standard",
     img_url: "wardrobe/sacou/sacou1.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă", // Adăugat pentru AI
-    stil_general: ["elegant", "classic"], // Adăugat pentru AI
-    ocazie: ["office", "business"], // Adăugat pentru AI
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.ELEGANT, Stil.CLASSIC],
+    ocazie: ["office", "business"],
     detalii: {
       inchidere: ["nasturi"],
       buzunare: 2,
@@ -23,11 +25,11 @@ export const SACOURI_DATA: Sacou[] = [
     model: "SACOU CAMBRAT CU EPAOLEȚI",
     pret_ron: 249.90,
     culoare: "Negru",
-    croiala: "Cambrat", // Uniformizat conform interfeței
+    croiala: "Cambrat",
     img_url: "wardrobe/sacou/sacou2.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "All Season",
-    stil_general: ["elegant", "structured"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.ELEGANT, Stil.STRUCTURED],
     ocazie: ["office", "evening"],
     detalii: {
       inchidere: ["nasture"],
@@ -40,11 +42,11 @@ export const SACOURI_DATA: Sacou[] = [
     model: "SACOU PETRECUT OVERSIZE",
     pret_ron: 199.90,
     culoare: "Negru",
-    croiala: "Oversize", // Uniformizat conform interfeței
+    croiala: "Oversize",
     img_url: "wardrobe/sacou/sacou3.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "All Season",
-    stil_general: ["modern", "streetwear"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.MODERN, Stil.STREETWEAR],
     ocazie: ["daily", "casual"],
     detalii: {
       inchidere: ["nasturi", "petrecută"],
@@ -60,8 +62,8 @@ export const SACOURI_DATA: Sacou[] = [
     croiala: "Cambrat",
     img_url: "wardrobe/sacou/sacou4.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["professional", "classic"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.PROFESSIONAL, Stil.CLASSIC],
     ocazie: ["office", "business meeting"],
     detalii: {
       inchidere: ["nasture"],
@@ -77,8 +79,8 @@ export const SACOURI_DATA: Sacou[] = [
     croiala: "Cambrat",
     img_url: "wardrobe/sacou/sacou5.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "Vară",
-    stil_general: ["chic", "minimalist"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.CHIC, Stil.MINIMALIST],
     ocazie: ["wedding", "party", "office"],
     detalii: {
       inchidere: ["un nasture"],

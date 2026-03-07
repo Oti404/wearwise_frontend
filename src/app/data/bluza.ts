@@ -1,4 +1,6 @@
 import { Bluza } from '../models/wardrobe';
+import { Sezon } from '../models/sezon.enum';
+import { Stil } from '../models/style.enum';
 
 export const BLUZE_DATA: Bluza[] = [
   {
@@ -8,15 +10,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza1.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["chic", "minimalist"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CHIC, Stil.MINIMALIST],
     ocazie: ["daily", "office"],
-    detalii: {
-      stil: "Casual-Elegant",
-      tip_guler: "Bărcuță",
-      material: "Tricot fin",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Casual-Elegant", tip_guler: "Bărcuță", material: "Tricot fin", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B002",
@@ -25,15 +22,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza2.jpg",
     marimi_disponibile: ["XS", "S", "M"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["romantic", "structured"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.ROMANTIC, Stil.STRUCTURED],
     ocazie: ["date night", "party"],
-    detalii: {
-      stil: "Elegant",
-      tip_guler: "Rotund",
-      material: "Bumbac dens",
-      tip_maneca: "Bufantă / Lungă"
-    }
+    detalii: { stil: "Elegant", tip_guler: "Rotund", material: "Bumbac dens", tip_maneca: "Bufantă / Lungă" }
   },
   {
     cod_articol: "NEW-B003",
@@ -42,15 +34,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Gri melanj",
     img_url: "wardrobe/bluza/bluza3.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Iarnă",
-    stil_general: ["basic", "minimalist"],
+    sezon: Sezon.IARNA,
+    stil_general: [Stil.BASIC, Stil.MINIMALIST],
     ocazie: ["daily", "office"],
-    detalii: {
-      stil: "Casual",
-      tip_guler: "Turtleneck",
-      material: "Tricot",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Casual", tip_guler: "Turtleneck", material: "Tricot", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B004",
@@ -59,15 +46,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Maro taupe",
     img_url: "wardrobe/bluza/bluza4.jpg",
     marimi_disponibile: ["S-M", "L-XL"],
-    sezon: "Iarnă",
-    stil_general: ["cozy", "casual"],
+    sezon: Sezon.IARNA,
+    stil_general: [Stil.COZY, Stil.CASUAL],
     ocazie: ["daily", "home office"],
-    detalii: {
-      stil: "Knitwear",
-      tip_guler: "Deschis",
-      material: "Lână / Acril",
-      tip_maneca: "Lungă / Oversize"
-    }
+    detalii: { stil: "Knitwear", tip_guler: "Deschis", material: "Lână / Acril", tip_maneca: "Lungă / Oversize" }
   },
   {
     cod_articol: "NEW-B005",
@@ -76,15 +58,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Gri antracit",
     img_url: "wardrobe/bluza/bluza5.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Iarnă",
-    stil_general: ["casual", "soft"],
+    sezon: Sezon.IARNA,
+    stil_general: [Stil.CASUAL, Stil.SOFT],
     ocazie: ["daily", "weekend"],
-    detalii: {
-      stil: "Knitwear",
-      tip_guler: "Semi-înalt",
-      material: "Chenille / Catifelat",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Knitwear", tip_guler: "Semi-înalt", material: "Chenille / Catifelat", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B006",
@@ -93,15 +70,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Gri închis",
     img_url: "wardrobe/bluza/bluza6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["casual", "office"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CASUAL, Stil.OFFICE],
     ocazie: ["work", "daily"],
-    detalii: {
-      stil: "Casual-Office",
-      tip_guler: "Polo / Cămașă",
-      material: "Tricot reiat",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Casual-Office", tip_guler: "Polo / Cămașă", material: "Tricot reiat", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B007",
@@ -110,15 +82,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza7.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "All Season",
-    stil_general: ["sportive", "streetwear"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.SPORTIVE, Stil.STREETWEAR],
     ocazie: ["gym", "daily"],
-    detalii: {
-      stil: "Sport",
-      tip_guler: "Glugă",
-      material: "Bumbac / Poliester",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Sport", tip_guler: "Glugă", material: "Bumbac / Poliester", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B008",
@@ -127,15 +94,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Negru",
     img_url: "wardrobe/bluza/bluza8.jpg",
     marimi_disponibile: ["XS", "S", "M", "L"],
-    sezon: "All Season",
-    stil_general: ["sportive", "minimalist"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.SPORTIVE, Stil.MINIMALIST],
     ocazie: ["gym", "running"],
-    detalii: {
-      stil: "Slim fit sport",
-      tip_guler: "Înalt",
-      material: "Sintetic elastic",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Slim fit sport", tip_guler: "Înalt", material: "Sintetic elastic", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B009",
@@ -144,15 +106,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Alb / Verde",
     img_url: "wardrobe/bluza/bluza9.jpg",
     marimi_disponibile: ["S-M", "L-XL"],
-    sezon: "Iarnă",
-    stil_general: ["casual", "cozy"],
+    sezon: Sezon.IARNA,
+    stil_general: [Stil.CASUAL, Stil.COZY],
     ocazie: ["daily", "weekend"],
-    detalii: {
-      stil: "Oversize",
-      tip_guler: "Rotund",
-      material: "Tricot",
-      tip_maneca: "Lungă / Largă"
-    }
+    detalii: { stil: "Oversize", tip_guler: "Rotund", material: "Tricot", tip_maneca: "Lungă / Largă" }
   },
   {
     cod_articol: "NEW-B010",
@@ -161,15 +118,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Bej / Maro",
     img_url: "wardrobe/bluza/bluza10.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Iarnă",
-    stil_general: ["casual", "vintage"],
+    sezon: Sezon.IARNA,
+    stil_general: [Stil.CASUAL, Stil.VINTAGE],
     ocazie: ["daily", "outing"],
-    detalii: {
-      stil: "Crop / Boxy",
-      tip_guler: "Rotund",
-      material: "Tricot texturat",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Crop / Boxy", tip_guler: "Rotund", material: "Tricot texturat", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B011",
@@ -178,15 +130,10 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Multicolor / Maro",
     img_url: "wardrobe/bluza/bluza11.jpg",
     marimi_disponibile: ["XS", "S", "M"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["chic", "modern"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CHIC, Stil.MODERN],
     ocazie: ["party", "date night"],
-    detalii: {
-      stil: "Transparent / Mesh",
-      tip_guler: "Asimetric",
-      material: "Mesh / Poliester",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Transparent / Mesh", tip_guler: "Asimetric", material: "Mesh / Poliester", tip_maneca: "Lungă" }
   },
   {
     cod_articol: "NEW-B012",
@@ -195,14 +142,9 @@ export const BLUZE_DATA: Bluza[] = [
     culoare: "Alb",
     img_url: "wardrobe/bluza/bluza12.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["minimalist", "clean look"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.MINIMALIST, Stil.CLEAN_LOOK],
     ocazie: ["daily", "brunch"],
-    detalii: {
-      stil: "Crop",
-      tip_guler: "Decolteu în V",
-      material: "Tricot reiat fin",
-      tip_maneca: "Lungă"
-    }
+    detalii: { stil: "Crop", tip_guler: "Decolteu în V", material: "Tricot reiat fin", tip_maneca: "Lungă" }
   }
 ];

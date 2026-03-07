@@ -1,4 +1,6 @@
 import { Rochie } from '../models/wardrobe';
+import { Sezon } from '../models/sezon.enum';
+import { Stil } from '../models/style.enum';
 
 export const ROCHII_DATA: Rochie[] = [
   {
@@ -9,8 +11,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Scurtă",
     img_url: "wardrobe/rochie/rochie1.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
-    sezon: "Vară",
-    stil_general: ["elegant", "party"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.ELEGANT, Stil.PARTY],
     ocazie: ["evening", "cocktail"],
     detalii: {
       tip_talie: "standard",
@@ -26,8 +28,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Midi",
     img_url: "wardrobe/rochie/rochie2.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
-    sezon: "Vară",
-    stil_general: ["chic", "minimalist"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.CHIC, Stil.MINIMALIST],
     ocazie: ["date night", "summer party"],
     detalii: {
       tip_talie: "standard",
@@ -43,8 +45,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Midi",
     img_url: "wardrobe/rochie/rochie3.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["romantic", "boho"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.ROMANTIC, Stil.BOHO],
     ocazie: ["daily", "brunch"],
     detalii: {
       tip_talie: "elastică",
@@ -60,8 +62,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Lungă",
     img_url: "wardrobe/rochie/rochie4.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["casual", "vintage"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CASUAL, Stil.VINTAGE],
     ocazie: ["daily", "office"],
     detalii: {
       tip_talie: "fără",
@@ -77,8 +79,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Midi",
     img_url: "wardrobe/rochie/rochie5.jpg",
     marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-    sezon: "All Season",
-    stil_general: ["office", "classic"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.OFFICE, Stil.CLASSIC],
     ocazie: ["work", "business meeting"],
     detalii: {
       tip_talie: "cu curea",
@@ -86,7 +88,7 @@ export const ROCHII_DATA: Rochie[] = [
       stil: "Combinată cu dungă"
     }
   },
-{
+  {
     cod_articol: "NEW-R006",
     model: "FUSTĂ DIN TRICOT CU INIMI",
     pret_ron: 129.90,
@@ -94,8 +96,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Scurtă",
     img_url: "wardrobe/rochie/rochie6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Iarnă/Primăvară",
-    stil_general: ["romantic", "casual"],
+    sezon: Sezon.IARNA_PRIMAVARA,
+    stil_general: [Stil.ROMANTIC, Stil.CASUAL],
     ocazie: ["daily", "date night"],
     detalii: {
       tip_talie: "înaltă / elastică",
@@ -111,8 +113,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Scurtă",
     img_url: "wardrobe/rochie/rochie7.jpg",
     marimi_disponibile: ["XS", "S", "M", "L"],
-    sezon: "Vară",
-    stil_general: ["sport", "casual"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.SPORTY, Stil.CASUAL],
     ocazie: ["gym", "daily"],
     detalii: {
       tip_talie: "fără",
@@ -128,8 +130,8 @@ export const ROCHII_DATA: Rochie[] = [
     lungime: "Scurtă",
     img_url: "wardrobe/rochie/rochie8.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Vară",
-    stil_general: ["minimalist", "party"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.MINIMALIST, Stil.PARTY],
     ocazie: ["club", "beach party"],
     detalii: {
       tip_talie: "standard",

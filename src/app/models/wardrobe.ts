@@ -1,14 +1,26 @@
+//src/app/models/wardrobe.ts
+// ==========================================
+// INTERFEȚE GARDEROBĂ
+// ==========================================
+
+import { Stil } from "./style.enum";
+import { Sezon } from "./sezon.enum";
+
+
+
 export interface ClothingItem {
     cod_articol: string;
     model: string;
     pret_ron: number | null;
     culoare: string;
     img_url: string;
-    image?: string; // <-- adăugat pentru compatibilitate template
+    image?: string; 
     marimi_disponibile: string[];
-    stil_general?: string[];
-    ocazie?: string[];
-    sezon: 'Vară' | 'Iarnă' | 'Primăvară/Toamnă' | 'All Season' | 'Primăvară/Vară' | 'Toamnă/Iarnă' | 'Iarnă/Primăvară';
+    
+    // Câmpuri AI actualizate strict cu Enums
+    stil_general?: Stil[]; 
+    ocazie?: string[]; // Poate fi transformat în Enum ulterior dacă dorești
+    sezon: Sezon; 
 }
 
 export interface Pantalon extends ClothingItem {
@@ -51,14 +63,16 @@ export interface Tricou extends ClothingItem {
         tip_maneca: string;
     };
 }
+
 export interface Bluza extends ClothingItem {
     detalii: {
-        stil: string;         // ex: 'Casual', 'Elegant', 'Office'
-        tip_guler: string;    // ex: 'Turtleneck', 'Decolteu în V', 'Barcuță'
-        material: string;     // ex: 'Tricot', 'Satin', 'Bumbac'
-        tip_maneca: string;   // ex: 'Lungă', 'Bufantă', 'Trei sferturi'
+        stil: string;        
+        tip_guler: string;    
+        material: string;     
+        tip_maneca: string;   
     };
 }
+
 export interface Rochie extends ClothingItem {
     lungime: 'Scurtă' | 'Midi' | 'Lungă';
     detalii: {
@@ -75,5 +89,5 @@ export interface Parfum {
     pret: number;
     moneda: string;
     gramaj: string;
-    note?: string[]; // ex: ['lemnos', 'floral'] - util pentru AI
+    note?: string[]; 
 }

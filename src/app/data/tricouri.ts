@@ -1,4 +1,6 @@
 import { Tricou } from '../models/wardrobe';
+import { Sezon } from '../models/sezon.enum';
+import { Stil } from '../models/style.enum';
 
 export const TRICOURI_DATA: Tricou[] = [
   {
@@ -8,14 +10,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb",
     img_url: "wardrobe/tricou/tricou1.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Vară",
-    stil_general: ["casual", "minimalist"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.CASUAL, Stil.MINIMALIST],
     ocazie: ["daily", "brunch"],
-    detalii: {
-      material: "Bumbac",
-      croiala: "Regular Fit",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Bumbac", croiala: "Regular Fit", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "4424/306/250-2",
@@ -24,14 +22,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb",
     img_url: "wardrobe/tricou/tricou2.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Vară",
-    stil_general: ["casual"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.CASUAL],
     ocazie: ["daily"],
-    detalii: {
-      material: "Bumbac",
-      croiala: "Regular Fit",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Bumbac", croiala: "Regular Fit", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "6236/003/615",
@@ -40,14 +34,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Portocaliu",
     img_url: "wardrobe/tricou/tricou3.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["chic", "knitwear"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CHIC, Stil.KNITWEAR],
     ocazie: ["office", "lunch date"],
-    detalii: {
-      material: "Tricot",
-      croiala: "Standard",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Tricot", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "9598/057/636",
@@ -56,14 +46,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Roz bonbon",
     img_url: "wardrobe/tricou/tricou4.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Iarnă",
-    stil_general: ["elegant", "premium"],
+    sezon: Sezon.IARNA,
+    stil_general: [Stil.ELEGANT, Stil.PREMIUM],
     ocazie: ["office", "evening"],
-    detalii: {
-      material: "Lână 100%",
-      croiala: "Standard",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Lână 100%", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "0858/038/511",
@@ -72,14 +58,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Fistic",
     img_url: "wardrobe/tricou/tricou6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Vară",
-    stil_general: ["streetwear", "casual"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.STREETWEAR, Stil.CASUAL],
     ocazie: ["daily", "outing"],
-    detalii: {
-      material: "Standard",
-      croiala: "Oversize",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Standard", croiala: "Oversize", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "3921/012/401",
@@ -88,14 +70,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Bleumarin",
     img_url: "wardrobe/tricou/tricou7.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["classic", "minimalist"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CLASSIC, Stil.MINIMALIST],
     ocazie: ["business casual", "office"],
-    detalii: {
-      material: "Tricot cu lână",
-      croiala: "Strâmt",
-      tip_maneca: "Fără/Scurtă"
-    }
+    detalii: { material: "Tricot cu lână", croiala: "Strâmt", tip_maneca: "Fără/Scurtă" }
   },
   {
     cod_articol: "5755/130/406",
@@ -104,14 +82,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Albastru deschis",
     img_url: "wardrobe/tricou/tricou8.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["chic", "soft"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CHIC, Stil.SOFT],
     ocazie: ["daily", "office"],
-    detalii: {
-      material: "Tricot tușeu moale",
-      croiala: "Standard",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Tricot tușeu moale", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "4174/153/250",
@@ -120,30 +94,22 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Alb",
     img_url: "wardrobe/tricou/tricou10.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["casual", "rustic"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CASUAL, Stil.RUSTIC],
     ocazie: ["weekend", "daily"],
-    detalii: {
-      material: "Bumbac Rustic",
-      croiala: "Oversize",
-      tip_maneca: "Trei sferturi"
-    }
+    detalii: { material: "Bumbac Rustic", croiala: "Oversize", tip_maneca: "Trei sferturi" }
   },
-{
+  {
     cod_articol: "NEW-TR011",
     model: "TRICOU CU IMPRIMEU FUNDIȚE",
     pret_ron: 49.90,
     culoare: "Alb / Roz",
     img_url: "wardrobe/tricou/tricou11.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "Primăvară/Vară",
-    stil_general: ["casual", "girly"],
+    sezon: Sezon.PRIMAVARA_VARA,
+    stil_general: [Stil.CASUAL, Stil.GIRLY],
     ocazie: ["daily", "brunch"],
-    detalii: {
-      material: "Bumbac",
-      croiala: "Regular Fit",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Bumbac", croiala: "Regular Fit", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "NEW-TR013",
@@ -152,14 +118,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Negru / Roșu",
     img_url: "wardrobe/tricou/tricou13.jpg",
     marimi_disponibile: ["S", "M", "L", "XL"],
-    sezon: "All Season",
-    stil_general: ["streetwear"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.STREETWEAR],
     ocazie: ["daily", "outing"],
-    detalii: {
-      material: "Bumbac",
-      croiala: "Oversize",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Bumbac", croiala: "Oversize", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "NEW-TR014",
@@ -168,14 +130,10 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Negru",
     img_url: "wardrobe/tricou/tricou14.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "All Season",
-    stil_general: ["sportive", "casual"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.SPORTIVE, Stil.CASUAL],
     ocazie: ["gym", "daily"],
-    detalii: {
-      material: "Bumbac / Elastan",
-      croiala: "Standard",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Bumbac / Elastan", croiala: "Standard", tip_maneca: "Scurtă" }
   },
   {
     cod_articol: "NEW-TR015",
@@ -184,13 +142,9 @@ export const TRICOURI_DATA: Tricou[] = [
     culoare: "Fucsia",
     img_url: "wardrobe/tricou/tricou15.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Vară",
-    stil_general: ["minimalist", "vibrant"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.MINIMALIST, Stil.VIBRANT],
     ocazie: ["daily", "outing"],
-    detalii: {
-      material: "Sintetic / Elastic",
-      croiala: "Strâmt",
-      tip_maneca: "Scurtă"
-    }
+    detalii: { material: "Sintetic / Elastic", croiala: "Strâmt", tip_maneca: "Scurtă" }
   }
 ];

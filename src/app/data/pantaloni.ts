@@ -1,4 +1,6 @@
 import { Pantalon } from '../models/wardrobe';
+import { Sezon } from '../models/sezon.enum';
+import { Stil } from '../models/style.enum';
 
 export const PANTALONI_DATA: Pantalon[] = [
     {
@@ -8,14 +10,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Albastru deschis",
         img_url: "wardrobe/pantaloni/pantaloni1.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'All Season', // Adăugat pentru a respecta interfața ClothingItem
-        stil_general: ['casual', 'streetwear'],
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
         ocazie: ['daily'],
-        detalii: {
-            tip_talie: 'Medie',
-            croiala: "Largă",
-            inchidere: ["fermoar", "nasture metalic"]
-        }
+        detalii: { tip_talie: 'Medie', croiala: "Largă", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
         cod_articol: "5252/014/406-2",
@@ -24,12 +22,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Albastru deschis",
         img_url: "wardrobe/pantaloni/pantaloni2.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Medie',
-            croiala: "Standard",
-            inchidere: ["fermoar", "nasture metalic"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily'],
+        detalii: { tip_talie: 'Medie', croiala: "Standard", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
         cod_articol: "8228/021/250",
@@ -38,12 +34,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Alb",
         img_url: "wardrobe/pantaloni/pantaloni3.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'Vară',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "dreaptă",
-            inchidere: ["fermoar", "nasture"]
-        }
+        sezon: Sezon.VARA,
+        stil_general: [Stil.CASUAL, Stil.MINIMALIST],
+        ocazie: ['daily', 'brunch'],
+        detalii: { tip_talie: 'Înaltă', croiala: "dreaptă", inchidere: ["fermoar", "nasture"] }
     },
     {
         cod_articol: "5575/229/800",
@@ -52,12 +46,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni4.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Wide leg",
-            inchidere: ["fermoar", "nasture metalic"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily', 'outing'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
         cod_articol: "5575/025/251",
@@ -66,12 +58,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Alburiu",
         img_url: "wardrobe/pantaloni/pantaloni5.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'Primăvară/Toamnă',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Extra wide leg",
-            inchidere: ["fermoar", "nasture metalic"]
-        }
+        sezon: Sezon.PRIMAVARA_TOAMNA,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Extra wide leg", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
         cod_articol: "8316/696/711",
@@ -80,12 +70,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Nisip",
         img_url: "wardrobe/pantaloni/pantaloni6.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-        sezon: 'Primăvară/Toamnă',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Dreaptă",
-            inchidere: ["fermoar", "nasture interior", "cârlig"]
-        }
+        sezon: Sezon.PRIMAVARA_TOAMNA,
+        stil_general: [Stil.ELEGANT, Stil.CLASSIC],
+        ocazie: ['office', 'business'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Dreaptă", inchidere: ["fermoar", "nasture interior", "cârlig"] }
     },
     {
         cod_articol: "1478/631/707",
@@ -94,12 +82,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "ocru",
         img_url: "wardrobe/pantaloni/pantaloni7.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Standard",
-            inchidere: ["fermoar", "nasture interior", "cârlig metalic"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.CLASSIC],
+        ocazie: ['daily', 'office'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Standard", inchidere: ["fermoar", "nasture interior", "cârlig metalic"] }
     },
     {
         cod_articol: "4661/408/753",
@@ -108,12 +94,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Maro ciocolatiu",
         img_url: "wardrobe/pantaloni/pantaloni8.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL", "XXL"],
-        sezon: 'Iarnă',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "balloon",
-            inchidere: ["fermoar", "nasture interior", "cârlige metalice"]
-        }
+        sezon: Sezon.IARNA,
+        stil_general: [Stil.CHIC, Stil.ELEGANT],
+        ocazie: ['office', 'date night'],
+        detalii: { tip_talie: 'Înaltă', croiala: "balloon", inchidere: ["fermoar", "nasture interior", "cârlige metalice"] }
     },
     {
         cod_articol: "3607/332/401",
@@ -122,12 +106,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bleumarin",
         img_url: "wardrobe/pantaloni/pantaloni9.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Wide leg",
-            inchidere: ["fermoar", "nasturi metalici"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasturi metalici"] }
     },
     {
         cod_articol: "5575/214/800",
@@ -136,26 +118,22 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni10.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42", "44", "46"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Medie',
-            croiala: "Standard",
-            inchidere: ["fermoar", "nasture metalic"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.CLASSIC],
+        ocazie: ['daily', 'office'],
+        detalii: { tip_talie: 'Medie', croiala: "Standard", inchidere: ["fermoar", "nasture metalic"] }
     },
-{
+    {
         cod_articol: "NEW-011",
         model: "PANTALONI SPORT CU ȘNUR",
         pret_ron: 119.90,
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni11.jpg",
         marimi_disponibile: ["S", "M", "L", "XL"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Medie',
-            croiala: "Jogger",
-            inchidere: ["șnur", "bandă elastică"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.SPORTY, Stil.CASUAL],
+        ocazie: ['gym', 'daily'],
+        detalii: { tip_talie: 'Medie', croiala: "Jogger", inchidere: ["șnur", "bandă elastică"] }
     },
     {
         cod_articol: "NEW-012",
@@ -164,12 +142,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Negru",
         img_url: "wardrobe/pantaloni/pantaloni12.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42"],
-        sezon: 'Toamnă/Iarnă',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Wide leg",
-            inchidere: ["fermoar", "nasture metalic"]
-        }
+        sezon: Sezon.TOAMNA_IARNA,
+        stil_general: [Stil.CHIC, Stil.ELEGANT],
+        ocazie: ['evening', 'party'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasture metalic"] }
     },
     {
         cod_articol: "NEW-013",
@@ -178,12 +154,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Gri antracit",
         img_url: "wardrobe/pantaloni/pantaloni13.jpg",
         marimi_disponibile: ["XS/S", "M/L"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Skinny",
-            inchidere: ["fără închidere"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.SPORTY, Stil.MINIMALIST],
+        ocazie: ['gym', 'daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Skinny", inchidere: ["fără închidere"] }
     },
     {
         cod_articol: "NEW-014",
@@ -192,12 +166,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bleumarin",
         img_url: "wardrobe/pantaloni/pantaloni14.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42", "44"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Dreaptă/Wide",
-            inchidere: ["fermoar", "nasture"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily', 'outing'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Dreaptă/Wide", inchidere: ["fermoar", "nasture"] }
     },
     {
         cod_articol: "NEW-015",
@@ -206,26 +178,22 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Verde/Negru",
         img_url: "wardrobe/pantaloni/pantaloni15.jpg",
         marimi_disponibile: ["S", "M", "L"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Skinny",
-            inchidere: ["fără închidere"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.SPORTY],
+        ocazie: ['gym', 'daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Skinny", inchidere: ["fără închidere"] }
     },
-{
+    {
         cod_articol: "NEW-016",
         model: "COLANȚI FITNESS TIE-DYE MARO",
         pret_ron: 129.90,
         culoare: "Maro/Negru",
         img_url: "wardrobe/pantaloni/pantaloni16.jpg",
         marimi_disponibile: ["S", "M", "L"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Skinny",
-            inchidere: ["fără închidere"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.SPORTY],
+        ocazie: ['gym', 'daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Skinny", inchidere: ["fără închidere"] }
     },
     {
         cod_articol: "NEW-017",
@@ -234,12 +202,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Kaki/Bej închis",
         img_url: "wardrobe/pantaloni/pantaloni17.jpg",
         marimi_disponibile: ["XS", "S", "M", "L", "XL"],
-        sezon: 'Primăvară/Toamnă',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Wide leg",
-            inchidere: ["bandă elastică"]
-        }
+        sezon: Sezon.PRIMAVARA_TOAMNA,
+        stil_general: [Stil.ELEGANT, Stil.CLASSIC],
+        ocazie: ['office', 'business'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["bandă elastică"] }
     },
     {
         cod_articol: "NEW-018",
@@ -248,12 +214,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Maro spălat",
         img_url: "wardrobe/pantaloni/pantaloni18.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42", "44"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Medie',
-            croiala: "Straight",
-            inchidere: ["fermoar", "nasture"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily', 'outing'],
+        detalii: { tip_talie: 'Medie', croiala: "Straight", inchidere: ["fermoar", "nasture"] }
     },
     {
         cod_articol: "NEW-019",
@@ -262,12 +226,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bleumarin",
         img_url: "wardrobe/pantaloni/pantaloni19.jpg",
         marimi_disponibile: ["34", "36", "38", "40", "42"],
-        sezon: 'All Season',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Wide leg",
-            inchidere: ["fermoar", "nasture"]
-        }
+        sezon: Sezon.ALL_SEASON,
+        stil_general: [Stil.CASUAL, Stil.STREETWEAR],
+        ocazie: ['daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Wide leg", inchidere: ["fermoar", "nasture"] }
     },
     {
         cod_articol: "NEW-020",
@@ -276,12 +238,10 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Albastru deschis",
         img_url: "wardrobe/pantaloni/pantaloni20.jpg",
         marimi_disponibile: ["32", "34", "36", "38", "40", "42"],
-        sezon: 'Primăvară/Vară',
-        detalii: {
-            tip_talie: 'Medie',
-            croiala: "Flared (evazat)",
-            inchidere: ["fermoar", "nasture"]
-        }
+        sezon: Sezon.PRIMAVARA_VARA,
+        stil_general: [Stil.CASUAL, Stil.BOHO],
+        ocazie: ['daily', 'brunch'],
+        detalii: { tip_talie: 'Medie', croiala: "Flared (evazat)", inchidere: ["fermoar", "nasture"] }
     },
     {
         cod_articol: "NEW-021",
@@ -290,11 +250,9 @@ export const PANTALONI_DATA: Pantalon[] = [
         culoare: "Bej deschis",
         img_url: "wardrobe/pantaloni/pantaloni21.jpg",
         marimi_disponibile: ["XS/S", "M/L"],
-        sezon: 'Vară',
-        detalii: {
-            tip_talie: 'Înaltă',
-            croiala: "Short",
-            inchidere: ["fără închidere"]
-        }
+        sezon: Sezon.VARA,
+        stil_general: [Stil.SPORTY, Stil.MINIMALIST],
+        ocazie: ['gym', 'daily'],
+        detalii: { tip_talie: 'Înaltă', croiala: "Short", inchidere: ["fără închidere"] }
     }
 ];

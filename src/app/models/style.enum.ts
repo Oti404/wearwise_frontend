@@ -1,0 +1,33 @@
+// src/app/models/style.enum.ts
+export enum Stil {
+  CASUAL      = 'casual',
+  ELEGANT     = 'elegant',
+  STREETWEAR  = 'streetwear',
+  OFFICE      = 'office',
+  MINIMALIST  = 'minimalist',
+  BOHO        = 'boho',
+  CLASSIC     = 'classic',
+  CHIC        = 'chic',
+  SPORTY      = 'sporty',
+  // ─── adăugate pentru a acoperi datele existente ───
+  ROMANTIC    = 'romantic',
+  VINTAGE     = 'vintage',
+  STRUCTURED  = 'structured',
+  COZY        = 'cozy',
+  SOFT        = 'soft',
+  BASIC       = 'basic',
+  MODERN      = 'modern',
+  PARTY       = 'party',
+  SPORTIVE    = 'sportive',
+  KNITWEAR    = 'knitwear',
+  GLAM        = 'glam',
+  PREMIUM     = 'premium',
+  PROFESSIONAL = 'professional',
+  CLASSIC_LOOK = 'classic',
+  EARTH_TONES = 'earth tones',
+  CLEAN_LOOK  = 'clean look',
+  RUSTIC      = 'rustic',
+  GIRLY       = 'girly',
+  VIBRANT     = 'vibrant',
+}
+export const STILURI_LISTA = Object.values(Stil);

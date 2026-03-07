@@ -1,4 +1,6 @@
 import { Top } from '../models/wardrobe';
+import { Sezon } from '../models/sezon.enum';
+import { Stil } from '../models/style.enum';
 
 export const TOPURI_DATA: Top[] = [
   {
@@ -8,8 +10,8 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Negru",
     img_url: "wardrobe/top/top1.jpg",
     marimi_disponibile: ["XS", "S", "M", "L"],
-    sezon: "All Season",
-    stil_general: ["elegant", "structured"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.ELEGANT, Stil.STRUCTURED],
     ocazie: ["party", "evening out"],
     detalii: {
       stil: "Corset / Cambrată",
@@ -24,8 +26,8 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Alb",
     img_url: "wardrobe/top/top2.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Vară",
-    stil_general: ["casual", "minimalist"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.CASUAL, Stil.MINIMALIST],
     ocazie: ["daily", "beach"],
     detalii: {
       stil: "Rib",
@@ -40,8 +42,8 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Alb",
     img_url: "wardrobe/top/top3.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Vară",
-    stil_general: ["casual", "basic"],
+    sezon: Sezon.VARA,
+    stil_general: [Stil.CASUAL, Stil.BASIC],
     ocazie: ["daily"],
     detalii: {
       stil: "Rib",
@@ -56,8 +58,8 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Maro",
     img_url: "wardrobe/top/top4.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "All Season",
-    stil_general: ["casual", "earth tones"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.CASUAL, Stil.EARTH_TONES],
     ocazie: ["daily", "brunch"],
     detalii: {
       stil: "Mulat",
@@ -72,8 +74,8 @@ export const TOPURI_DATA: Top[] = [
     culoare: "Bej deschis",
     img_url: "wardrobe/top/top5.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "Primăvară/Toamnă",
-    stil_general: ["chic", "knitwear"],
+    sezon: Sezon.PRIMAVARA_TOAMNA,
+    stil_general: [Stil.CHIC, Stil.KNITWEAR],
     ocazie: ["date night", "casual office"],
     detalii: {
       stil: "Tricot cu nod",
@@ -81,15 +83,15 @@ export const TOPURI_DATA: Top[] = [
       tip_maneca: "Fără mâneci"
     }
   },
-{
+  {
     cod_articol: "NEW-T006",
     model: "TOP STRUCTURAT CU EFECT SCLIPITOR",
     pret_ron: 89.90,
     culoare: "Maro taupe",
     img_url: "wardrobe/top/top6.jpg",
     marimi_disponibile: ["S", "M", "L"],
-    sezon: "All Season",
-    stil_general: ["chic", "glam"],
+    sezon: Sezon.ALL_SEASON,
+    stil_general: [Stil.CHIC, Stil.GLAM],
     ocazie: ["evening out", "party"],
     detalii: {
       stil: "Texturat / Sclipitor",
@@ -97,5 +99,4 @@ export const TOPURI_DATA: Top[] = [
       tip_maneca: "Mânecă foarte scurtă / Cap sleeve"
     }
   }
-
 ];
