@@ -26,8 +26,8 @@ export class Wardrobe implements OnInit {
 
     if (this.activeCategory === 'All') {
       this.clothingItems = allItems;
-    } else {
-this.clothingItems = (allItems as any[]).filter(item => item.category === this.activeCategory);     }
+    } else {    
+    this.clothingItems = (allItems as any[]).filter(item => item.category === this.activeCategory);     }
   }
 
   setActiveCategory(category: string) {

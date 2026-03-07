@@ -80,5 +80,22 @@ export const DATE_TOPURI: Top[] = [
       inchidere: [],
       tip_maneca: "Fără mâneci"
     }
+  },
+{
+    cod_articol: "NEW-T006",
+    model: "TOP STRUCTURAT CU EFECT SCLIPITOR",
+    pret_ron: 89.90,
+    culoare: "Maro taupe",
+    img_url: "wardrobe/top/top6.jpg",
+    marimi_disponibile: ["S", "M", "L"],
+    sezon: "All Season",
+    stil_general: ["chic", "glam"],
+    ocazie: ["evening out", "party"],
+    detalii: {
+      stil: "Texturat / Sclipitor",
+      inchidere: [],
+      tip_maneca: "Mânecă foarte scurtă / Cap sleeve"
+    }
   }
+
 ];

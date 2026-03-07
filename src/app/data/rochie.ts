@@ -85,5 +85,56 @@ export const ROCHII_DATA: Rochie[] = [
       inchidere: ["fermoar lateral ascuns", "nasturi frontali"],
       stil: "Combinată cu dungă"
     }
+  },
+{
+    cod_articol: "NEW-R006",
+    model: "FUSTĂ DIN TRICOT CU INIMI",
+    pret_ron: 129.90,
+    culoare: "Alb / Roșu",
+    lungime: "Scurtă",
+    img_url: "wardrobe/rochie/rochie6.jpg",
+    marimi_disponibile: ["S", "M", "L"],
+    sezon: "Iarnă/Primăvară",
+    stil_general: ["romantic", "casual"],
+    ocazie: ["daily", "date night"],
+    detalii: {
+      tip_talie: "înaltă / elastică",
+      inchidere: [],
+      stil: "Tricot jacquard"
+    }
+  },
+  {
+    cod_articol: "NEW-R007",
+    model: "BODYSUIT TIP SHORT REIAT",
+    pret_ron: 119.90,
+    culoare: "Albastru deschis",
+    lungime: "Scurtă",
+    img_url: "wardrobe/rochie/rochie7.jpg",
+    marimi_disponibile: ["XS", "S", "M", "L"],
+    sezon: "Vară",
+    stil_general: ["sport", "casual"],
+    ocazie: ["gym", "daily"],
+    detalii: {
+      tip_talie: "fără",
+      inchidere: [],
+      stil: "Seamless / Reiat"
+    }
+  },
+  {
+    cod_articol: "NEW-R008",
+    model: "TOP/ROCHIE TIP TUB ELASTICĂ",
+    pret_ron: 79.90,
+    culoare: "Violet / Indigo",
+    lungime: "Scurtă",
+    img_url: "wardrobe/rochie/rochie8.jpg",
+    marimi_disponibile: ["S", "M", "L"],
+    sezon: "Vară",
+    stil_general: ["minimalist", "party"],
+    ocazie: ["club", "beach party"],
+    detalii: {
+      tip_talie: "standard",
+      inchidere: [],
+      stil: "Bandeau / Elastic"
+    }
   }
 ];

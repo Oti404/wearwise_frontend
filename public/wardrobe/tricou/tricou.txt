@@ -128,5 +128,69 @@ export const DATE_TRICOURI: Tricou[] = [
       croiala: "Oversize",
       tip_maneca: "Trei sferturi"
     }
+  },
+{
+    cod_articol: "NEW-TR011",
+    model: "TRICOU CU IMPRIMEU FUNDIȚE",
+    pret_ron: 49.90,
+    culoare: "Alb / Roz",
+    img_url: "wardrobe/tricou/tricou11.jpg",
+    marimi_disponibile: ["S", "M", "L", "XL"],
+    sezon: "Primăvară/Vară",
+    stil_general: ["casual", "girly"],
+    ocazie: ["daily", "brunch"],
+    detalii: {
+      material: "Bumbac",
+      croiala: "Regular Fit",
+      tip_maneca: "Scurtă"
+    }
+  },
+  {
+    cod_articol: "NEW-TR013",
+    model: "TRICOU OVERSIZE CU IMPRIMEU JAPONEZ",
+    pret_ron: 89.90,
+    culoare: "Negru / Roșu",
+    img_url: "wardrobe/tricou/tricou13.jpg",
+    marimi_disponibile: ["S", "M", "L", "XL"],
+    sezon: "All Season",
+    stil_general: ["streetwear"],
+    ocazie: ["daily", "outing"],
+    detalii: {
+      material: "Bumbac",
+      croiala: "Oversize",
+      tip_maneca: "Scurtă"
+    }
+  },
+  {
+    cod_articol: "NEW-TR014",
+    model: "TRICOU PUMA LOGO",
+    pret_ron: 99.90,
+    culoare: "Negru",
+    img_url: "wardrobe/tricou/tricou14.jpg",
+    marimi_disponibile: ["S", "M", "L"],
+    sezon: "All Season",
+    stil_general: ["sportive", "casual"],
+    ocazie: ["gym", "daily"],
+    detalii: {
+      material: "Bumbac / Elastan",
+      croiala: "Standard",
+      tip_maneca: "Scurtă"
+    }
+  },
+  {
+    cod_articol: "NEW-TR015",
+    model: "TRICOU BASIC MULAT",
+    pret_ron: 39.90,
+    culoare: "Fucsia",
+    img_url: "wardrobe/tricou/tricou15.jpg",
+    marimi_disponibile: ["S", "M", "L"],
+    sezon: "Vară",
+    stil_general: ["minimalist", "vibrant"],
+    ocazie: ["daily", "outing"],
+    detalii: {
+      material: "Sintetic / Elastic",
+      croiala: "Strâmt",
+      tip_maneca: "Scurtă"
+    }
   }
 ];

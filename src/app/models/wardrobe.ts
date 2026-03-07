@@ -8,7 +8,7 @@ export interface ClothingItem {
     marimi_disponibile: string[];
     stil_general?: string[];
     ocazie?: string[];
-    sezon: 'Vară' | 'Iarnă' | 'Primăvară/Toamnă' | 'All Season';
+    sezon: 'Vară' | 'Iarnă' | 'Primăvară/Toamnă' | 'All Season' | 'Primăvară/Vară' | 'Toamnă/Iarnă' | 'Iarnă/Primăvară';
 }
 
 export interface Pantalon extends ClothingItem {
@@ -51,7 +51,14 @@ export interface Tricou extends ClothingItem {
         tip_maneca: string;
     };
 }
-
+export interface Bluza extends ClothingItem {
+    detalii: {
+        stil: string;         // ex: 'Casual', 'Elegant', 'Office'
+        tip_guler: string;    // ex: 'Turtleneck', 'Decolteu în V', 'Barcuță'
+        material: string;     // ex: 'Tricot', 'Satin', 'Bumbac'
+        tip_maneca: string;   // ex: 'Lungă', 'Bufantă', 'Trei sferturi'
+    };
+}
 export interface Rochie extends ClothingItem {
     lungime: 'Scurtă' | 'Midi' | 'Lungă';
     detalii: {

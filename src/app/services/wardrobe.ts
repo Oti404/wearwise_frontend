@@ -7,6 +7,7 @@ import { TRICOURI_DATA } from '../data/tricouri';
 import { TOPURI_DATA } from '../data/top';
 import { SACOURI_DATA } from '../data/sacou';
 import { PARFUMURI_DATA } from '../data/parfum';
+import { BLUZE_DATA } from '../data/bluza'
 import { ClothingItem } from '../models/wardrobe';
 
 @Injectable({
@@ -29,6 +30,8 @@ export class WardrobeService {
 
   getParfumuri() { return PARFUMURI_DATA; }
 
+  getBluze() { return BLUZE_DATA; }
+
   getAllItems() {
   return [
     ...PANTALONI_DATA.map(item => ({ ...item, category: 'Bottoms', image: item.img_url })),
@@ -36,7 +39,8 @@ export class WardrobeService {
     ...ROCHII_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url })),
     ...TRICOURI_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url })),
     ...TOPURI_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url })),
-    ...SACOURI_DATA.map(item => ({ ...item, category: 'Outerwear', image: item.img_url }))
+    ...SACOURI_DATA.map(item => ({ ...item, category: 'Outerwear', image: item.img_url })),
+    ...BLUZE_DATA.map(item => ({ ...item, category: 'Tops', image: item.img_url }))
   ];
 }
 
@@ -52,6 +56,7 @@ export class WardrobeService {
       case 'Topuri': items = this.getTopuri(); break;
       case 'Sacouri': items = this.getSacouri(); break;
       case 'Parfumuri': items = this.getParfumuri(); break;
+      case 'Bluze': items = this.getBluze(); break;
     }
 
     if (items.length === 0) return null;
