@@ -31,7 +31,7 @@ const SwipeView = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const swiperRef = useRef<Swiper<any>>(null);
-  const { radius, cart, skipped, addToCart, skipItem } = useAppStore();
+  const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress } = useAppStore();
   
   const { fetchExploreFeed } = useClothes();
   
@@ -195,6 +195,30 @@ const SwipeView = () => {
         {radiusVisible && (
           <View style={styles.radiusExpander}>
             <RadiusSelector />
+          </View>
+        )}
+
+        {/* Background Upload Progress */}
+        {addingItem && (
+          <View style={styles.bgUploadBar}>
+            <View style={styles.bgUploadInfo}>
+              <Sparkles size={12} color="#5A2D82" />
+              <Text style={styles.bgUploadText}>
+                {uploadProgress 
+                  ? `Se încarcă haina... ${uploadProgress.current}/${uploadProgress.total}`
+                  : 'Se finalizează adăugarea...'}
+              </Text>
+            </View>
+            {uploadProgress && (
+              <View style={styles.bgProgressTrack}>
+                <View 
+                  style={[
+                    styles.bgProgressFill, 
+                    { width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }
+                  ]} 
+                />
+              </View>
+            )}
           </View>
         )}
       </View>
@@ -439,6 +463,41 @@ const styles = StyleSheet.create({
     marginTop: 12,
     borderRadius: 20,
     overflow: 'hidden',
+  },
+  bgUploadBar: {
+    marginTop: 12,
+    backgroundColor: '#FFF',
+    borderRadius: 16,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(90,45,130,0.1)',
+    shadowColor: '#5A2D82',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  bgUploadInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
+  bgUploadText: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#5A2D82',
+  },
+  bgProgressTrack: {
+    height: 4,
+    backgroundColor: '#FAF7F2',
+    borderRadius: 2,
+    overflow: 'hidden',
+  },
+  bgProgressFill: {
+    height: '100%',
+    backgroundColor: '#F4C542',
+    borderRadius: 2,
   },
 
   // ── Card Area ─────────────────────────────────────────────────────

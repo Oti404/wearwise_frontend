@@ -50,15 +50,8 @@ const CartView = () => {
     }
   };
 
-  const handleRemoveItem = (id: string | number, name: string) => {
-    Alert.alert(
-      'Elimină articolul',
-      `Sigur vrei să elimini "${name}" din coș?`,
-      [
-        { text: 'Anulează', style: 'cancel' },
-        { text: 'Elimină', style: 'destructive', onPress: () => removeFromCart(id) },
-      ]
-    );
+  const handleRemoveItem = (id: string | number) => {
+    removeFromCart(id);
   };
 
   return (
@@ -142,7 +135,7 @@ const CartView = () => {
                       <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
                       <TouchableOpacity
                         style={styles.deleteBtnSmall}
-                        onPress={() => handleRemoveItem(item.id, item.name)}
+                        onPress={() => handleRemoveItem(item.id)}
                         activeOpacity={0.7}
                       >
                         <Trash2 size={18} color="#E74C3C" strokeWidth={2.5} />

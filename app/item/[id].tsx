@@ -20,7 +20,6 @@ import {
   ArrowRightLeft,
   ShoppingBag,
   Gift,
-  MessageSquare,
   Heart,
   Star,
   ShieldCheck,
@@ -299,14 +298,9 @@ export default function ItemDetailsScreen() {
             <Heart size={24} color="#5A2D82" />
          </TouchableOpacity>
          
-         <TouchableOpacity style={styles.messageBtn}>
-            <MessageSquare size={20} color="#FAF7F2" />
-            <Text style={styles.messageBtnText}>TRIMITE MESAJ</Text>
-         </TouchableOpacity>
-
          <TouchableOpacity style={styles.primaryActionBtn}>
             <Text style={styles.primaryActionText}>
-              {item.mode === 'sell' ? 'CUMPĂRĂ' : 'CERE SCHIMB'}
+              {item.mode === 'sell' ? 'ADAUGĂ ÎN COȘ' : 'PROPUNE SCHIMB'}
             </Text>
          </TouchableOpacity>
       </View>
@@ -487,16 +481,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  messageBtn: {
-    paddingHorizontal: 16,
-    height: 56,
-    borderRadius: 18,
-    backgroundColor: '#5A2D82',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  messageBtnText: { color: '#FAF7F2', fontSize: 10, fontWeight: '900', letterSpacing: 0.5 },
   primaryActionBtn: {
     flex: 1,
     height: 56,

@@ -59,6 +59,12 @@ interface AppState {
   
   _hasHydrated: boolean;
   setHasHydrated: (state: boolean) => void;
+
+  // Background Addition
+  addingItem: boolean;
+  uploadProgress: { current: number; total: number } | null;
+  setAddingItem: (state: boolean) => void;
+  setUploadProgress: (progress: { current: number; total: number } | null) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -85,7 +91,7 @@ export const useAppStore = create<AppState>()(
       })),
 
       removeFromCart: (id) => set((state) => ({ 
-        cart: state.cart.filter((item) => item.id !== id) 
+        cart: state.cart.filter((item) => String(item.id) !== String(id)) 
       })),
 
       clearCart: () => set({ cart: [] }),
@@ -105,14 +111,20 @@ export const useAppStore = create<AppState>()(
       // Hydration tracking
       _hasHydrated: false,
       setHasHydrated: (state) => set({ _hasHydrated: state }),
+
+      // Background Addition
+      addingItem: false,
+      uploadProgress: null,
+      setAddingItem: (state) => set({ addingItem: state }),
+      setUploadProgress: (progress) => set({ uploadProgress: progress }),
     }),
     {
       name: 'wearwise-storage',
       storage: createJSONStorage(() => 
         typeof window !== 'undefined' ? AsyncStorage : {
-          getItem: () => null,
-          setItem: () => {},
-          removeItem: () => {},
+          getItem: async () => null,
+          setItem: async () => {},
+          removeItem: async () => {},
         }
       ),
       onRehydrateStorage: (state) => {

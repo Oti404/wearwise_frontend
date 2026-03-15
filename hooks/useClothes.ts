@@ -79,6 +79,8 @@ export const useClothes = () => {
   const [error, setError] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState<{ current: number; total: number } | null>(null);
   const user = useAppStore((state) => state.user);
+  const setAddingItem = useAppStore((state) => state.setAddingItem);
+  const setGlobalUploadProgress = useAppStore((state) => state.setUploadProgress);
 
   /**
    * Uploads multiple local image URIs to Firebase Storage.
@@ -86,7 +88,9 @@ export const useClothes = () => {
    */
   const uploadImages = async (localUris: string[], userId: string): Promise<string[]> => {
     const downloadUrls: string[] = [];
-    setUploadProgress({ current: 0, total: localUris.length });
+    const progress = { current: 0, total: localUris.length };
+    setUploadProgress(progress);
+    setGlobalUploadProgress(progress);
 
     for (let i = 0; i < localUris.length; i++) {
       const uri = localUris[i];
@@ -97,10 +101,13 @@ export const useClothes = () => {
         const url = await uploadSingleImage(uri, userId, i);
         downloadUrls.push(url);
       }
-      setUploadProgress({ current: i + 1, total: localUris.length });
+      const newProgress = { current: i + 1, total: localUris.length };
+      setUploadProgress(newProgress);
+      setGlobalUploadProgress(newProgress);
     }
 
     setUploadProgress(null);
+    setGlobalUploadProgress(null);
     return downloadUrls;
   };
 
@@ -111,6 +118,7 @@ export const useClothes = () => {
     }
 
     setLoading(true);
+    setAddingItem(true);
     setError(null);
     try {
       // Step 1: Upload images to Firebase Storage
@@ -140,7 +148,9 @@ export const useClothes = () => {
       throw err;
     } finally {
       setLoading(false);
+      setAddingItem(false);
       setUploadProgress(null);
+      setGlobalUploadProgress(null);
     }
   };
 

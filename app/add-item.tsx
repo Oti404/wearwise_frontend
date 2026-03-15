@@ -85,16 +85,19 @@ const AddItemScreen = () => {
 
     try {
       const { address, ...cleanForm } = form;
-      await addClothes({
+      addClothes({
         ...cleanForm,
         images, // local URIs — useClothes will upload them to Firebase Storage
         price: form.price ? parseFloat(form.price) : null,
+      }).catch(err => {
+        console.error('[AddItem] Background save failed:', err);
+        // We could show a global notification here if needed
       });
-      Alert.alert('Succes', 'Haina a fost adăugată cu succes!', [
-        { text: 'OK', onPress: () => router.back() }
-      ]);
+      
+      // Close immediately for instant feedback
+      router.back();
     } catch (err: any) {
-      Alert.alert('Eroare la salvare', err.message);
+      Alert.alert('Eroare la pornirea salvării', err.message);
     }
   };
 
