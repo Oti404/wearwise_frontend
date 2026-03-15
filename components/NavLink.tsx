@@ -8,7 +8,7 @@ interface NavLinkProps {
   className?: ViewStyle;        // Stilul de bază
   activeClassName?: ViewStyle;  // Stilul când ruta e activă
   textStyle?: TextStyle;        // Stilul textului
-  activeTextStyle?: TextStyle;  // Stilul textului când e activ
+  activeTextStyle?: TextStyle;  // Stilul textuluyi când e activ
 }
 
 export const NavLink = ({ 
