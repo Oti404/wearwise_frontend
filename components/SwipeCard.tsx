@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { Heart, X, MapPin, ShoppingBag, ArrowRightLeft, Gift, Tag } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
@@ -122,11 +123,18 @@ const styles = StyleSheet.create({
     borderRadius: 32,
     overflow: 'hidden',
     backgroundColor: '#1A1A2E',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 0.22,
-    shadowRadius: 28,
-    elevation: 12,
+    ...Platform.select({
+      web: {
+        boxShadow: '0px 20px 28px rgba(0,0,0,0.22)',
+      } as any,
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 20 },
+        shadowOpacity: 0.22,
+        shadowRadius: 28,
+        elevation: 12,
+      }
+    }),
   },
 
   // ── Gradient Simulation ─────────────────────────────────────────
@@ -136,7 +144,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: '30%',
-    backgroundColor: 'rgba(0,0,0,0.28)',
+    // backgroundColor: 'rgba(0,0,0,0.28)',
   },
   gradientBottom: {
     position: 'absolute',
@@ -144,7 +152,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: '55%',
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    // backgroundColor: 'rgba(0,0,0,0.6)',
   },
 
   // ── Badges ─────────────────────────────────────────────────────
@@ -215,9 +223,16 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: '#FFF',
     letterSpacing: -0.3,
-    textShadowColor: 'rgba(0,0,0,0.4)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 4,
+    ...Platform.select({
+      web: {
+        textShadow: '0px 1px 4px rgba(0,0,0,0.4)',
+      } as any,
+      default: {
+        textShadowColor: 'rgba(0,0,0,0.4)',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 4,
+      }
+    }),
   },
   priceRow: {
     flexDirection: 'row',
@@ -229,9 +244,16 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '900',
     color: '#F4C542',
-    textShadowColor: 'rgba(0,0,0,0.3)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 3,
+    ...Platform.select({
+      web: {
+        textShadow: '0px 1px 3px rgba(0,0,0,0.3)',
+      } as any,
+      default: {
+        textShadowColor: 'rgba(0,0,0,0.3)',
+        textShadowOffset: { width: 0, height: 1 },
+        textShadowRadius: 3,
+      }
+    }),
   },
   distancePill: {
     flexDirection: 'row',

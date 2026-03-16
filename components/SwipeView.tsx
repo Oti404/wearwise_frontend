@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ShoppingBag, RotateCcw, Sparkles, Search, MapPin, SlidersHorizontal, Bell } from 'lucide-react-native';
+import { ShoppingBag, RotateCcw, Sparkles, Search, MapPin, SlidersHorizontal, Bell, Heart, X as XIcon } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useAppStore } from "@/store/useAppStore";
 import { useClothes, ClothingItem } from '@/hooks/useClothes';
@@ -251,12 +251,20 @@ const SwipeView = () => {
             cardHorizontalMargin={CARD_HORIZONTAL_MARGIN}
             overlayLabels={{
               left: {
-                title: 'SKIP',
-                style: { label: styles.overlayLabelLeft, wrapper: styles.overlayWLeft }
+                element: (
+                  <View style={styles.overlayIconLeft}>
+                    <XIcon size={80} color="#FF4B4B" strokeWidth={3} />
+                  </View>
+                ),
+                style: { wrapper: styles.overlayWLeft }
               },
               right: {
-                title: 'WANT',
-                style: { label: styles.overlayLabelRight, wrapper: styles.overlayWRight }
+                element: (
+                  <View style={styles.overlayIconRight}>
+                    <Heart size={70} color="#2ECC71" fill="#2ECC71" strokeWidth={3} />
+                  </View>
+                ),
+                style: { wrapper: styles.overlayWRight }
               }
             }}
           />
@@ -374,11 +382,16 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.12,
-    shadowRadius: 12,
-    elevation: 4,
+    ...Platform.select({
+      web: { boxShadow: '0px 6px 12px rgba(90, 45, 130, 0.12)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.12,
+        shadowRadius: 12,
+        elevation: 4,
+      }
+    }),
     borderWidth: 1.5,
     borderColor: 'rgba(90,45,130,0.06)',
   },
@@ -414,11 +427,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     height: 50,
     gap: 10,
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-    elevation: 3,
+    ...Platform.select({
+      web: { boxShadow: '0px 4px 10px rgba(90, 45, 130, 0.08)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+        elevation: 3,
+      }
+    }),
     borderWidth: 1.5,
     borderColor: 'rgba(90,45,130,0.05)',
   },
@@ -435,11 +453,16 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-    elevation: 3,
+    ...Platform.select({
+      web: { boxShadow: '0px 4px 10px rgba(90, 45, 130, 0.08)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.08,
+        shadowRadius: 10,
+        elevation: 3,
+      }
+    }),
     borderWidth: 1.5,
     borderColor: 'rgba(90,45,130,0.05)',
   },
@@ -471,11 +494,16 @@ const styles = StyleSheet.create({
     padding: 12,
     borderWidth: 1,
     borderColor: 'rgba(90,45,130,0.1)',
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    ...Platform.select({
+      web: { boxShadow: '0px 4px 8px rgba(90, 45, 130, 0.05)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+        elevation: 2,
+      }
+    }),
   },
   bgUploadInfo: {
     flexDirection: 'row',
@@ -532,11 +560,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.1,
-    shadowRadius: 12,
-    elevation: 4,
+    ...Platform.select({
+      web: { boxShadow: '0px 6px 12px rgba(90, 45, 130, 0.1)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.1,
+        shadowRadius: 12,
+        elevation: 4,
+      }
+    }),
   },
   emptyTitle: {
     fontSize: 22,
@@ -575,15 +608,20 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginLeft: -30,
   },
-  overlayLabelLeft: {
-    color: '#FF4B4B',
-    borderColor: '#FF4B4B',
-    borderWidth: 3,
-    fontSize: 30,
-    fontWeight: '900',
-    padding: 10,
-    borderRadius: 10,
+  overlayIconLeft: {
+    alignItems: 'center',
+    justifyContent: 'center',
     transform: [{ rotate: '15deg' }],
+    ...Platform.select({
+      web: { filter: 'drop-shadow(0px 8px 12px rgba(255, 75, 75, 0.4))' } as any,
+      default: {
+        shadowColor: '#FF4B4B',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.4,
+        shadowRadius: 12,
+        elevation: 8,
+      }
+    }),
   },
   overlayWRight: {
     alignItems: 'flex-start',
@@ -591,14 +629,19 @@ const styles = StyleSheet.create({
     marginTop: 30,
     marginRight: -30,
   },
-  overlayLabelRight: {
-    color: '#F4C542',
-    borderColor: '#F4C542',
-    borderWidth: 3,
-    fontSize: 30,
-    fontWeight: '900',
-    padding: 10,
-    borderRadius: 10,
+  overlayIconRight: {
+    alignItems: 'center',
+    justifyContent: 'center',
     transform: [{ rotate: '-15deg' }],
+    ...Platform.select({
+      web: { filter: 'drop-shadow(0px 8px 12px rgba(46, 204, 113, 0.4))' } as any,
+      default: {
+        shadowColor: '#2ECC71',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.4,
+        shadowRadius: 12,
+        elevation: 8,
+      }
+    }),
   },
 });

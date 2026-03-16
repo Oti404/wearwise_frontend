@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Modal,
   Dimensions,
+  Platform,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { X, Search, MapPin, Check } from 'lucide-react-native';
@@ -157,7 +158,7 @@ export const LocationPicker: React.FC<LocationPickerProps> = ({
         </View>
 
         {/* Center Pin Crosshair Overlay */}
-        <View style={styles.markerFixed} pointerEvents="none">
+        <View style={[styles.markerFixed, { pointerEvents: 'none' as any }]}>
            <MapPin size={40} color="#5A2D82" fill="#FAF7F2" strokeWidth={3} />
            <View style={styles.pinShadow} />
         </View>
@@ -207,11 +208,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     padding: 12,
     borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
+    ...Platform.select({
+      web: { boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' } as any,
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 5,
+      }
+    }),
   },
   searchInputWrapper: {
     flex: 1,
@@ -221,11 +227,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 20,
     height: 52,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
+    ...Platform.select({
+      web: { boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' } as any,
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 5,
+      }
+    }),
   },
   input: { flex: 1, fontSize: 14, fontWeight: '600', color: '#2B2B2B' },
   map: { width: width, height: height },
@@ -253,11 +264,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderRadius: 28,
     padding: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.15,
-    shadowRadius: 20,
-    elevation: 10,
+    ...Platform.select({
+      web: { boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.15)' } as any,
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 10 },
+        shadowOpacity: 0.15,
+        shadowRadius: 20,
+        elevation: 10,
+      }
+    }),
   },
   infoRow: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 20 },
   addressText: { flex: 1, fontSize: 13, fontWeight: '600', color: '#5A2D82' },
@@ -272,9 +288,14 @@ const styles = StyleSheet.create({
   },
   confirmText: { color: '#F4C542', fontSize: 15, fontWeight: '900', letterSpacing: 0.5 },
   customMarker: {
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 5 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
+    ...Platform.select({
+      web: { boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.3)' } as any,
+      default: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+      }
+    }),
   }
 });
