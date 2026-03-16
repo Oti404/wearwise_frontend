@@ -93,7 +93,8 @@ const SwipeView = () => {
     }
 
     return result;
-  }, [items, skipped, cart, filters, searchQuery]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items, filters, searchQuery]);
 
   const handleApplyFilters = (newFilters: FilterState) => {
     setFilters(newFilters);
