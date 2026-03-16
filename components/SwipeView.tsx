@@ -1,24 +1,24 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { ClothingItem, useClothes } from '@/hooks/useClothes';
+import { useAppStore } from "@/store/useAppStore";
+import { useRouter } from 'expo-router';
+import { Bell, Heart, MapPin, RotateCcw, Search, ShoppingBag, SlidersHorizontal, Sparkles, X as XIcon } from 'lucide-react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
+  Animated,
   Dimensions,
-  TextInput,
-  ScrollView,
   Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ShoppingBag, RotateCcw, Sparkles, Search, MapPin, SlidersHorizontal, Bell, Heart, X as XIcon } from 'lucide-react-native';
-import { useRouter } from 'expo-router';
-import { useAppStore } from "@/store/useAppStore";
-import { useClothes, ClothingItem } from '@/hooks/useClothes';
-import RadiusSelector from "./RadiusSelector";
-import SwipeCard from "./SwipeCard";
-import SwipeButtons from "./SwipeButtons";
 import FilterModal, { FilterState } from "./FilterModal";
+import RadiusSelector from "./RadiusSelector";
+import SwipeButtons from "./SwipeButtons";
+import SwipeCard from "./SwipeCard";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -32,9 +32,9 @@ const SwipeView = () => {
   const router = useRouter();
   const swiperRef = useRef<Swiper<any>>(null);
   const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress } = useAppStore();
-  
+
   const { fetchExploreFeed } = useClothes();
-  
+
   const [items, setItems] = useState<ClothingItem[]>([]);
   const [deckKey, setDeckKey] = useState(0);
   const [filterVisible, setFilterVisible] = useState(false);
@@ -47,6 +47,8 @@ const SwipeView = () => {
     conditions: [],
     sortBy: 'newest'
   });
+
+  const swipeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     fetchExploreFeed().then(setItems);
@@ -123,7 +125,23 @@ const SwipeView = () => {
     setDeckKey((prev: number) => prev + 1);
   };
 
-  const hasActiveFilters = filters.modes.length > 0 || filters.categories.length > 0 
+  const onSwiping = (x: number) => {
+    swipeAnim.setValue(x);
+  };
+
+  const onSwipedAborted = () => {
+    Animated.spring(swipeAnim, {
+      toValue: 0,
+      useNativeDriver: true,
+      friction: 5,
+    }).start();
+  };
+
+  const onSwiped = () => {
+    swipeAnim.setValue(0);
+  };
+
+  const hasActiveFilters = filters.modes.length > 0 || filters.categories.length > 0
     || filters.sizes.length > 0 || filters.conditions.length > 0;
 
   return (
@@ -204,26 +222,27 @@ const SwipeView = () => {
             <View style={styles.bgUploadInfo}>
               <Sparkles size={12} color="#5A2D82" />
               <Text style={styles.bgUploadText}>
-                {uploadProgress 
+                {uploadProgress
                   ? `Se încarcă haina... ${uploadProgress.current}/${uploadProgress.total}`
                   : 'Se finalizează adăugarea...'}
               </Text>
             </View>
             {uploadProgress && (
               <View style={styles.bgProgressTrack}>
-                <View 
+                <View
                   style={[
-                    styles.bgProgressFill, 
+                    styles.bgProgressFill,
                     { width: `${(uploadProgress.current / uploadProgress.total) * 100}%` }
-                  ]} 
+                  ]}
                 />
               </View>
             )}
           </View>
         )}
       </View>
+      
 
-      {/* ─── CARD AREA ─── */}
+      
       <View style={styles.cardArea}>
         {filteredItems.length > 0 ? (
           <Swiper
@@ -237,8 +256,16 @@ const SwipeView = () => {
                 cardHeight={CARD_HEIGHT}
               />
             )}
-            onSwipedLeft={handleSwipeLeft}
-            onSwipedRight={handleSwipeRight}
+            onSwipedLeft={(index) => {
+              handleSwipeLeft(index);
+              onSwiped();
+            }}
+            onSwipedRight={(index) => {
+              handleSwipeRight(index);
+              onSwiped();
+            }}
+            onSwiping={onSwiping}
+            onSwipedAborted={onSwipedAborted}
             cardIndex={0}
             backgroundColor="transparent"
             stackSize={3}
@@ -246,6 +273,9 @@ const SwipeView = () => {
             animateCardOpacity
             disableTopSwipe
             disableBottomSwipe
+            // AICI ESTE MODIFICAREA PENTRU EFECTUL DE PENDUL (PIVOT SUS)
+            // Joacă-te cu aceste valori (ex: 20deg, 30deg) pentru a face efectul mai extrem //todo
+            outputRotationRange={['15deg', '0deg', '-15deg']}
             containerStyle={styles.swiperContainer}
             cardVerticalMargin={0}
             cardHorizontalMargin={CARD_HORIZONTAL_MARGIN}
@@ -253,7 +283,7 @@ const SwipeView = () => {
               left: {
                 element: (
                   <View style={styles.overlayIconLeft}>
-                    <XIcon size={80} color="#FF4B4B" strokeWidth={3} />
+                    <XIcon size={100} color="#FF4B4B" strokeWidth={4} />
                   </View>
                 ),
                 style: { wrapper: styles.overlayWLeft }
@@ -261,7 +291,7 @@ const SwipeView = () => {
               right: {
                 element: (
                   <View style={styles.overlayIconRight}>
-                    <Heart size={70} color="#2ECC71" fill="#2ECC71" strokeWidth={3} />
+                    <Heart size={90} color="#ff90f0ff" fill="#ff90f0ff" strokeWidth={3} />
                   </View>
                 ),
                 style: { wrapper: styles.overlayWRight }
@@ -293,6 +323,7 @@ const SwipeView = () => {
           <SwipeButtons
             onLike={() => swiperRef.current?.swipeRight()}
             onSkip={() => swiperRef.current?.swipeLeft()}
+            swipeAnim={swipeAnim}
           />
         </View>
       )}
@@ -605,13 +636,13 @@ const styles = StyleSheet.create({
   overlayWLeft: {
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
-    marginTop: 30,
+    marginTop: 40,
     marginLeft: -30,
   },
   overlayIconLeft: {
     alignItems: 'center',
     justifyContent: 'center',
-    transform: [{ rotate: '15deg' }],
+    transform: [{ rotate: '15' }],
     ...Platform.select({
       web: { filter: 'drop-shadow(0px 8px 12px rgba(255, 75, 75, 0.4))' } as any,
       default: {
@@ -623,20 +654,20 @@ const styles = StyleSheet.create({
       }
     }),
   },
-  overlayWRight: {
+ overlayWRight: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: 30,
-    marginRight: -30,
+    marginTop: 60,
+    marginLeft: 25, // <-- Modifică această valoare pentru a găsi poziția perfectă
   },
   overlayIconRight: {
     alignItems: 'center',
     justifyContent: 'center',
-    transform: [{ rotate: '-15deg' }],
+    transform: [{ rotate: '0deg' }],
     ...Platform.select({
-      web: { filter: 'drop-shadow(0px 8px 12px rgba(46, 204, 113, 0.4))' } as any,
+      web: { filter: 'drop-shadow(0px 8px 12px rgba(255, 144, 240, 1))' } as any,
       default: {
-        shadowColor: '#2ECC71',
+        shadowColor: '#ff90f0ff',
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.4,
         shadowRadius: 12,

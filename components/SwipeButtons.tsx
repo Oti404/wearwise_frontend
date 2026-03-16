@@ -1,23 +1,80 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Platform, Animated, Dimensions } from 'react-native';
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 import { X, Heart } from 'lucide-react-native';
 
 interface SwipeButtonsProps {
   onLike: () => void;
   onSkip: () => void;
+  swipeAnim?: Animated.Value;
 }
 
-const SwipeButtons = ({ onLike, onSkip }: SwipeButtonsProps) => {
+const SwipeButtons = ({ onLike, onSkip, swipeAnim }: SwipeButtonsProps) => {
+  // Interpolations for Skip (Left Swipe)
+  const skipScale = swipeAnim 
+    ? swipeAnim.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0],
+        outputRange: [1.3, 1],
+        extrapolate: 'clamp',
+      })
+    : 1;
+
+  const skipRotate = swipeAnim
+    ? swipeAnim.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0],
+        outputRange: ['15deg', '0deg'],
+        extrapolate: 'clamp',
+      })
+    : '0deg';
+
+  const skipTranslateY = swipeAnim
+    ? swipeAnim.interpolate({
+        inputRange: [-SCREEN_WIDTH / 2, 0],
+        outputRange: [-10, 0],
+        extrapolate: 'clamp',
+      })
+    : 0;
+
+  // Interpolations for Want (Right Swipe)
+  const likeScale = swipeAnim
+    ? swipeAnim.interpolate({
+        inputRange: [0, SCREEN_WIDTH / 2],
+        outputRange: [1, 1.3],
+        extrapolate: 'clamp',
+      })
+    : 1;
+
+  const likeRotate = swipeAnim
+    ? swipeAnim.interpolate({
+        inputRange: [0, SCREEN_WIDTH / 2],
+        outputRange: ['0deg', '-15deg'],
+        extrapolate: 'clamp',
+      })
+    : '0deg';
+
+  const likeTranslateY = swipeAnim
+    ? swipeAnim.interpolate({
+        inputRange: [0, SCREEN_WIDTH / 2],
+        outputRange: [0, -10],
+        extrapolate: 'clamp',
+      })
+    : 0;
+
   return (
     <View style={styles.container}>
       {/* Skip Button */}
-      <TouchableOpacity style={[styles.btn, styles.skipBtn]} onPress={onSkip} activeOpacity={0.85}>
-        <X size={30} color="#FF4B4B" strokeWidth={3} />
+      <TouchableOpacity onPress={onSkip} activeOpacity={0.85}>
+        <Animated.View style={[styles.btn, styles.skipBtn, { transform: [{ scale: skipScale }, { rotate: skipRotate }, { translateY: skipTranslateY }] }]}>
+          <X size={30} color="#FF4B4B" strokeWidth={3} />
+        </Animated.View>
       </TouchableOpacity>
 
       {/* Want Button */}
-      <TouchableOpacity style={[styles.btn, styles.wantBtn]} onPress={onLike} activeOpacity={0.85}>
-        <Heart size={30} color="#F4C542" fill="#F4C542" />
+      <TouchableOpacity onPress={onLike} activeOpacity={0.85}>
+        <Animated.View style={[styles.btn, styles.wantBtn, { transform: [{ scale: likeScale }, { rotate: likeRotate }, { translateY: likeTranslateY }] }]}>
+          <Heart size={30} color="#F4C542" fill="#F4C542" />
+        </Animated.View>
       </TouchableOpacity>
     </View>
   );
