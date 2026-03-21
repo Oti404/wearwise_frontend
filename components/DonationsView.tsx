@@ -31,6 +31,8 @@ export function DonationsView() {
   const router = useRouter();
   
   const user = useAppStore((state) => state.user);
+  const isDarkMode = useAppStore((state) => state.isDarkMode);
+  const dk = isDarkMode;
   const { fetchUserCloset } = useClothes();
 
   const [items, setItems] = useState<ClothingItem[]>([]);
@@ -59,12 +61,12 @@ export function DonationsView() {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, dk && { backgroundColor: '#1E1E1E' }]}>
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         
         {/* PREMIUM HEADER */}
-        <LinearGradient 
-          colors={['#5A2D82', '#3D1B5E']} 
+        <LinearGradient
+          colors={dk ? ['#1A1A2E', '#12122A'] : ['#5A2D82', '#3D1B5E']}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           style={[styles.headerGradient, { paddingTop: insets.top + 20 }]}
@@ -84,12 +86,12 @@ export function DonationsView() {
           </View>
 
           {/* IMPACT CARD */}
-          <View style={styles.impactCard}>
+          <View style={[styles.impactCard, dk && { backgroundColor: '#2B2B2B' }]}>
             <View>
               <Text style={styles.impactTag}>YOUR IMPACT</Text>
-              <Text style={styles.impactValue}>
+              <Text style={[styles.impactValue, dk && { color: '#FFFFFF' }]}>
                 {items.length}
-                <Text style={styles.impactUnit}> ITEMS</Text>
+                <Text style={[styles.impactUnit, dk && { color: 'rgba(255,255,255,0.4)' }]}> ITEMS</Text>
               </Text>
             </View>
             <View style={styles.impactIconBox}>
@@ -121,7 +123,7 @@ export function DonationsView() {
                 return (
                   <TouchableOpacity 
                     key={item.id} 
-                    style={styles.itemCard}
+                    style={[styles.itemCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }]}
                     activeOpacity={0.9}
                     onPress={() => item.id && router.push({ pathname: '/item/[id]', params: { id: item.id } })}
                   >
@@ -144,7 +146,7 @@ export function DonationsView() {
                       </TouchableOpacity>
                     </View>
                     <View style={styles.itemInfo}>
-                      <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+                      <Text style={[styles.itemName, dk && { color: '#FFFFFF' }]} numberOfLines={1}>{item.name}</Text>
                       <View style={styles.itemMeta}>
                         <Text style={styles.metaText}>{item.category}</Text>
                         <View style={styles.metaDot} />
@@ -175,12 +177,18 @@ export function DonationsView() {
               style={{ overflow: 'hidden', borderRadius: 24 }}
             >
               <LinearGradient
-                colors={items.length === 0 ? ['#E5E7EB', '#D1D5DB'] : ['#5A2D82', '#431966']}
+                colors={
+                  items.length === 0
+                    ? ['#E5E7EB', '#D1D5DB']
+                    : dk
+                      ? ['#4A2266', '#341550']
+                      : ['#5A2D82', '#431966']
+                }
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 0}}
                 style={styles.confirmBtnGradient}
               >
-                <Text style={[styles.confirmBtnText, items.length === 0 && { color: '#9CA3AF' }]}>
+                <Text style={[styles.confirmBtnText, items.length === 0 && { color: '#9CA3AF' }, dk && items.length > 0 && { color: '#FFFFFF' }]}>
                   CONFIRM DONATION
                 </Text>
                 {items.length > 0 && (
@@ -199,13 +207,13 @@ export function DonationsView() {
           <Text style={styles.sectionTitle}>Drop-off Locations</Text>
           <View style={styles.centersContainer}>
             {donationCenters.map((center) => (
-              <TouchableOpacity key={center.id} style={styles.centerCard} activeOpacity={0.8}>
+              <TouchableOpacity key={center.id} style={[styles.centerCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }]} activeOpacity={0.8}>
                 <View style={styles.centerIconBox}>
                   <MapPin size={24} color="#8E44AD" />
                 </View>
                 <View style={styles.centerInfo}>
-                  <Text style={styles.centerName}>{center.name}</Text>
-                  <Text style={styles.centerAddress}>{center.address}</Text>
+                  <Text style={[styles.centerName, dk && { color: '#FFFFFF' }]}>{center.name}</Text>
+                  <Text style={[styles.centerAddress, dk && { color: 'rgba(255,255,255,0.45)' }]}>{center.address}</Text>
                 </View>
                 <View style={styles.distanceBadge}>
                   <Text style={styles.distanceText}>{center.distance}</Text>
