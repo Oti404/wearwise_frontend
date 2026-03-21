@@ -1,14 +1,18 @@
+// --- ÎNCEPUT PETIC PENTRU SWIPER PE WEB ---
 import '../patch-console';
-import { useEffect, useState } from 'react';
-import { View, ActivityIndicator, Text, StyleSheet, Platform } from 'react-native';
+import { AUTH } from '@/config/firebase';
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useAppStore } from '@/store/useAppStore';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter, useSegments, useRootNavigationState } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import 'react-native-reanimated';
-import { AUTH } from '@/config/firebase';
-import { useAppStore } from '@/store/useAppStore';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import * as ReactNative from 'react-native';
+import { View, ActivityIndicator, Text, StyleSheet, Platform, LogBox } from 'react-native';
+
 import { useFonts, Quicksand_400Regular, Quicksand_500Medium, Quicksand_700Bold } from '@expo-google-fonts/quicksand';
 import { Mali_400Regular, Mali_500Medium, Mali_600SemiBold, Mali_700Bold } from '@expo-google-fonts/mali';
 import { Manrope_400Regular, Manrope_500Medium, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold } from '@expo-google-fonts/manrope';
@@ -17,6 +21,40 @@ import { PlayfairDisplay_700Bold, PlayfairDisplay_900Black } from '@expo-google-
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+// 1. Petic pentru ViewPropTypes (eroarea de Web)
+Object.defineProperty(ReactNative, 'ViewPropTypes', {
+  get() {
+    return require('deprecated-react-native-prop-types').ViewPropTypes;
+  },
+});
+
+// 2. Petic pentru React.PropTypes (eroarea cu "array")
+// @ts-ignore
+if (!React.PropTypes) {
+  // @ts-ignore
+  React.PropTypes = PropTypes;
+}
+
+LogBox.ignoreLogs([
+  '"shadow*" style props are deprecated',
+  'Animated: `useNativeDriver` is not supported',
+  'props.pointerEvents is deprecated'
+]);
+
+if (typeof console !== 'undefined') {
+  const originalWarn = console.warn;
+  console.warn = (...args) => {
+    if (typeof args[0] === 'string' && (
+      args[0].includes('"shadow*" style props are deprecated') ||
+      args[0].includes('Animated: `useNativeDriver` is not supported') ||
+      args[0].includes('props.pointerEvents is deprecated')
+    )) {
+      return;
+    }
+    originalWarn(...args);
+  };
+}
 
 export const unstable_settings = {
   anchor: '(tabs)',
