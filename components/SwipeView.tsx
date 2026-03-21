@@ -149,14 +149,14 @@ const SwipeView = () => {
           </View>
 
           <View style={styles.headerActionBox}>
-            <TouchableOpacity onPress={() => router.push('/notifications')} activeOpacity={0.8} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-              <Bell size={24} color="#3B1C56" strokeWidth={2.5} />
+            <TouchableOpacity style={styles.iconCircleBtn} onPress={() => router.push('/notifications')} activeOpacity={0.8} hitSlop={{top: 5, bottom: 5, left: 5, right: 5}}>
+              <Bell size={22} color="#5A2D82" strokeWidth={2.5} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => router.push('/(tabs)/cart')} activeOpacity={0.8} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-              <ShoppingBag size={24} color="#3B1C56" fill="#3B1C56" strokeWidth={2} />
+            <TouchableOpacity style={styles.iconCircleBtn} onPress={() => router.push('/(tabs)/cart')} activeOpacity={0.8} hitSlop={{top: 5, bottom: 5, left: 5, right: 5}}>
+              <ShoppingBag size={22} color="#5A2D82" strokeWidth={2.5} />
               {cart.length > 0 && (
-                <View style={styles.cartBadge}>
+                <View style={[styles.cartBadge, { top: -4, right: -4 }]}>
                   <Text style={styles.cartBadgeText}>{cart.length}</Text>
                 </View>
               )}
