@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Dimensions,
+  Platform
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -16,22 +17,22 @@ import {
   Gift,
   Trash2,
   Sparkles,
+  ArrowRight
 } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { useAppStore } from '@/store/useAppStore';
 import { useClothes, ClothingItem } from '@/hooks/useClothes';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width } = Dimensions.get('window');
-const ITEM_WIDTH = (width - 60) / 2;
 
 export function DonationsView() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   
   const user = useAppStore((state) => state.user);
-  const { fetchUserCloset, loading } = useClothes();
+  const { fetchUserCloset } = useClothes();
 
-  // Local state for the filtered items
   const [items, setItems] = useState<ClothingItem[]>([]);
 
   useEffect(() => {
@@ -43,21 +44,18 @@ export function DonationsView() {
   const loadDonationBasket = async () => {
     if (!user?.uid) return;
     const allItems = await fetchUserCloset(user.uid);
-    // Filter only items uploaded as donations
     const donations = allItems.filter(item => item.mode === 'donate');
     setItems(donations);
   };
 
   const removeFromDonations = (id: string) => {
-    // For now we just remove it locally from the view
-    // A proper DB 'delete' or 'hide' API call should be here
     const updated = items.filter((item) => item.id !== id);
     setItems(updated);
   };
 
   const donationCenters = [
-    { id: 1, name: "Red Cross", distance: "1.2 km", address: "Str. George Coșbuc" },
-    { id: 2, name: "Clothing Bank Container", distance: "2.5 km", address: "Mărăști Parking" },
+    { id: 1, name: "Crucea Roșie Română", distance: "1.2 km", address: "Str. George Coșbuc nr. 3" },
+    { id: 2, name: "Container Caritas", distance: "2.5 km", address: "Parcarea Mărăști" },
   ];
 
   return (
@@ -65,15 +63,22 @@ export function DonationsView() {
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         
         {/* PREMIUM HEADER */}
-        <View style={[styles.header, { paddingTop: insets.top + 20 }]}>
+        <LinearGradient 
+          colors={['#5A2D82', '#3D1B5E']} 
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={[styles.headerGradient, { paddingTop: insets.top + 20 }]}
+        >
           <View style={styles.headerTop}>
             <View>
               <View style={styles.headerTitleRow}>
-                <HeartHandshake size={32} color="#F4C542" />
+                <View style={styles.headerIconBg}>
+                  <HeartHandshake size={24} color="#F4C542" />
+                </View>
                 <Text style={styles.headerTitle}>Donations</Text>
               </View>
               <Text style={styles.headerSubtitle}>
-                Turn your wardrobe into a positive change.
+                Turn your wardrobe into a positive change. Every piece matters.
               </Text>
             </View>
           </View>
@@ -88,10 +93,10 @@ export function DonationsView() {
               </Text>
             </View>
             <View style={styles.impactIconBox}>
-              <Gift size={28} color="#5A2D82" />
+              <Gift size={28} color="#5A2D82" strokeWidth={2.5} />
             </View>
           </View>
-        </View>
+        </LinearGradient>
 
         {/* DONATION BASKET */}
         <View style={styles.section}>
@@ -99,9 +104,10 @@ export function DonationsView() {
             <Text style={styles.sectionTitle}>Donation Basket</Text>
             <TouchableOpacity 
               style={styles.addButton}
+              activeOpacity={0.8}
               onPress={() => router.push('/add-item')}
             >
-              <Plus size={14} color="#8E44AD" strokeWidth={3} />
+              <Plus size={16} color="#5A2D82" strokeWidth={3} />
               <Text style={styles.addButtonText}>ADD</Text>
             </TouchableOpacity>
           </View>
@@ -109,7 +115,6 @@ export function DonationsView() {
           {items.length > 0 ? (
             <View style={styles.grid}>
               {items.map((item) => {
-                // Rezolvare sursă imagine pentru baza de date (images array)
                 const imageUrl = item.images && item.images.length > 0 ? item.images[0] : 'https://via.placeholder.com/150';
                 const imageSource = typeof imageUrl === 'string' ? { uri: imageUrl } : imageUrl;
 
@@ -124,13 +129,18 @@ export function DonationsView() {
                       <Image 
                         source={imageSource} 
                         style={styles.itemImage} 
-                        resizeMode="contain"
+                        resizeMode="cover"
+                      />
+                      <LinearGradient
+                        colors={['rgba(0,0,0,0.3)', 'transparent']}
+                        style={styles.imageGradientOverlay}
                       />
                       <TouchableOpacity 
                         style={styles.deleteBtn}
+                        activeOpacity={0.7}
                         onPress={() => item.id && removeFromDonations(item.id)}
                       >
-                        <Trash2 size={12} color="#E74C3C" strokeWidth={2.5} />
+                        <Trash2 size={16} color="#E74C3C" strokeWidth={2.5} />
                       </TouchableOpacity>
                     </View>
                     <View style={styles.itemInfo}>
@@ -148,25 +158,40 @@ export function DonationsView() {
           ) : (
             <View style={styles.emptyContainer}>
               <View style={styles.emptyIconBox}>
-                <Sparkles size={32} color="rgba(142, 68, 173, 0.3)" />
+                <Sparkles size={36} color="#8E44AD" strokeWidth={1.5} />
               </View>
+              <Text style={styles.emptyTitle}>Nothing here yet</Text>
               <Text style={styles.emptyText}>
-                Your wardrobe is waiting for a kind gesture.
+                Your wardrobe is waiting for a kind gesture. Add items to your donation bag.
               </Text>
             </View>
           )}
 
           {/* CONFIRM BUTTON */}
-          <TouchableOpacity 
-            style={[styles.confirmBtn, items.length === 0 && styles.confirmBtnDisabled]}
-            disabled={items.length === 0}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.confirmBtnText}>CONFIRM DONATION</Text>
-            <View style={styles.confirmBadge}>
-              <Text style={styles.confirmBadgeText}>{items.length}</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={[styles.confirmBtnShadowWrapper, items.length === 0 && styles.confirmBtnDisabledWrapper]}>
+            <TouchableOpacity 
+              activeOpacity={0.85}
+              disabled={items.length === 0}
+              style={{ overflow: 'hidden', borderRadius: 24 }}
+            >
+              <LinearGradient
+                colors={items.length === 0 ? ['#E5E7EB', '#D1D5DB'] : ['#5A2D82', '#431966']}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                style={styles.confirmBtnGradient}
+              >
+                <Text style={[styles.confirmBtnText, items.length === 0 && { color: '#9CA3AF' }]}>
+                  CONFIRM DONATION
+                </Text>
+                {items.length > 0 && (
+                  <View style={styles.confirmBadge}>
+                    <Text style={styles.confirmBadgeText}>{items.length}</Text>
+                  </View>
+                )}
+                {items.length > 0 && <ArrowRight size={20} color="#F4C542" style={{ marginLeft: 4 }} />}
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* DROP-OFF LOCATIONS */}
@@ -174,9 +199,9 @@ export function DonationsView() {
           <Text style={styles.sectionTitle}>Drop-off Locations</Text>
           <View style={styles.centersContainer}>
             {donationCenters.map((center) => (
-              <TouchableOpacity key={center.id} style={styles.centerCard} activeOpacity={0.7}>
+              <TouchableOpacity key={center.id} style={styles.centerCard} activeOpacity={0.8}>
                 <View style={styles.centerIconBox}>
-                  <MapPin size={22} color="#5A2D82" />
+                  <MapPin size={24} color="#8E44AD" />
                 </View>
                 <View style={styles.centerInfo}>
                   <Text style={styles.centerName}>{center.name}</Text>
@@ -195,134 +220,259 @@ export function DonationsView() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#FAF7F2' },
-  scrollContent: { paddingBottom: 120 },
-  header: {
-    backgroundColor: '#5A2D82',
+  container: { flex: 1, backgroundColor: '#FCFBF8' },
+  scrollContent: { paddingBottom: 140 },
+  headerGradient: {
     paddingHorizontal: 24,
     paddingBottom: 40,
-    borderBottomLeftRadius: 48,
-    borderBottomRightRadius: 48,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
   },
-  headerTop: { marginBottom: 24 },
-  headerTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  headerTitle: { fontSize: 32, fontWeight: 'bold', color: '#FAF7F2', letterSpacing: -1 },
-  headerSubtitle: { color: 'rgba(250, 247, 242, 0.7)', fontSize: 14, marginTop: 8, fontWeight: '500' },
+  headerTop: { marginBottom: 30 },
+  headerTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 14 },
+  headerIconBg: {
+    backgroundColor: 'rgba(244, 197, 66, 0.2)',
+    padding: 10,
+    borderRadius: 16,
+  },
+  headerTitle: { 
+    fontSize: 34, 
+    fontFamily: 'PlayfairDisplay_700Bold', 
+    color: '#FAF7F2', 
+    letterSpacing: -0.5 
+  },
+  headerSubtitle: { 
+    color: 'rgba(250, 247, 242, 0.85)', 
+    fontSize: 15,
+    fontFamily: 'Outfit_500Medium', 
+    marginTop: 12, 
+    lineHeight: 22 
+  },
   impactCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    borderRadius: 32,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
     padding: 24,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
-    backdropFilter: 'blur(10px)',
+    ...Platform.select({
+      web: { boxShadow: '0 12px 30px rgba(61, 27, 94, 0.4)' } as any,
+      default: { shadowColor: '#3D1B5E', shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.4, shadowRadius: 25, elevation: 15 }
+    }),
   },
-  impactTag: { color: '#F4C542', fontSize: 10, fontWeight: '900', letterSpacing: 2 },
-  impactValue: { color: '#FAF7F2', fontSize: 36, fontWeight: '900', marginTop: 4 },
-  impactUnit: { fontSize: 16, color: 'rgba(250, 247, 242, 0.6)', fontWeight: '800' },
-  impactIconBox: { backgroundColor: '#F4C542', padding: 14, borderRadius: 22, shadowColor: '#F4C542', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 10, elevation: 5 },
+  impactTag: { 
+    color: '#F4C542', 
+    fontSize: 11, 
+    fontFamily: 'Outfit_700Bold', 
+    letterSpacing: 2 
+  },
+  impactValue: { 
+    color: '#2B2B2B', 
+    fontSize: 40, 
+    fontFamily: 'Manrope_800ExtraBold', 
+    marginTop: 2 
+  },
+  impactUnit: { 
+    fontSize: 16, 
+    color: 'rgba(43, 43, 43, 0.4)', 
+    fontFamily: 'Manrope_600SemiBold' 
+  },
+  impactIconBox: { 
+    backgroundColor: 'rgba(244, 197, 66, 0.2)', 
+    padding: 16, 
+    borderRadius: 20 
+  },
   section: { paddingHorizontal: 24, marginTop: 40 },
-  sectionHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 },
-  sectionTitle: { fontSize: 18, fontWeight: '900', color: '#2B2B2B', letterSpacing: 0.5, textTransform: 'uppercase' },
+  sectionHeader: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center', 
+    marginBottom: 24 
+  },
+  sectionTitle: { 
+    fontSize: 22, 
+    fontFamily: 'PlayfairDisplay_700Bold', 
+    color: '#2B2B2B', 
+    letterSpacing: 0.2 
+  },
   addButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 12,
+    backgroundColor: '#F4C542',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 16,
     gap: 6,
-    borderWidth: 1,
-    borderColor: 'rgba(90, 45, 130, 0.1)',
+    ...Platform.select({
+      web: { boxShadow: '0 4px 12px rgba(244, 197, 66, 0.4)' } as any,
+      default: { shadowColor: '#F4C542', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.4, shadowRadius: 8, elevation: 5 }
+    }),
   },
-  addButtonText: { fontSize: 10, fontWeight: '900', color: '#5A2D82', letterSpacing: 1 },
+  addButtonText: { 
+    fontSize: 12, 
+    fontFamily: 'Outfit_700Bold', 
+    color: '#5A2D82', 
+    letterSpacing: 1 
+  },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 16 },
   itemCard: {
     width: (width - 48 - 16) / 2,
     backgroundColor: '#FFF',
-    borderRadius: 24,
+    borderRadius: 20,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    elevation: 3,
+    ...Platform.select({
+      web: { boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05)' } as any,
+      default: { shadowColor: '#000', shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.05, shadowRadius: 15, elevation: 4 }
+    }),
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+    borderColor: 'rgba(90, 45, 130, 0.04)',
   },
-  imageContainer: { width: '100%', height: 180, backgroundColor: '#F0EBE3', justifyContent: 'center', alignItems: 'center' },
+  imageContainer: { 
+    width: '100%', 
+    height: 180, 
+    backgroundColor: '#F8F6F2', 
+    position: 'relative'
+  },
   itemImage: { width: '100%', height: '100%' },
+  imageGradientOverlay: {
+    position: 'absolute',
+    top: 0, left: 0, right: 0,
+    height: 60,
+  },
   deleteBtn: {
     position: 'absolute',
-    top: 10,
-    right: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    padding: 8,
-    borderRadius: 10,
+    top: 12,
+    right: 12,
+    backgroundColor: '#FFFFFF',
+    padding: 10,
+    borderRadius: 14,
     zIndex: 10,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Platform.select({
+      web: { boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)' } as any,
+      default: { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8, elevation: 4 }
+    }),
   },
-  itemInfo: { padding: 12 },
-  itemName: { fontSize: 13, fontWeight: '700', color: '#2B2B2B', marginBottom: 2 },
+  itemInfo: { padding: 16, paddingTop: 14 },
+  itemName: { 
+    fontSize: 16, 
+    fontFamily: 'Outfit_600SemiBold', 
+    color: '#2B2B2B', 
+    marginBottom: 4 
+  },
   itemMeta: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  metaText: { fontSize: 10, color: 'rgba(43, 43, 43, 0.5)', fontWeight: '800' },
-  metaDot: { width: 3, height: 3, borderRadius: 1.5, backgroundColor: 'rgba(90, 45, 130, 0.2)' },
+  metaText: { 
+    fontSize: 12, 
+    fontFamily: 'Manrope_600SemiBold', 
+    color: '#8E9196' 
+  },
+  metaDot: { width: 4, height: 4, borderRadius: 2, backgroundColor: '#F4C542' },
   emptyContainer: {
-    paddingVertical: 60,
+    paddingVertical: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    borderRadius: 30,
-    borderWidth: 1,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 24,
+    borderWidth: 2,
     borderStyle: 'dashed',
-    borderColor: 'rgba(90, 45, 130, 0.1)',
+    borderColor: '#EAE1F1',
   },
-  emptyIconBox: { backgroundColor: '#FFF', padding: 20, borderRadius: 24, marginBottom: 16, borderWidth: 1, borderColor: 'rgba(90, 45, 130, 0.05)' },
-  emptyText: { color: 'rgba(43, 43, 43, 0.3)', fontSize: 14, textAlign: 'center', fontWeight: '700', paddingHorizontal: 40 },
-  confirmBtn: {
-    marginTop: 32,
-    backgroundColor: '#5A2D82',
+  emptyIconBox: { 
+    backgroundColor: 'rgba(142, 68, 173, 0.05)', 
+    padding: 24, 
+    borderRadius: 28, 
+    marginBottom: 20 
+  },
+  emptyTitle: { 
+    fontSize: 18, 
+    fontFamily: 'PlayfairDisplay_700Bold', 
+    color: '#2B2B2B', 
+    marginBottom: 8 
+  },
+  emptyText: { 
+    color: '#8E9196', 
+    fontSize: 14, 
+    textAlign: 'center', 
+    fontFamily: 'Outfit_500Medium', 
+    paddingHorizontal: 40,
+    lineHeight: 22 
+  },
+  confirmBtnShadowWrapper: {
+    marginTop: 36,
+    ...Platform.select({
+      web: { boxShadow: '0 12px 24px rgba(90, 45, 130, 0.25)' } as any,
+      default: { shadowColor: '#5A2D82', shadowOffset: { width: 0, height: 12 }, shadowOpacity: 0.25, shadowRadius: 20, elevation: 8 }
+    }),
+  },
+  confirmBtnDisabledWrapper: {
+    ...Platform.select({ web: { boxShadow: 'none' } as any, default: { shadowOpacity: 0, elevation: 0 }})
+  },
+  confirmBtnGradient: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 20,
-    borderRadius: 24,
-    gap: 12,
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    elevation: 8,
+    paddingHorizontal: 24,
   },
-  confirmBtnDisabled: { backgroundColor: '#E5E7EB', shadowOpacity: 0, elevation: 0 },
-  confirmBtnText: { color: '#F4C542', fontSize: 14, fontWeight: '900', letterSpacing: 2 },
-  confirmBadge: { backgroundColor: '#F4C542', paddingHorizontal: 10, paddingVertical: 4, borderRadius: 8 },
-  confirmBadgeText: { color: '#5A2D82', fontSize: 10, fontWeight: '900' },
-  centersContainer: { gap: 12, marginTop: 10 },
+  confirmBtnText: { 
+    color: '#F4C542', 
+    fontSize: 14, 
+    fontFamily: 'Outfit_700Bold', 
+    letterSpacing: 2 
+  },
+  confirmBadge: { 
+    backgroundColor: 'rgba(244, 197, 66, 0.2)', 
+    paddingHorizontal: 10, 
+    paddingVertical: 4, 
+    borderRadius: 8 
+  },
+  confirmBadgeText: { 
+    color: '#F4C542', 
+    fontSize: 12, 
+    fontFamily: 'Manrope_800ExtraBold' 
+  },
+  centersContainer: { gap: 16, marginTop: 4 },
   centerCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF',
-    padding: 16,
+    backgroundColor: '#FFFFFF',
+    padding: 18,
     borderRadius: 24,
+    ...Platform.select({
+      web: { boxShadow: '0 6px 16px rgba(0, 0, 0, 0.03)' } as any,
+      default: { shadowColor: '#000', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.03, shadowRadius: 12, elevation: 2 }
+    }),
     borderWidth: 1,
-    borderColor: 'rgba(90, 45, 130, 0.05)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.03,
-    shadowRadius: 10,
-    elevation: 2,
+    borderColor: 'rgba(90, 45, 130, 0.04)',
   },
-  centerIconBox: { width: 44, height: 44, backgroundColor: '#FAF7F2', borderRadius: 16, alignItems: 'center', justifyContent: 'center' },
+  centerIconBox: { 
+    width: 48, 
+    height: 48, 
+    backgroundColor: 'rgba(142, 68, 173, 0.08)', 
+    borderRadius: 16, 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
   centerInfo: { flex: 1, marginLeft: 16 },
-  centerName: { fontSize: 15, fontWeight: '800', color: '#2B2B2B', letterSpacing: -0.2 },
-  centerAddress: { fontSize: 11, color: 'rgba(43, 43, 43, 0.4)', marginTop: 2, fontWeight: '700' },
-  distanceBadge: { backgroundColor: 'rgba(90, 45, 130, 0.05)', paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10, borderWidth: 1, borderColor: 'rgba(90, 45, 130, 0.05)' },
-  distanceText: { fontSize: 10, fontWeight: '900', color: '#5A2D82' },
+  centerName: { 
+    fontSize: 16, 
+    fontFamily: 'Outfit_600SemiBold', 
+    color: '#2B2B2B', 
+    marginBottom: 2 
+  },
+  centerAddress: { 
+    fontSize: 12, 
+    color: '#8E9196', 
+    fontFamily: 'Manrope_500Medium' 
+  },
+  distanceBadge: { 
+    backgroundColor: 'rgba(90, 45, 130, 0.06)', 
+    paddingHorizontal: 12, 
+    paddingVertical: 6, 
+    borderRadius: 12 
+  },
+  distanceText: { 
+    fontSize: 11, 
+    fontFamily: 'Outfit_700Bold', 
+    color: '#5A2D82' 
+  },
 });

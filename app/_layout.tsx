@@ -1,5 +1,6 @@
+import '../patch-console';
 import { useEffect, useState } from 'react';
-import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, Text, StyleSheet, Platform } from 'react-native';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useRouter, useSegments, useRootNavigationState } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -67,6 +68,17 @@ export default function RootLayout() {
   const segments = useSegments();
   const router = useRouter();
   const navigationState = useRootNavigationState();
+
+  // === FIX PENTRU WARNING-UL `aria-hidden` NATIV DIN BROWSER ===
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      const activeEl = document.activeElement as HTMLElement | null;
+      if (activeEl && typeof activeEl.blur === 'function') {
+        activeEl.blur();
+      }
+    }
+  }, [segments]);
+  // =============================================================
 
   const [fontsLoaded] = useFonts({
     Quicksand_400Regular,
@@ -195,6 +207,13 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        {Platform.OS === 'web' && (
+          <style type="text/css">{`
+            html, body, #root {
+              height: 100dvh !important;
+            }
+          `}</style>
+        )}
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="login" />

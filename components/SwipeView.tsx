@@ -48,8 +48,6 @@ const SwipeView = () => {
     sortBy: 'newest'
   });
 
-  const swipeAnim = useRef(new Animated.Value(0)).current;
-
   useEffect(() => {
     fetchExploreFeed().then(setItems);
   }, [deckKey]);
@@ -126,21 +124,7 @@ const SwipeView = () => {
     setDeckKey((prev: number) => prev + 1);
   };
 
-  const onSwiping = (x: number) => {
-    swipeAnim.setValue(x);
-  };
-
-  const onSwipedAborted = () => {
-    Animated.spring(swipeAnim, {
-      toValue: 0,
-      useNativeDriver: true,
-      friction: 5,
-    }).start();
-  };
-
-  const onSwiped = () => {
-    swipeAnim.setValue(0);
-  };
+  // Variabile animații adiționale (butoane) șterse
 
   const hasActiveFilters = filters.modes.length > 0 || filters.categories.length > 0
     || filters.sizes.length > 0 || filters.conditions.length > 0;
@@ -264,14 +248,10 @@ const SwipeView = () => {
             )}
             onSwipedLeft={(index) => {
               handleSwipeLeft(index);
-              onSwiped();
             }}
             onSwipedRight={(index) => {
               handleSwipeRight(index);
-              onSwiped();
             }}
-            onSwiping={onSwiping}
-            onSwipedAborted={onSwipedAborted}
             cardIndex={0}
             backgroundColor="transparent"
             stackSize={3}
@@ -340,7 +320,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FAF7F2',
-    ...(Platform.OS === 'web' ? { minHeight: '100vh' as any } : {}),
+    ...(Platform.OS === 'web' ? { height: '100dvh' as any, overflow: 'hidden' as any } : {}),
   },
 
   // ── Aura ──────────────────────────────────────────────────────────
@@ -642,7 +622,7 @@ const styles = StyleSheet.create({
   overlayIconLeft: {
     alignItems: 'center',
     justifyContent: 'center',
-    transform: [{ rotate: '15' }],
+    transform: [{ rotate: '15deg' }],
     ...Platform.select({
       web: { filter: 'drop-shadow(0px 8px 12px rgba(255, 75, 75, 0.4))' } as any,
       default: {

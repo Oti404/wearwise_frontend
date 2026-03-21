@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Link, usePathname } from 'expo-router'; 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { UserCircle, MessageCircle, Layers, Bell, HeartHandshake } from 'lucide-react-native';
@@ -88,11 +88,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAF7F2',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: -10 },
-    shadowOpacity: 0.1,
-    shadowRadius: 20,
-    elevation: 20, // Shadow pentru Android
+    ...Platform.select({
+      web: { boxShadow: '0px -10px 20px rgba(90, 45, 130, 0.1)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: -10 },
+        shadowOpacity: 0.1,
+        shadowRadius: 20,
+        elevation: 20,
+      }
+    }),
     zIndex: 50,
   },
   navRow: {
@@ -134,11 +139,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderWidth: 5,
     borderColor: '#FAF7F2',
-    shadowColor: '#5A2D82',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    elevation: 10,
+    ...Platform.select({
+      web: { boxShadow: '0px 8px 10px rgba(90, 45, 130, 0.25)' } as any,
+      default: {
+        shadowColor: '#5A2D82',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.25,
+        shadowRadius: 10,
+        elevation: 10,
+      }
+    }),
   },
   centerCircleActive: {
     backgroundColor: '#5A2D82',
