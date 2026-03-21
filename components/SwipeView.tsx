@@ -17,7 +17,6 @@ import Swiper from 'react-native-deck-swiper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FilterModal, { FilterState } from "./FilterModal";
 import RadiusSelector from "./RadiusSelector";
-import SwipeButtons from "./SwipeButtons";
 import SwipeCard from "./SwipeCard";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
@@ -37,6 +36,7 @@ const SwipeView = () => {
 
   const [items, setItems] = useState<ClothingItem[]>([]);
   const [deckKey, setDeckKey] = useState(0);
+  const [availableHeight, setAvailableHeight] = useState(0);
   const [filterVisible, setFilterVisible] = useState(false);
   const [radiusVisible, setRadiusVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -146,7 +146,7 @@ const SwipeView = () => {
     || filters.sizes.length > 0 || filters.conditions.length > 0;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
+    <View style={[styles.container, { paddingTop: insets.top + 10, paddingBottom: insets.bottom + 90 }]}>
       {/* ─── DECORATIVE AURA BACKGROUND ─── */}
       <View style={[styles.auraContainer, { pointerEvents: 'none' as any }]}>
         <View style={styles.auraPurple} />
@@ -243,17 +243,23 @@ const SwipeView = () => {
       
 
       
-      <View style={styles.cardArea}>
+      <View 
+        style={styles.cardArea}
+        onLayout={(e) => {
+          const { height } = e.nativeEvent.layout;
+          if (height > 0) setAvailableHeight(height);
+        }}
+      >
         {filteredItems.length > 0 ? (
           <Swiper
-            key={`${deckKey}-${radius}`}
+            key={`${deckKey}-${radius}-${availableHeight > 0 ? 1 : 0}`}
             ref={swiperRef}
             cards={filteredItems}
             renderCard={(card) => (
               <SwipeCard
                 item={card}
                 cardWidth={CARD_WIDTH}
-                cardHeight={CARD_HEIGHT}
+                cardHeight={availableHeight ? availableHeight - 20 : CARD_HEIGHT}
               />
             )}
             onSwipedLeft={(index) => {
@@ -277,7 +283,7 @@ const SwipeView = () => {
             // Joacă-te cu aceste valori (ex: 20deg, 30deg) pentru a face efectul mai extrem //todo
             outputRotationRange={['15deg', '0deg', '-15deg']}
             containerStyle={styles.swiperContainer}
-            cardVerticalMargin={0}
+            cardVerticalMargin={10}
             cardHorizontalMargin={CARD_HORIZONTAL_MARGIN}
             overlayLabels={{
               left: {
@@ -316,17 +322,6 @@ const SwipeView = () => {
           </View>
         )}
       </View>
-
-      {/* ─── ACTION BUTTONS (ABOVE NAVBAR) ─── */}
-      {filteredItems.length > 0 && (
-        <View style={[styles.actionRow, { paddingBottom: insets.bottom + 12 }]}>
-          <SwipeButtons
-            onLike={() => swiperRef.current?.swipeRight()}
-            onSkip={() => swiperRef.current?.swipeLeft()}
-            swipeAnim={swipeAnim}
-          />
-        </View>
-      )}
 
       {/* ─── FILTER MODAL ─── */}
       <FilterModal
