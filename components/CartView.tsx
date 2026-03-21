@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
@@ -13,12 +13,47 @@ import { ArrowLeft, Trash2, ShoppingBag, CreditCard, Package, Sparkles } from 'l
 import { useRouter } from 'expo-router';
 import { useAppStore } from '@/store/useAppStore';
 import { useClothes } from '@/hooks/useClothes';
+import { DB } from '@/config/firebase';
 
 const CartView = () => {
   const { cart, removeFromCart, clearCart, user } = useAppStore();
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { checkout, loading: checkoutLoading } = useClothes();
+
+  // === REAL-TIME OBSERVER ===
+  useEffect(() => {
+    if (!cart || cart.length === 0) return;
+
+    const unsubscribes = cart.map((item: any) => {
+      if (!item.id) return () => {};
+      
+      return DB.collection('clothes').doc(item.id).onSnapshot((doc) => {
+        if (!doc.exists) {
+          // Document deleted entirely
+          removeFromCart(item.id);
+          Alert.alert(
+            'Item Removed',
+            `The item "${item.name}" is no longer available and was removed from your cart.`
+          );
+        } else {
+          const data = doc.data();
+          if (data && data.status !== 'active') {
+            // Status changed (sold, hidden, etc.)
+            removeFromCart(item.id);
+            Alert.alert(
+              'Item Unavailable',
+              `Oops! Someone just got "${item.name}" or it became unavailable. We've removed it from your cart.`
+            );
+          }
+        }
+      });
+    });
+
+    return () => {
+      unsubscribes.forEach((unsub) => unsub());
+    };
+  }, [cart.map((i: any) => i.id).join(',')]);
 
   const total = cart.reduce((sum: number, item: any) => sum + (item.price || 0), 0);
   const totalFormatted = total.toFixed(2);
@@ -71,20 +106,7 @@ const CartView = () => {
           )}
         </View>
 
-        {cart.length > 0 && (
-          <TouchableOpacity
-            style={styles.clearBtn}
-            onPress={() =>
-              Alert.alert('Empty cart', 'Are you sure you want to remove all items?', [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Empty', style: 'destructive', onPress: clearCart },
-              ])
-            }
-            activeOpacity={0.7}
-          >
-            <Trash2 size={18} color="#E74C3C" strokeWidth={2.5} />
-          </TouchableOpacity>
-        )}
+        {/* Clear Cart Button removed based on Admin preference */}
       </View>
 
       <ScrollView
@@ -274,16 +296,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '900',
     color: '#8E44AD',
-  },
-  clearBtn: {
-    width: 44,
-    height: 44,
-    backgroundColor: 'rgba(231,76,60,0.05)',
-    borderRadius: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: 'rgba(231,76,60,0.1)',
   },
 
   // ── Scroll Content ──────────────────────────────────────────────────
