@@ -10,7 +10,7 @@ interface CartItem {
   image: string;
   seller: string;
   size: string;
-  distance: number; // Adăugat pentru a fi compatibil cu filtrarea prin radius
+  distance: number;
 }
 
 interface User {
@@ -42,7 +42,6 @@ interface AppState {
   user: User | null;
   login: (userData: User) => void;
   logout: () => void;
-// ... rest of interface
 
   // Coș de cumpărături
   cart: CartItem[];
@@ -53,7 +52,7 @@ interface AppState {
   // Filtrare și Radius
   radius: number;
   setRadius: (value: number) => void;
-  skipped: (string | number)[]; // Lista de ID-uri ignorate
+  skipped: (string | number)[];
   skipItem: (id: string | number) => void;
   resetFilters: () => void;
   
@@ -65,6 +64,10 @@ interface AppState {
   uploadProgress: { current: number; total: number } | null;
   setAddingItem: (state: boolean) => void;
   setUploadProgress: (progress: { current: number; total: number } | null) => void;
+
+  // Dark Mode
+  isDarkMode: boolean;
+  setDarkMode: (val: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -117,6 +120,10 @@ export const useAppStore = create<AppState>()(
       uploadProgress: null,
       setAddingItem: (state) => set({ addingItem: state }),
       setUploadProgress: (progress) => set({ uploadProgress: progress }),
+
+      // Dark Mode
+      isDarkMode: false,
+      setDarkMode: (val) => set({ isDarkMode: val }),
     }),
     {
       name: 'wearwise-storage',
@@ -135,7 +142,8 @@ export const useAppStore = create<AppState>()(
         user: state.user,
         isLoggedIn: state.isLoggedIn,
         radius: state.radius,
-        skipped: state.skipped
+        skipped: state.skipped,
+        isDarkMode: state.isDarkMode,
       }),
     }
   )

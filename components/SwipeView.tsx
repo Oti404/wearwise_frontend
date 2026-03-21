@@ -29,8 +29,14 @@ const CARD_HEIGHT = CARD_WIDTH * (16 / 9);
 const SwipeView = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+<<<<<<< HEAD
   const swiperRef = useRef<Swiper<ClothingItem>>(null);
   const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress } = useAppStore();
+=======
+  const swiperRef = useRef<Swiper<any>>(null);
+  const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress, isDarkMode } = useAppStore();
+  const dk = isDarkMode;
+>>>>>>> 08326b14916045e8df756ba6935cc853c2329ec1
 
   const { fetchExploreFeed } = useClothes();
 
@@ -133,7 +139,7 @@ const SwipeView = () => {
     || filters.sizes.length > 0 || filters.conditions.length > 0;
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 10, paddingBottom: insets.bottom + 90 }]}>
+    <View style={[styles.container, { paddingTop: insets.top + 10, paddingBottom: insets.bottom + 90 }, dk && { backgroundColor: '#1E1E1E' }]}>
       {/* ─── DECORATIVE AURA BACKGROUND ─── */}
       <View style={[styles.auraContainer, { pointerEvents: 'none' as any }]}>
         <View style={styles.auraPurple} />
@@ -146,18 +152,18 @@ const SwipeView = () => {
         <View style={styles.topRow}>
           <View style={styles.titleContainer}>
             <TouchableOpacity onPress={() => {}} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
-              <Menu size={24} color="#3B1C56" strokeWidth={2.5} />
+              <Menu size={24} color={dk ? '#C084FC' : '#3B1C56'} strokeWidth={2.5} />
             </TouchableOpacity>
-            <Text style={styles.titleText}>For You</Text>
+            <Text style={[styles.titleText, dk && { color: '#FFFFFF' }]}>For You</Text>
           </View>
 
           <View style={styles.headerActionBox}>
-            <TouchableOpacity style={styles.iconCircleBtn} onPress={() => router.push('/notifications')} activeOpacity={0.8} hitSlop={{top: 5, bottom: 5, left: 5, right: 5}}>
-              <Bell size={22} color="#5A2D82" strokeWidth={2.5} />
+            <TouchableOpacity style={[styles.iconCircleBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }]} onPress={() => router.push('/notifications')} activeOpacity={0.8} hitSlop={{top: 5, bottom: 5, left: 5, right: 5}}>
+              <Bell size={22} color={dk ? '#C084FC' : '#5A2D82'} strokeWidth={2.5} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.iconCircleBtn} onPress={() => router.push('/(tabs)/cart')} activeOpacity={0.8} hitSlop={{top: 5, bottom: 5, left: 5, right: 5}}>
-              <ShoppingBag size={22} color="#5A2D82" strokeWidth={2.5} />
+            <TouchableOpacity style={[styles.iconCircleBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }]} onPress={() => router.push('/(tabs)/cart')} activeOpacity={0.8} hitSlop={{top: 5, bottom: 5, left: 5, right: 5}}>
+              <ShoppingBag size={22} color={dk ? '#C084FC' : '#5A2D82'} strokeWidth={2.5} />
               {cart.length > 0 && (
                 <View style={[styles.cartBadge, { top: -4, right: -4 }]}>
                   <Text style={styles.cartBadgeText}>{cart.length}</Text>
@@ -169,29 +175,29 @@ const SwipeView = () => {
 
         {/* Row 2: Search + Location + Filters */}
         <View style={styles.discoveryRow}>
-          <View style={styles.searchBox}>
-            <Search size={17} color="#9B59B6" />
+          <View style={[styles.searchBox, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }]}>
+            <Search size={17} color={dk ? '#C084FC' : '#9B59B6'} />
             <TextInput
-              style={styles.searchInput}
+              style={[styles.searchInput, dk && { color: '#FFFFFF' }]}
               placeholder="Search unique items..."
-              placeholderTextColor="rgba(90,45,130,0.35)"
+              placeholderTextColor={dk ? 'rgba(192,132,252,0.45)' : 'rgba(90,45,130,0.35)'}
               value={searchQuery}
               onChangeText={setSearchQuery}
             />
           </View>
 
           <TouchableOpacity
-            style={[styles.iconBtn, radiusVisible && styles.iconBtnActive, { borderRadius: 25 }]}
+            style={[styles.iconBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }, radiusVisible && styles.iconBtnActive, { borderRadius: 25 }]}
             onPress={() => setRadiusVisible(v => !v)}
           >
-            <MapPin size={19} color={radiusVisible ? '#FFF' : '#5A2D82'} />
+            <MapPin size={19} color={radiusVisible ? '#FFF' : (dk ? '#C084FC' : '#5A2D82')} />
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.iconBtn, hasActiveFilters && styles.iconBtnDot, { borderRadius: 25 }]}
+            style={[styles.iconBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }, hasActiveFilters && styles.iconBtnDot, { borderRadius: 25 }]}
             onPress={() => setFilterVisible(true)}
           >
-            <SlidersHorizontal size={19} color="#5A2D82" strokeWidth={2.5} />
+            <SlidersHorizontal size={19} color={dk ? '#C084FC' : '#5A2D82'} strokeWidth={2.5} />
             {hasActiveFilters && <View style={styles.activeDot} />}
           </TouchableOpacity>
         </View>
