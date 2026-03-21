@@ -68,21 +68,21 @@ export default function ItemDetailsScreen() {
         return (
           <View style={[styles.badge, styles.tradeBadge]}>
             <ArrowRightLeft size={12} color="#FAF7F2" />
-            <Text style={styles.badgeText}>DOAR SCHIMB</Text>
+            <Text style={styles.badgeText}>TRADE ONLY</Text>
           </View>
         );
       case 'sell':
         return (
           <View style={[styles.badge, styles.buyBadge]}>
             <ShoppingBag size={12} color="#5A2D82" />
-            <Text style={[styles.badgeText, { color: '#5A2D82' }]}>DE VÂNZARE</Text>
+            <Text style={[styles.badgeText, { color: '#5A2D82' }]}>FOR SALE</Text>
           </View>
         );
       case 'donate':
         return (
           <View style={[styles.badge, styles.donateBadge]}>
             <Gift size={12} color="#FAF7F2" />
-            <Text style={styles.badgeText}>DONAȚIE</Text>
+            <Text style={styles.badgeText}>DONATION</Text>
           </View>
         );
       case 'both':
@@ -90,7 +90,7 @@ export default function ItemDetailsScreen() {
           <View style={[styles.badge, styles.bothBadge]}>
             <ArrowRightLeft size={12} color="#5A2D82" />
             <ShoppingBag size={12} color="#5A2D82" />
-            <Text style={[styles.badgeText, { color: '#5A2D82' }]}>SCHIMB / VÂNZARE</Text>
+            <Text style={[styles.badgeText, { color: '#5A2D82' }]}>TRADE / SALE</Text>
           </View>
         );
       default:
@@ -108,26 +108,26 @@ export default function ItemDetailsScreen() {
 
   if (notFound || apiError || !item) {
     const errorMsg = notFound 
-      ? 'Articolul nu a putut fi găsit (poate a fost șters).' 
-      : (apiError || 'A apărut o eroare necunoscută.');
+      ? 'The item could not be found (maybe it was deleted).' 
+      : (apiError || 'An unknown error occurred.');
 
     return (
       <View style={styles.centerContainer}>
         <View style={styles.errorIconBox}>
           <Info size={40} color="#E74C3C" />
         </View>
-        <Text style={styles.errorTextTitle}>Hopa!</Text>
+        <Text style={styles.errorTextTitle}>Oops!</Text>
         <Text style={styles.errorText}>{errorMsg}</Text>
         
         <TouchableOpacity style={styles.backButtonCenter} onPress={() => router.back()}>
-          <Text style={styles.backButtonText}>Înapoi la Garderobă</Text>
+          <Text style={styles.backButtonText}>Back to Wardrobe</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={[styles.backButtonCenter, { backgroundColor: 'transparent', marginTop: 10 }]} 
           onPress={() => loadItem()}
         >
-          <Text style={[styles.backButtonText, { color: '#5A2D82' }]}>Încearcă din nou</Text>
+          <Text style={[styles.backButtonText, { color: '#5A2D82' }]}>Try again</Text>
         </TouchableOpacity>
       </View>
     );
@@ -201,9 +201,9 @@ export default function ItemDetailsScreen() {
           <View style={styles.headerRow}>
             {renderModeBadge(item.mode)}
             <View style={styles.priceContainer}>
-              <Text style={styles.priceLabel}>Investiție</Text>
+              <Text style={styles.priceLabel}>Investment</Text>
               <Text style={styles.priceValue}>
-                {item.mode === 'donate' ? 'GRATUIT' : (item.price ? `${item.price} RON` : 'TRADE')}
+                {item.mode === 'donate' ? 'FREE' : (item.price ? `${item.price} RON` : 'TRADE')}
               </Text>
             </View>
           </View>
@@ -216,7 +216,7 @@ export default function ItemDetailsScreen() {
                 <Tag size={18} color="#5A2D82" />
               </View>
               <View>
-                <Text style={styles.specLabel}>CATEGORIE</Text>
+                <Text style={styles.specLabel}>CATEGORY</Text>
                 <Text style={styles.specValue}>{item.category}</Text>
               </View>
             </View>
@@ -226,7 +226,7 @@ export default function ItemDetailsScreen() {
                 <Ruler size={18} color="#5A2D82" />
               </View>
               <View>
-                <Text style={styles.specLabel}>MĂRIME</Text>
+                <Text style={styles.specLabel}>SIZE</Text>
                 <Text style={styles.specValue}>{item.size}</Text>
               </View>
             </View>
@@ -236,7 +236,7 @@ export default function ItemDetailsScreen() {
                 <ShieldCheck size={18} color="#5A2D82" />
               </View>
               <View>
-                <Text style={styles.specLabel}>STARE</Text>
+                <Text style={styles.specLabel}>CONDITION</Text>
                 <Text style={styles.specValue}>{item.condition}</Text>
               </View>
             </View>
@@ -244,9 +244,9 @@ export default function ItemDetailsScreen() {
 
           <View style={styles.divider} />
 
-          <Text style={styles.sectionTitle}>Povestea Articolului</Text>
+          <Text style={styles.sectionTitle}>Item Story</Text>
           <Text style={styles.descriptionText}>
-            {item.description || 'Acest articol nu are o descriere, dar cu siguranță așteaptă un nou început!'}
+            {item.description || 'This item doesn\'t have a description, but it\'s certainly waiting for a fresh start!'}
           </Text>
 
           {item.distance !== undefined && (
@@ -255,8 +255,8 @@ export default function ItemDetailsScreen() {
                    <MapPin size={24} color="#5A2D82" fill="#F4C542" />
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.locationTitle}>Unde se află?</Text>
-                  <Text style={styles.locationValue}>Aproximativ {item.distance.toFixed(1)} km distanță de tine</Text>
+                  <Text style={styles.locationTitle}>Where is it?</Text>
+                  <Text style={styles.locationValue}>Approximately {item.distance.toFixed(1)} km away from you</Text>
                 </View>
              </View>
           )}
@@ -264,7 +264,7 @@ export default function ItemDetailsScreen() {
           <View style={styles.divider} />
 
           {/* OWNER CARD */}
-          <Text style={styles.sectionTitle}>Adăugat de</Text>
+          <Text style={styles.sectionTitle}>Added by</Text>
           <TouchableOpacity style={styles.ownerCard} activeOpacity={0.7}>
              <View style={styles.ownerAvatarWrapper}>
                 {item.owner?.avatarUrl ? (
@@ -284,7 +284,7 @@ export default function ItemDetailsScreen() {
                 </Text>
                 <View style={styles.ownerRatingRow}>
                    <Star size={12} color="#F4C542" fill="#F4C542" />
-                   <Text style={styles.ownerRatingText}>4.9 (24 schimburi finalizate)</Text>
+                   <Text style={styles.ownerRatingText}>4.9 (24 completed trades)</Text>
                 </View>
              </View>
              <ChevronLeft size={20} color="#5A2D82" style={{ transform: [{ rotate: '180deg' }] }} opacity={0.3} />
@@ -300,7 +300,7 @@ export default function ItemDetailsScreen() {
          
          <TouchableOpacity style={styles.primaryActionBtn}>
             <Text style={styles.primaryActionText}>
-              {item.mode === 'sell' ? 'ADAUGĂ ÎN COȘ' : 'PROPUNE SCHIMB'}
+              {item.mode === 'sell' ? 'ADD TO CART' : 'PROPOSE TRADE'}
             </Text>
          </TouchableOpacity>
       </View>

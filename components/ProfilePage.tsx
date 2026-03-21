@@ -146,12 +146,12 @@ export function ProfilePage() {
                   <Text style={styles.userName}>
                     {user?.firstName && user?.lastName 
                       ? `${user.firstName} ${user.lastName}` 
-                      : (user?.email?.split('@')[0] || 'Utilizator WearWise')}
+                      : (user?.email?.split('@')[0] || 'WearWise User')}
                   </Text>
                   <View style={styles.reputationRow}>
                     <View style={styles.locationContainer}>
                       <MapPin size={12} color="#F4C542" />
-                      <Text style={styles.userLocation}>{user?.city || user?.address || 'Locație nesetată'}</Text>
+                      <Text style={styles.userLocation}>{user?.city || user?.address || 'Location not set'}</Text>
                     </View>
                     <View style={styles.ratingBadge}>
                       <Star size={10} color="#F4C542" fill="#F4C542" />
@@ -219,7 +219,7 @@ export function ProfilePage() {
             </View>
             <View style={styles.statTextContainer}>
               <Text style={styles.statNumber}>{user?.donationsCount || 0}</Text>
-              <Text style={styles.statLabel}>DONAȚII</Text>
+              <Text style={styles.statLabel}>DONATIONS</Text>
             </View>
           </View>
 
@@ -240,10 +240,10 @@ export function ProfilePage() {
 
         <View style={styles.rankContainer}>
           <Sparkles size={16} color="#F4C542" />
-          <Text style={styles.rankTitle}>Rang Circular:</Text>
+          <Text style={styles.rankTitle}>Circular Rank:</Text>
           <Text style={styles.rankName}>
             {((user?.tradesCount || 0) + (user?.donationsCount || 0) + (user?.salesCount || 0)) > 10 
-              ? 'Eco Erou' 
+              ? 'Eco Hero' 
               : 'Eco Explorer'}
           </Text>
         </View>
@@ -255,7 +255,7 @@ export function ProfilePage() {
             activeOpacity={0.9}
           >
             <Plus size={18} color="#F4C542" strokeWidth={3} />
-            <Text style={styles.addItemText}>ADAUGĂ ARTICOL</Text>
+            <Text style={styles.addItemText}>ADD ITEM</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.editBtn}>
@@ -265,9 +265,9 @@ export function ProfilePage() {
 
         <View style={styles.galleryContainer}>
             <View style={styles.sectionTitleRow}>
-              <Text style={styles.sectionTitle}>Garderoba Ta</Text>
+              <Text style={styles.sectionTitle}>Your Wardrobe</Text>
               <View style={styles.countBadge}>
-                <Text style={styles.countText}>{closet.length} ARTICOLE</Text>
+                <Text style={styles.countText}>{closet.length} ITEMS</Text>
               </View>
             </View>
 
@@ -340,7 +340,7 @@ export function ProfilePage() {
                       <View style={styles.closetItemInfo}>
                         <Text style={styles.closetItemName} numberOfLines={1}>{item.name}</Text>
                         <Text style={styles.closetItemPrice}>
-                          {isBoughtByMe ? 'ÎN GARDEROBĂ' : isSold ? 'VÂNDUT' : item.mode === 'trade' ? 'TRADE' : item.mode === 'donate' ? 'DONAȚIE' : `${item.price} RON`}
+                          {isBoughtByMe ? 'IN WARDROBE' : isSold ? 'SOLD' : item.mode === 'trade' ? 'TRADE' : item.mode === 'donate' ? 'DONATION' : `${item.price} RON`}
                         </Text>
                       </View>
                     </TouchableOpacity>
@@ -350,9 +350,9 @@ export function ProfilePage() {
             ) : (
               <View style={styles.emptyContainer}>
                 <Sparkles size={40} color="rgba(43, 43, 43, 0.1)" />
-                <Text style={styles.sectionPlaceholder}>Garderoba ta este goală.</Text>
+                <Text style={styles.sectionPlaceholder}>Your wardrobe is empty.</Text>
                 <TouchableOpacity onPress={() => router.push('/add-item')}>
-                  <Text style={styles.emptyActionText}>Adaugă primul articol</Text>
+                  <Text style={styles.emptyActionText}>Add your first item</Text>
                 </TouchableOpacity>
               </View>
             )}

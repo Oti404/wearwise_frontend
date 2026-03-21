@@ -5,23 +5,23 @@ import { useAppStore } from '@/store/useAppStore';
 const API_URL = 'https://wearwise-api.onrender.com';
 
 const ERROR_MESSAGES: Record<string, string> = {
-  'auth/email-already-in-use': 'Această adresă de email este deja folosită.',
-  'auth/invalid-email': 'Adresa de email nu este validă.',
-  'auth/operation-not-allowed': 'Autentificarea cu email și parolă nu este activată.',
-  'auth/weak-password': 'Parola trebuie să aibă cel puțin 6 caractere.',
-  'auth/user-disabled': 'Acest cont a fost dezactivat.',
-  'auth/user-not-found': 'Nu am găsit niciun cont cu acest email.',
-  'auth/wrong-password': 'Parola introdusă este incorectă.',
-  'auth/invalid-credential': 'Datele de autentificare sunt incorecte.',
-  'auth/too-many-requests': 'Prea multe încercări eșuate. Te rugăm să încerci mai târziu.',
-  'auth/network-request-failed': 'Problemă de conexiune. Verifică internetul.',
+  'auth/email-already-in-use': 'This email address is already in use.',
+  'auth/invalid-email': 'The email address is invalid.',
+  'auth/operation-not-allowed': 'Email/password authentication is not enabled.',
+  'auth/weak-password': 'Password should be at least 6 characters.',
+  'auth/user-disabled': 'This account has been disabled.',
+  'auth/user-not-found': 'No account found with this email.',
+  'auth/wrong-password': 'The password entered is incorrect.',
+  'auth/invalid-credential': 'Invalid credentials.',
+  'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
+  'auth/network-request-failed': 'Network problem. Check your internet connection.',
 };
 
 const getErrorMessage = (err: any) => {
   if (err.code && ERROR_MESSAGES[err.code]) {
     return ERROR_MESSAGES[err.code];
   }
-  return err.message || 'A apărut o eroare neașteptată.';
+  return err.message || 'An unexpected error occurred.';
 };
 
 export const useAuth = () => {
@@ -48,7 +48,7 @@ export const useAuth = () => {
       // 1. Create user in Firebase Auth (Client Side)
       const userCredential = await AUTH.createUserWithEmailAndPassword(data.email, data.parola);
       const user = userCredential.user;
-      if (!user) throw new Error('Eroare la crearea contului.');
+      if (!user) throw new Error('Error creating account.');
 
       console.log('[useAuth] Calling backend /register...');
       const response = await fetch(`${API_URL}/register`, {
@@ -72,7 +72,7 @@ export const useAuth = () => {
       console.log('[useAuth] Backend /register response:', response.status, result);
       
       if (!response.ok) {
-        throw new Error(result.error || 'Eroare la înregistrarea profilului.');
+        throw new Error(result.error || 'Error registering profile.');
       }
 
       // 3. Update app store
@@ -100,7 +100,7 @@ export const useAuth = () => {
         const response = await fetch(`${API_URL}/user/${identifier}`);
         const result = await response.json();
         console.log('[useAuth] Phone resolve response:', response.status);
-        if (!response.ok) throw new Error(result.error || 'Numărul de telefon nu a fost găsit.');
+        if (!response.ok) throw new Error(result.error || 'Phone number not found.');
         email = result.email;
       }
 
@@ -108,7 +108,7 @@ export const useAuth = () => {
       const userCredential = await AUTH.signInWithEmailAndPassword(email, parola);
       const user = userCredential.user;
 
-      if (!user) throw new Error('Eroare la autentificare.');
+      if (!user) throw new Error('Authentication error.');
 
       console.log('[useAuth] Fetching profile from backend /user/' + user.uid);
       const profileResponse = await fetch(`${API_URL}/user/${user.uid}`);
@@ -119,7 +119,7 @@ export const useAuth = () => {
         loginAppStore(profileData);
         return profileData;
       } else {
-        throw new Error('Datele utilizatorului nu au fost găsite.');
+        throw new Error('User data not found.');
       }
     } catch (err: any) {
       console.error('[useAuth] signIn error - code:', err?.code, '| message:', err?.message);

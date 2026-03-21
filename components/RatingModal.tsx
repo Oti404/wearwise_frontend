@@ -60,7 +60,7 @@ export function RatingModal({ visible, onClose, onSubmit, itemName }: RatingModa
             <View style={styles.header}>
               <View style={styles.headerTitleRow}>
                 <Sparkles size={20} color="#F4C542" />
-                <Text style={styles.title}>Evaluare Produs</Text>
+                <Text style={styles.title}>Product Rating</Text>
               </View>
               <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
                 <X size={20} color="#2B2B2B" strokeWidth={3} />
@@ -69,8 +69,8 @@ export function RatingModal({ visible, onClose, onSubmit, itemName }: RatingModa
 
             <View style={styles.body}>
               <Text style={styles.subtitle}>
-                Cum a fost achiziția pentru{'\n'}
-                <Text style={styles.itemName}>{itemName || 'acest produs'}?</Text>
+                How was the purchase for{'\n'}
+                <Text style={styles.itemName}>{itemName || 'this product'}?</Text>
               </Text>
 
               {/* Stars */}
@@ -93,23 +93,23 @@ export function RatingModal({ visible, onClose, onSubmit, itemName }: RatingModa
 
               {/* Rating Label */}
               <Text style={styles.ratingLabel}>
-                {rating === 0 ? 'Alege un rating' : 
-                 rating === 1 ? 'Foarte slab' :
-                 rating === 2 ? 'Slab' :
+                {rating === 0 ? 'Choose a rating' : 
+                 rating === 1 ? 'Very poor' :
+                 rating === 2 ? 'Poor' :
                  rating === 3 ? 'Ok' :
-                 rating === 4 ? 'Foarte bun' : 'Excelent! ✨'}
+                 rating === 4 ? 'Very good' : 'Excellent! ✨'}
               </Text>
 
               {/* Comment Input */}
               <View style={styles.inputGroup}>
                 <View style={styles.labelRow}>
                   <MessageSquare size={12} color="#5A2D82" />
-                  <Text style={styles.label}>Comentariu (opțional)</Text>
+                  <Text style={styles.label}>Comment (optional)</Text>
                 </View>
                 <View style={styles.inputWrapper}>
                   <TextInput
                     style={styles.input}
-                    placeholder="Spune-ne mai multe despre experiența ta..."
+                    placeholder="Tell us more about your experience..."
                     multiline
                     numberOfLines={3}
                     value={comment}
@@ -129,7 +129,7 @@ export function RatingModal({ visible, onClose, onSubmit, itemName }: RatingModa
                 <ActivityIndicator color="#5A2D82" />
               ) : (
                 <>
-                  <Text style={styles.submitText}>Trimite Evaluarea</Text>
+                  <Text style={styles.submitText}>Submit Rating</Text>
                   <Sparkles size={18} color="#5A2D82" />
                 </>
               )}

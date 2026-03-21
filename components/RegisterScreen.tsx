@@ -42,29 +42,29 @@ const RegisterScreen = () => {
   const validate = () => {
     const newErrors: Record<string, string> = {};
 
-    if (!form.firstName) newErrors.firstName = 'Prenumele este obligatoriu.';
-    if (!form.lastName) newErrors.lastName = 'Numele este obligatoriu.';
+    if (!form.firstName) newErrors.firstName = 'First name is required.';
+    if (!form.lastName) newErrors.lastName = 'Last name is required.';
     
     if (!form.email) {
-      newErrors.email = 'Email-ul este obligatoriu.';
+      newErrors.email = 'Email is required.';
     } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = 'Format email nevalid.';
+      newErrors.email = 'Invalid email format.';
     }
 
     if (!form.parola) {
-      newErrors.parola = 'Parola este obligatorie.';
+      newErrors.parola = 'Password is required.';
     } else if (form.parola.length < 6) {
-      newErrors.parola = 'Parola trebuie să aibă minim 6 caractere.';
+      newErrors.parola = 'Password must be at least 6 characters.';
     }
 
     if (!form.phone) {
-      newErrors.phone = 'Numărul de telefon este obligatoriu.';
+      newErrors.phone = 'Phone number is required.';
     } else if (!/^\d{10}$/.test(form.phone)) {
-      newErrors.phone = 'Număr nevalid (ex. 07xxxxxxxx).';
+      newErrors.phone = 'Invalid number.';
     }
 
     if (!locationSelected) {
-      newErrors.location = 'Locația este obligatorie pentru a putea vedea haine din apropiere.';
+      newErrors.location = 'Location is required to see nearby clothes.';
     }
 
     setErrors(newErrors);
@@ -87,7 +87,7 @@ const RegisterScreen = () => {
       ...prev,
       adresa: loc.address,
       localitate: loc.city || loc.address.split(',')[0],
-      tara: 'România',
+      tara: 'Romania',
       latitude: loc.latitude,
       longitude: loc.longitude,
     }));
@@ -111,7 +111,7 @@ const RegisterScreen = () => {
       } else if (err.message.includes('telefon')) {
         setErrors(prev => ({ ...prev, phone: err.message }));
       } else {
-        Alert.alert('Eroare la înregistrare', err.message);
+        Alert.alert('Registration error', err.message);
       }
     }
   };
@@ -129,16 +129,16 @@ const RegisterScreen = () => {
           <View style={styles.logoContainer}>
             <Sparkles size={32} color="#F4C542" />
           </View>
-          <Text style={styles.title}>Creează cont</Text>
-          <Text style={styles.subtitle}>Alătură-te comunității WearWise astăzi.</Text>
+          <Text style={styles.title}>Create account</Text>
+          <Text style={styles.subtitle}>Join the WearWise community today.</Text>
         </View>
 
         <View style={styles.form}>
           <View style={styles.row}>
             <View style={{ flex: 1, marginRight: 8 }}>
               <AuthInput 
-                label="Prenume" 
-                placeholder="Ex. Ion" 
+                label="First Name" 
+                placeholder="Eg. John" 
                 value={form.firstName}
                 error={errors.firstName}
                 onChangeText={(v) => handleChange('firstName', v)}
@@ -146,8 +146,8 @@ const RegisterScreen = () => {
             </View>
             <View style={{ flex: 1, marginLeft: 8 }}>
               <AuthInput 
-                label="Nume" 
-                placeholder="Ex. Popescu" 
+                label="Last Name" 
+                placeholder="Eg. Doe" 
                 value={form.lastName}
                 error={errors.lastName}
                 onChangeText={(v) => handleChange('lastName', v)}
@@ -157,7 +157,7 @@ const RegisterScreen = () => {
 
           <AuthInput 
             label="Email" 
-            placeholder="email@exemplu.com" 
+            placeholder="email@example.com" 
             autoCapitalize="none"
             keyboardType="email-address"
             value={form.email}
@@ -166,8 +166,8 @@ const RegisterScreen = () => {
           />
 
           <AuthInput 
-            label="Parolă" 
-            placeholder="Minim 6 caractere" 
+            label="Password" 
+            placeholder="Min 6 characters" 
             secureTextEntry
             value={form.parola}
             error={errors.parola}
@@ -175,8 +175,8 @@ const RegisterScreen = () => {
           />
 
           <AuthInput 
-            label="Număr de telefon" 
-            placeholder="07xxxxxxxx" 
+            label="Phone number" 
+            placeholder="phone number" 
             keyboardType="phone-pad"
             value={form.phone}
             error={errors.phone}
@@ -184,7 +184,7 @@ const RegisterScreen = () => {
           />
 
           <View style={styles.divider}>
-            <Text style={styles.dividerText}>Locație</Text>
+            <Text style={styles.dividerText}>Location</Text>
           </View>
 
           <TouchableOpacity 
@@ -200,14 +200,14 @@ const RegisterScreen = () => {
               <>
                 <CheckCircle2 size={20} color="#27AE60" />
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.locationBtnTextSuccess}>Locație Setată</Text>
+                  <Text style={styles.locationBtnTextSuccess}>Location Set</Text>
                   <Text style={styles.locationSubtext} numberOfLines={1}>{form.adresa}</Text>
                 </View>
               </>
             ) : (
               <>
                 <MapPin size={20} color="#5A2D82" />
-                <Text style={styles.locationBtnText}>Alege Locația pe Hartă</Text>
+                <Text style={styles.locationBtnText}>Choose Location on Map</Text>
               </>
             )}
           </TouchableOpacity>
@@ -215,7 +215,7 @@ const RegisterScreen = () => {
 
           <View style={{ marginTop: 20 }}>
             <AuthButton 
-              title="Înregistrare" 
+              title="Register" 
               onPress={handleRegister} 
               loading={loading}
             />
@@ -226,7 +226,7 @@ const RegisterScreen = () => {
             style={styles.loginLink}
           >
             <Text style={styles.loginLinkText}>
-              Ai deja cont? <Text style={styles.loginLinkBold}>Conectează-te</Text>
+              Already have an account? <Text style={styles.loginLinkBold}>Log in</Text>
             </Text>
           </TouchableOpacity>
         </View>

@@ -28,19 +28,19 @@ interface FilterModalProps {
   onApply: (filters: FilterState) => void;
 }
 
-const CATEGORIES = ['Tricouri', 'Pantaloni', 'Rochii', 'Haine Exterior', 'Accesorii', 'Încălțăminte', 'Altele'];
+const CATEGORIES = ['T-shirts', 'Pants', 'Dresses', 'Outerwear', 'Accessories', 'Footwear', 'Other'];
 const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-const CONDITIONS = ['Nou cu etichetă', 'Ca nou', 'Bună', 'Uzat'];
+const CONDITIONS = ['New with tags', 'Like new', 'Good', 'Used'];
 const MODES = [
-  { id: 'trade', label: 'Schimb' },
-  { id: 'sell', label: 'Vânzare' },
-  { id: 'donate', label: 'Donație' }
+  { id: 'trade', label: 'Trade' },
+  { id: 'sell', label: 'Sell' },
+  { id: 'donate', label: 'Donate' }
 ];
 const SORT_OPTIONS = [
-  { id: 'newest', label: 'Nou sosit' },
-  { id: 'price_asc', label: 'Preț: Mic - Mare' },
-  { id: 'price_desc', label: 'Preț: Mare - Mic' },
-  { id: 'distance', label: 'Cel mai aproape' }
+  { id: 'newest', label: 'Newest arrival' },
+  { id: 'price_asc', label: 'Price: Low to High' },
+  { id: 'price_desc', label: 'Price: High to Low' },
+  { id: 'distance', label: 'Closest' }
 ];
 
 const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, onApply }) => {
@@ -99,16 +99,16 @@ const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, on
             <TouchableOpacity onPress={onClose} style={styles.closeBtn}>
               <X size={24} color="#2B2B2B" />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Filtrează Haine</Text>
+            <Text style={styles.headerTitle}>Filter Clothes</Text>
             <TouchableOpacity onPress={resetFilters}>
-              <Text style={styles.resetText}>Resetează</Text>
+              <Text style={styles.resetText}>Reset</Text>
             </TouchableOpacity>
           </View>
 
           <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
             {/* Sort Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Sortează după</Text>
+              <Text style={styles.sectionTitle}>Sort by</Text>
               <View style={styles.chipRow}>
                 {SORT_OPTIONS.map(opt => (
                   <SelectionChip
@@ -123,7 +123,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, on
 
             {/* Mode Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Mod Publicare</Text>
+              <Text style={styles.sectionTitle}>Listing Mode</Text>
               <View style={styles.chipRow}>
                 {MODES.map(mode => (
                   <SelectionChip
@@ -138,7 +138,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, on
 
             {/* Category Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Categorii</Text>
+              <Text style={styles.sectionTitle}>Categories</Text>
               <View style={styles.chipRow}>
                 {CATEGORIES.map(cat => (
                   <SelectionChip
@@ -153,7 +153,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, on
 
             {/* Sizes Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Mărimi</Text>
+              <Text style={styles.sectionTitle}>Sizes</Text>
               <View style={styles.chipRow}>
                 {SIZES.map(size => (
                   <SelectionChip
@@ -168,7 +168,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, on
 
             {/* Condition Section */}
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>Starea Hainei</Text>
+              <Text style={styles.sectionTitle}>Condition</Text>
               <View style={styles.chipRow}>
                 {CONDITIONS.map(cond => (
                   <SelectionChip
@@ -189,7 +189,7 @@ const FilterModal: React.FC<FilterModalProps> = ({ visible, onClose, filters, on
               onPress={() => onApply(localFilters)}
               activeOpacity={0.8}
             >
-              <Text style={styles.applyText}>APLICĂ FILTRELE</Text>
+              <Text style={styles.applyText}>APPLY FILTERS</Text>
               <SlidersHorizontal size={20} color="#5A2D82" />
             </TouchableOpacity>
           </View>

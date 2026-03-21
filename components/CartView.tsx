@@ -34,11 +34,11 @@ const CartView = () => {
       clearCart();
 
       Alert.alert(
-        '✨ Comandă Plasată!',
-        `Comanda ta de ${totalFormatted} RON a fost înregistrată cu succes. Articolele apar acum în garderoba ta ca "Cumpărate"!`,
+        '✨ Order Placed!',
+        `Your order of ${totalFormatted} RON has been processed successfully. Items now appear in your wardrobe as "Bought"!`,
         [
           {
-            text: 'Super! 🎉',
+            text: 'Awesome! 🎉',
             onPress: () => {
               router.push('/(tabs)/profile');
             },
@@ -46,7 +46,7 @@ const CartView = () => {
         ]
       );
     } catch (err: any) {
-      Alert.alert('Eroare', err.message || 'Nu s-a putut procesa comanda.');
+      Alert.alert('Error', err.message || 'Could not process the order.');
     }
   };
 
@@ -63,7 +63,7 @@ const CartView = () => {
         </TouchableOpacity>
 
         <View style={styles.headerCenter}>
-          <Text style={styles.headerTitle}>Coșul Meu</Text>
+          <Text style={styles.headerTitle}>My Cart</Text>
           {cart.length > 0 && (
             <View style={styles.countBadge}>
               <Text style={styles.countText}>{cart.length}</Text>
@@ -75,9 +75,9 @@ const CartView = () => {
           <TouchableOpacity
             style={styles.clearBtn}
             onPress={() =>
-              Alert.alert('Golește coșul', 'Sigur vrei să elimini toate articolele?', [
-                { text: 'Anulează', style: 'cancel' },
-                { text: 'Golește', style: 'destructive', onPress: clearCart },
+              Alert.alert('Empty cart', 'Are you sure you want to remove all items?', [
+                { text: 'Cancel', style: 'cancel' },
+                { text: 'Empty', style: 'destructive', onPress: clearCart },
               ])
             }
             activeOpacity={0.7}
@@ -100,13 +100,13 @@ const CartView = () => {
             <View style={styles.emptyIconBox}>
               <ShoppingBag size={44} color="#9B59B6" strokeWidth={1.5} />
             </View>
-            <Text style={styles.emptyTitle}>Coșul e gol!</Text>
+            <Text style={styles.emptyTitle}>Cart is empty!</Text>
             <Text style={styles.emptySubtitle}>
-              Explorează garderoba și adaugă haine pe care le iubești prin Swipe Right ❤️
+              Explore the wardrobe and add clothes you love by Swiping Right ❤️
             </Text>
             <TouchableOpacity style={styles.discoverBtn} onPress={() => router.push('/(tabs)')} activeOpacity={0.85}>
               <Sparkles size={16} color="#F4C542" />
-              <Text style={styles.discoverBtnText}>Descoperă Haine</Text>
+              <Text style={styles.discoverBtnText}>Discover Clothes</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -167,22 +167,22 @@ const CartView = () => {
             <View style={styles.summaryCard}>
               <View style={styles.summaryHeader}>
                 <Package size={18} color="#5A2D82" />
-                <Text style={styles.summaryTitle}>Sumar Comandă</Text>
+                <Text style={styles.summaryTitle}>Order Summary</Text>
               </View>
 
               <View style={styles.summaryRows}>
                 <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>Produse ({cart.length})</Text>
+                  <Text style={styles.summaryLabel}>Products ({cart.length})</Text>
                   <Text style={styles.summaryValue}>{totalFormatted} RON</Text>
                 </View>
 
                 <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>Livrare Acasă</Text>
-                  <Text style={[styles.summaryValue, { color: '#27AE60' }]}>GRATUIT</Text>
+                  <Text style={styles.summaryLabel}>Home Delivery</Text>
+                  <Text style={[styles.summaryValue, { color: '#27AE60' }]}>FREE</Text>
                 </View>
 
                 <View style={[styles.summaryRow, styles.totalRow]}>
-                  <Text style={styles.totalLabel}>Total de plată</Text>
+                  <Text style={styles.totalLabel}>Total to pay</Text>
                   <Text style={styles.totalValue}>{totalFormatted} RON</Text>
                 </View>
               </View>
@@ -205,11 +205,11 @@ const CartView = () => {
           >
             <View style={styles.checkoutBtnGradient}>
               {checkoutLoading ? (
-                <Text style={styles.checkoutText}>Se procesează...</Text>
+                <Text style={styles.checkoutText}>Processing...</Text>
               ) : (
                 <>
                   <CreditCard size={20} color="#F4C542" strokeWidth={2.5} />
-                  <Text style={styles.checkoutText}>Plasează Comanda • {totalFormatted} RON</Text>
+                  <Text style={styles.checkoutText}>Place Order • {totalFormatted} RON</Text>
                 </>
               )}
             </View>

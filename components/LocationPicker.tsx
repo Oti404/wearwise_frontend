@@ -142,7 +142,7 @@ export const LocationPicker: React.FC<LocationPickerProps> = ({
           <View style={styles.searchInputWrapper}>
             <TextInput
               style={styles.input}
-              placeholder="Caută adresă..."
+              placeholder="Search address..."
               value={searchQuery}
               onChangeText={setSearchQuery}
               onSubmitEditing={handleSearch}
@@ -179,11 +179,11 @@ export const LocationPicker: React.FC<LocationPickerProps> = ({
                <MapPin size={20} color="#5A2D82" />
             )}
             <Text style={styles.addressText} numberOfLines={2}>
-              {addressLoading ? 'Se caută adresa...' : (address || 'Mută harta pentru a alege locația')}
+              {addressLoading ? 'Searching address...' : (address || 'Move the map to choose the location')}
             </Text>
           </View>
           <TouchableOpacity style={styles.confirmBtn} onPress={handleConfirm}>
-            <Text style={styles.confirmText}>Confirmă Locația</Text>
+            <Text style={styles.confirmText}>Confirm Location</Text>
             <Check size={20} color="#F4C542" strokeWidth={3} />
           </TouchableOpacity>
         </View>

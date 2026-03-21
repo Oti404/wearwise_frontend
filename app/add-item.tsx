@@ -50,7 +50,7 @@ const AddItemScreen = () => {
         ...prev,
         latitude: user.latitude,
         longitude: user.longitude,
-        address: 'Locația ta din profil', // Fallback label
+        address: 'Your profile location', // Fallback label
       }));
     }
   }, [user]);
@@ -74,12 +74,12 @@ const AddItemScreen = () => {
 
   const handleSave = async () => {
     if (!form.name || images.length === 0 || !form.mode) {
-      Alert.alert('Eroare', 'Te rugăm să adaugi cel puțin o poză și un nume pentru produs.');
+      Alert.alert('Error', 'Please add at least one photo and a name for the product.');
       return;
     }
 
     if ((form.mode === 'sell' || form.mode === 'both') && !form.price) {
-      Alert.alert('Eroare', 'Te rugăm să introduci prețul pentru vânzare.');
+      Alert.alert('Error', 'Please enter the selling price.');
       return;
     }
 
@@ -97,17 +97,17 @@ const AddItemScreen = () => {
       // Close immediately for instant feedback
       router.back();
     } catch (err: any) {
-      Alert.alert('Eroare la pornirea salvării', err.message);
+      Alert.alert('Error saving', err.message);
     }
   };
 
   // Progress label shown during image upload
   const getProgressLabel = () => {
     if (uploadProgress) {
-      return `Se încarcă imaginile... ${uploadProgress.current}/${uploadProgress.total}`;
+      return `Uploading images... ${uploadProgress.current}/${uploadProgress.total}`;
     }
-    if (loading) return 'Se salvează...';
-    return 'Salvează Haina';
+    if (loading) return 'Saving...';
+    return 'Save Item';
   };
 
   const renderModeOption = (mode: 'trade' | 'sell' | 'both' | 'donate', label: string, iconElement: React.ReactNode) => {
@@ -133,7 +133,7 @@ const AddItemScreen = () => {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <X size={24} color="#2B2B2B" strokeWidth={3} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Nou în Garderobă</Text>
+        <Text style={styles.headerTitle}>New in Wardrobe</Text>
         <View style={{ width: 44 }} />
       </View>
 
@@ -145,7 +145,7 @@ const AddItemScreen = () => {
           
           {/* Photos Section */}
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Fotografii</Text>
+            <Text style={styles.sectionTitle}>Photos</Text>
             <Text style={styles.sectionCount}>{images.length} / 5</Text>
           </View>
           
@@ -157,7 +157,7 @@ const AddItemScreen = () => {
                   <Plus size={12} color="#FAF7F2" strokeWidth={4} />
                 </View>
               </View>
-              <Text style={styles.addPhotoText}>Adaugă</Text>
+              <Text style={styles.addPhotoText}>Add</Text>
             </TouchableOpacity>
             
             {images.map((uri, index) => (
@@ -168,7 +168,7 @@ const AddItemScreen = () => {
                 </TouchableOpacity>
                 {index === 0 && (
                    <View style={styles.mainPhotoBadge}>
-                      <Text style={styles.mainPhotoText}>COPERTĂ</Text>
+                      <Text style={styles.mainPhotoText}>COVER</Text>
                    </View>
                 )}
               </View>
@@ -179,11 +179,11 @@ const AddItemScreen = () => {
           <View style={styles.formCard}>
             {/* Basic Info */}
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Nume Articol</Text>
+              <Text style={styles.label}>Item Name</Text>
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.input}
-                  placeholder="Ex. Tricou Vintage Nike"
+                  placeholder="Eg. Vintage Nike T-shirt"
                   placeholderTextColor="rgba(43, 43, 43, 0.3)"
                   value={form.name}
                   onChangeText={(v) => setForm({ ...form, name: v })}
@@ -192,11 +192,11 @@ const AddItemScreen = () => {
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Povestea Articolului (Descriere)</Text>
+              <Text style={styles.label}>Item Story (Description)</Text>
               <View style={[styles.inputWrapper, styles.textAreaWrapper]}>
                 <TextInput
                   style={[styles.input, styles.textArea]}
-                  placeholder="Spune-ne mai multe despre acest articol..."
+                  placeholder="Tell us more about this item..."
                   placeholderTextColor="rgba(43, 43, 43, 0.3)"
                   multiline
                   numberOfLines={4}
@@ -208,11 +208,11 @@ const AddItemScreen = () => {
 
             <View style={styles.row}>
               <View style={[styles.inputGroup, { flex: 1, marginRight: 8 }]}>
-                <Text style={styles.label}><Tag size={12} color="#5A2D82" /> Categorie</Text>
+                <Text style={styles.label}><Tag size={12} color="#5A2D82" /> Category</Text>
                 <View style={styles.inputWrapper}>
                   <TextInput
                     style={styles.input}
-                    placeholder="Tricouri..."
+                    placeholder="T-shirts..."
                     placeholderTextColor="rgba(43, 43, 43, 0.3)"
                     value={form.category}
                     onChangeText={(v) => setForm({ ...form, category: v })}
@@ -220,7 +220,7 @@ const AddItemScreen = () => {
                 </View>
               </View>
               <View style={[styles.inputGroup, { flex: 1, marginLeft: 8 }]}>
-                <Text style={styles.label}><Ruler size={12} color="#5A2D82" /> Mărime</Text>
+                <Text style={styles.label}><Ruler size={12} color="#5A2D82" /> Size</Text>
                 <View style={styles.inputWrapper}>
                   <TextInput
                     style={styles.input}
@@ -236,7 +236,7 @@ const AddItemScreen = () => {
             <View style={styles.divider} />
 
             {/* Location Section */}
-            <Text style={styles.smallSectionTitle}>Unde te găsim?</Text>
+            <Text style={styles.smallSectionTitle}>Where can we find you?</Text>
             <TouchableOpacity 
               style={styles.locationCard}
               onPress={() => setIsMapVisible(true)}
@@ -247,10 +247,10 @@ const AddItemScreen = () => {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={styles.locationTitle}>
-                  {form.address ? 'Locație Setează' : 'Alege Locația pe Hartă'}
+                  {form.address ? 'Location Set' : 'Choose Location on Map'}
                 </Text>
                 <Text style={styles.locationSubtitle} numberOfLines={1}>
-                  {form.address || 'Ajută cumpărătorul să știe unde se află haina.'}
+                  {form.address || 'Help the buyer know where the item is located.'}
                 </Text>
               </View>
               <View style={styles.arrowBox}>
@@ -275,18 +275,18 @@ const AddItemScreen = () => {
             <View style={styles.divider} />
 
             {/* Mode Selection */}
-            <Text style={styles.smallSectionTitle}>Cum vrei să îl oferi?</Text>
+            <Text style={styles.smallSectionTitle}>How do you want to offer it?</Text>
             <View style={styles.modeGrid}>
-              {renderModeOption('trade', 'Schimb', <ArrowRightLeft size={18} color={form.mode === 'trade' ? '#FAF7F2' : '#5A2D82'} />)}
-              {renderModeOption('sell', 'Vânzare', <DollarSign size={18} color={form.mode === 'sell' ? '#FAF7F2' : '#5A2D82'} />)}
-              {renderModeOption('both', 'Ambele', <Sparkles size={18} color={form.mode === 'both' ? '#FAF7F2' : '#5A2D82'} />)}
-              {renderModeOption('donate', 'Donează', <Heart size={18} color={form.mode === 'donate' ? '#FAF7F2' : '#E74C3C'} />)}
+              {renderModeOption('trade', 'Trade', <ArrowRightLeft size={18} color={form.mode === 'trade' ? '#FAF7F2' : '#5A2D82'} />)}
+              {renderModeOption('sell', 'Sell', <DollarSign size={18} color={form.mode === 'sell' ? '#FAF7F2' : '#5A2D82'} />)}
+              {renderModeOption('both', 'Both', <Sparkles size={18} color={form.mode === 'both' ? '#FAF7F2' : '#5A2D82'} />)}
+              {renderModeOption('donate', 'Donate', <Heart size={18} color={form.mode === 'donate' ? '#FAF7F2' : '#E74C3C'} />)}
             </View>
 
             {/* Price Input */}
             {(form.mode === 'sell' || form.mode === 'both') && (
               <View style={styles.priceGroup}>
-                <Text style={styles.label}>Prețul Dorit (RON)</Text>
+                <Text style={styles.label}>Desired Price (RON)</Text>
                 <View style={[styles.inputWrapper, styles.priceInputWrapper]}>
                   <Text style={styles.currencySymbol}>RON</Text>
                   <TextInput
@@ -306,7 +306,7 @@ const AddItemScreen = () => {
             <View style={styles.progressCard}>
               <View style={styles.progressHeader}>
                 <ActivityIndicator size="small" color="#5A2D82" />
-                <Text style={styles.progressTitle}>Încărcăm Articolul...</Text>
+                <Text style={styles.progressTitle}>Uploading Item...</Text>
                 <Text style={styles.progressDetail}>{uploadProgress.current}/{uploadProgress.total}</Text>
               </View>
               <View style={styles.track}>

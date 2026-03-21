@@ -162,7 +162,7 @@ const SwipeView = () => {
               <Sparkles size={12} color="#F4C542" />
               <Text style={styles.tagText}>DISCOVER</Text>
             </View>
-            <Text style={styles.titleText}>Pentru Tine</Text>
+            <Text style={styles.titleText}>For You</Text>
           </View>
 
           <View style={styles.headerActionBox}>
@@ -187,7 +187,7 @@ const SwipeView = () => {
             <Search size={17} color="#9B59B6" />
             <TextInput
               style={styles.searchInput}
-              placeholder="Caută haine, branduri..."
+              placeholder="Search clothes, brands..."
               placeholderTextColor="rgba(90,45,130,0.35)"
               value={searchQuery}
               onChangeText={setSearchQuery}
@@ -224,8 +224,8 @@ const SwipeView = () => {
               <Sparkles size={12} color="#5A2D82" />
               <Text style={styles.bgUploadText}>
                 {uploadProgress
-                  ? `Se încarcă haina... ${uploadProgress.current}/${uploadProgress.total}`
-                  : 'Se finalizează adăugarea...'}
+                  ? `Loading item... ${uploadProgress.current}/${uploadProgress.total}`
+                  : 'Finalizing addition...'}
               </Text>
             </View>
             {uploadProgress && (
@@ -304,14 +304,14 @@ const SwipeView = () => {
             <View style={styles.emptyIconBox}>
               <RotateCcw size={38} color="#F4C542" />
             </View>
-            <Text style={styles.emptyTitle}>Garderoba e explorată!</Text>
+            <Text style={styles.emptyTitle}>Wardrobe explored!</Text>
             <Text style={styles.emptySubtitle}>
-              Am verificat totul pe o rază de{' '}
+              We checked everything within a radius of{' '}
               <Text style={{ color: '#5A2D82', fontWeight: '900' }}>{radius}km</Text>.
-              {'\n'}Revino curând pentru noutăți!
+              {'\n'}Check back soon for updates!
             </Text>
             <TouchableOpacity style={styles.resetBtn} onPress={resetDeck} activeOpacity={0.8}>
-              <Text style={styles.resetBtnText}>REÎNCARCĂ FEED-UL</Text>
+              <Text style={styles.resetBtnText}>RELOAD FEED</Text>
               <Sparkles size={15} color="#F4C542" strokeWidth={2.5} />
             </TouchableOpacity>
           </View>

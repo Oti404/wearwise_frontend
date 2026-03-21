@@ -113,7 +113,7 @@ export const useClothes = () => {
 
   const addClothes = async (data: Omit<ClothingItem, 'id' | 'userId' | 'status' | 'createdAt'>) => {
     if (!user) {
-      setError('Trebuie să fii autentificat pentru a adăuga haine.');
+      setError('You must be logged in to add clothes.');
       return null;
     }
 
@@ -138,7 +138,7 @@ export const useClothes = () => {
       });
 
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Eroare la salvarea hainei.');
+      if (!response.ok) throw new Error(result.error || 'Error saving clothing item.');
 
       console.log('[useClothes] Clothing item saved successfully:', result.id);
       return result;
@@ -160,7 +160,7 @@ export const useClothes = () => {
     try {
       const response = await fetch(`${API_URL}/clothes?excludeUser=${user?.uid || ''}`);
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Eroare la încărcarea feed-ului.');
+      if (!response.ok) throw new Error(result.error || 'Error loading feed.');
       
       let clothes = result as ClothingItem[];
 
@@ -192,7 +192,7 @@ export const useClothes = () => {
     try {
       const response = await fetch(`${API_URL}/user-closet/${userId}`);
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Eroare la încărcarea garderobei.');
+      if (!response.ok) throw new Error(result.error || 'Error loading wardrobe.');
       return result as ClothingItem[];
     } catch (err: any) {
       setError(err.message);
@@ -212,14 +212,14 @@ export const useClothes = () => {
       
       if (!response.ok) {
         if (response.status === 404) return null;
-        throw new Error('Nu s-a putut descărca detaliile hainei.');
+        throw new Error('Could not download clothing details.');
       }
       
       const item: ClothingItem = await response.json();
       return item;
     } catch (err: any) {
       console.error('Fetch item details error:', err);
-      setError(err.message || 'A apărut o eroare necunoscută.');
+      setError(err.message || 'An unknown error occurred.');
       return null;
     } finally {
       setLoading(false);
@@ -237,7 +237,7 @@ export const useClothes = () => {
       });
 
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Eroare la procesarea comenzii.');
+      if (!response.ok) throw new Error(result.error || 'Error processing the order.');
       return result;
     } catch (err: any) {
       setError(err.message);
@@ -258,7 +258,7 @@ export const useClothes = () => {
       });
 
       const result = await response.json();
-      if (!response.ok) throw new Error(result.error || 'Eroare la re-listarea articolului.');
+      if (!response.ok) throw new Error(result.error || 'Error re-listing the item.');
       return result;
     } catch (err: any) {
       setError(err.message);
@@ -272,7 +272,7 @@ export const useClothes = () => {
     setLoading(true);
     try {
       const response = await fetch(`${API_URL}/notifications/${userId}`);
-      if (!response.ok) throw new Error('Nu am putut încărca notificările.');
+      if (!response.ok) throw new Error('Could not load notifications.');
       return await response.json();
     } catch (err: any) {
       setError(err.message);
@@ -312,7 +312,7 @@ export const useClothes = () => {
     setLoading(true);
     try {
       const response = await fetch(`${API_URL}/user-ratings/${userId}`);
-      if (!response.ok) throw new Error('Nu am putut încărca rating-urile.');
+      if (!response.ok) throw new Error('Could not load ratings.');
       return await response.json();
     } catch (err: any) {
       setError(err.message);

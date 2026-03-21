@@ -48,7 +48,7 @@ const ResaleScreen = () => {
       if (!id) return;
       try {
         const item = await fetchItemDetails(id as string);
-        if (!item) throw new Error('Articol inexistent');
+        if (!item) throw new Error('Nonexistent item');
         setForm({
           name: item.name,
           description: item.description || '',
@@ -59,11 +59,11 @@ const ResaleScreen = () => {
           price: item.price ? item.price.toString() : '',
           latitude: user?.latitude || item.latitude,
           longitude: user?.longitude || item.longitude,
-          address: user?.latitude ? 'Locația ta' : '', 
+          address: user?.latitude ? 'Your location' : '', 
         });
         setImages(item.images || []);
       } catch (err: any) {
-        Alert.alert('Eroare', 'Nu am putut încărca detaliile articolului.');
+        Alert.alert('Error', 'Could not load item details.');
         router.back();
       } finally {
         setIsFetching(false);
@@ -75,12 +75,12 @@ const ResaleScreen = () => {
   const handleSave = async () => {
     if (!user?.uid || !id) return;
     if (!form.name || !form.mode) {
-      Alert.alert('Eroare', 'Te rugăm să completezi numele și modul de listare.');
+      Alert.alert('Error', 'Please fill in the name and listing mode.');
       return;
     }
 
     if ((form.mode === 'sell' || form.mode === 'both') && !form.price) {
-      Alert.alert('Eroare', 'Te rugăm să introduci prețul pentru vânzare.');
+      Alert.alert('Error', 'Please enter the selling price.');
       return;
     }
 
@@ -99,11 +99,11 @@ const ResaleScreen = () => {
 
       await reList(user.uid, id as string, updates);
       
-      Alert.alert('Succes', 'Articolul a fost re-listat cu noile detalii! ✨', [
-        { text: 'Super!', onPress: () => router.push('/(tabs)/profile') }
+      Alert.alert('Success', 'The item was relisted with new details! ✨', [
+        { text: 'Awesome!', onPress: () => router.push('/(tabs)/profile') }
       ]);
     } catch (err: any) {
-      Alert.alert('Eroare la re-listare', err.message);
+      Alert.alert('Relist error', err.message);
     }
   };
 
@@ -111,7 +111,7 @@ const ResaleScreen = () => {
     return (
       <View style={[styles.container, styles.center]}>
         <ActivityIndicator size="large" color="#5A2D82" />
-        <Text style={styles.loadingText}>Încărcăm detaliile...</Text>
+        <Text style={styles.loadingText}>Loading details...</Text>
       </View>
     );
   }
@@ -125,7 +125,7 @@ const ResaleScreen = () => {
         <TouchableOpacity onPress={() => router.back()} style={styles.backBtn}>
           <X size={24} color="#2B2B2B" strokeWidth={3} />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Re-listare Produs</Text>
+        <Text style={styles.headerTitle}>Relist Product</Text>
         <View style={{ width: 44 }} />
       </View>
 
@@ -137,8 +137,8 @@ const ResaleScreen = () => {
           
           {/* Photos Preview (Static for resale usually, unless we want to allow new photos) */}
           <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Fotografii</Text>
-            <Text style={styles.sectionCount}>{images.length} Fotografii</Text>
+            <Text style={styles.sectionTitle}>Photos</Text>
+            <Text style={styles.sectionCount}>{images.length} Photos</Text>
           </View>
           
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.imageScroll} contentContainerStyle={{ paddingRight: 24 }}>
@@ -147,7 +147,7 @@ const ResaleScreen = () => {
                 <Image source={{ uri }} style={styles.previewImage} />
                 {index === 0 && (
                    <View style={styles.mainPhotoBadge}>
-                      <Text style={styles.mainPhotoText}>COPERTĂ</Text>
+                      <Text style={styles.mainPhotoText}>COVER</Text>
                    </View>
                 )}
               </View>
@@ -156,7 +156,7 @@ const ResaleScreen = () => {
 
           <View style={styles.formCard}>
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Nume Articol</Text>
+              <Text style={styles.label}>Item Name</Text>
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.input}
@@ -167,7 +167,7 @@ const ResaleScreen = () => {
             </View>
 
             <View style={styles.inputGroup}>
-              <Text style={styles.label}>Descriere Nouă</Text>
+              <Text style={styles.label}>New Description</Text>
               <View style={[styles.inputWrapper, styles.textAreaWrapper]}>
                 <TextInput
                   style={[styles.input, styles.textArea]}
@@ -181,7 +181,7 @@ const ResaleScreen = () => {
 
             {/* Price Input */}
             <View style={styles.priceGroup}>
-              <Text style={styles.label}>Prețul tău de re-vânzare (RON)</Text>
+              <Text style={styles.label}>Your resale price (RON)</Text>
               <View style={[styles.inputWrapper, styles.priceInputWrapper]}>
                 <Text style={styles.currencySymbol}>RON</Text>
                 <TextInput
@@ -199,7 +199,7 @@ const ResaleScreen = () => {
             <View style={styles.infoBox}>
                <Sparkles size={16} color="#F4C542" />
                <Text style={styles.infoText}>
-                 Re-listarea va muta produsul în lista ta de vânzare și va deveni din nou vizibil pentru ceilalți.
+                 Relisting will move the product to your sell list and make it visible to others.
                </Text>
             </View>
           </View>
@@ -214,7 +214,7 @@ const ResaleScreen = () => {
                <ActivityIndicator color="#5A2D82" />
             ) : (
                <>
-                 <Text style={styles.saveBtnText}>Re-listează Acum</Text>
+                 <Text style={styles.saveBtnText}>Relist Now</Text>
                  <Sparkles size={18} color="#5A2D82" strokeWidth={2.5} />
                </>
             )}

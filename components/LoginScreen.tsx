@@ -31,11 +31,11 @@ const LoginScreen = () => {
     setPasswordError('');
 
     if (!identifier) {
-      setIdentifierError('Introdu email-ul sau numărul de telefon.');
+      setIdentifierError('Enter your email or phone number.');
       return;
     }
     if (!password) {
-      setPasswordError('Introdu parola.');
+      setPasswordError('Enter your password.');
       return;
     }
 
@@ -48,7 +48,7 @@ const LoginScreen = () => {
       } else if (msg.includes('parolă') || msg.includes('parola')) {
         setPasswordError(msg);
       } else {
-        Alert.alert('Eroare la autentificare', msg);
+        Alert.alert('Authentication error', msg);
       }
     }
   };
@@ -70,14 +70,14 @@ const LoginScreen = () => {
             <Text style={styles.brandAccent}>W</Text>ear<Text style={styles.brandAccent}>W</Text>ise
           </Text>
           <Text style={styles.subtitle}>
-            Conectează-te pentru a descoperi moda sustenabilă.
+            Log in to discover sustainable fashion.
           </Text>
         </View>
 
         <View style={styles.form}>
           <AuthInput 
-            label="Email sau Telefon" 
-            placeholder="email@exemplu.com sau 07xxxxxxxx" 
+            label="Email or Phone" 
+            placeholder="email@example.com or phone" 
             autoCapitalize="none"
             value={identifier}
             error={identifierError}
@@ -85,7 +85,7 @@ const LoginScreen = () => {
           />
 
           <AuthInput 
-            label="Parolă" 
+            label="Password" 
             placeholder="••••••••" 
             secureTextEntry
             value={password}
@@ -94,11 +94,11 @@ const LoginScreen = () => {
           />
 
           <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Ai uitat parola?</Text>
+            <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
           </TouchableOpacity>
 
           <AuthButton 
-            title="Autentificare" 
+            title="Log In" 
             onPress={handleLogin} 
             loading={loading}
           />
@@ -106,7 +106,7 @@ const LoginScreen = () => {
           <View style={styles.registerLinkContainer}>
             <TouchableOpacity onPress={() => router.push('/register')}>
               <Text style={styles.registerLinkText}>
-                Nu ai cont? <Text style={styles.registerLinkBold}>Înregistrează-te</Text>
+                Don't have an account? <Text style={styles.registerLinkBold}>Sign up</Text>
               </Text>
             </TouchableOpacity>
           </View>
