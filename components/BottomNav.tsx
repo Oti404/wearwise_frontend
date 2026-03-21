@@ -4,24 +4,31 @@ import { Link, usePathname } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { UserCircle, MessageCircle, Layers, Bell, HeartHandshake } from 'lucide-react-native';
 import { useAppStore } from '@/store/useAppStore'; 
-// Importăm tipul corect pentru props
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 
-// Adăugăm (props: BottomTabBarProps) sau deconstruit:
 export function BottomNav({ state, descriptors, navigation }: BottomTabBarProps) {
   const setView = useAppStore((s: any) => s.setView); 
+  const isDarkMode = useAppStore((s: any) => s.isDarkMode);
   const pathname = usePathname(); 
   const insets = useSafeAreaInsets(); 
 
+  const dk = isDarkMode;
+
+  const inactiveColor = dk ? 'rgba(255,255,255,0.35)' : 'rgba(43,43,43,0.4)';
+  const activeColor   = dk ? '#C084FC' : '#5A2D82';
+
   const checkIsActive = (path: string) => {
-    // Curățăm pathname-ul pentru comparație (uneori are '/' la final)
     if (path === '/' && pathname === '/') return true;
     if (path !== '/' && pathname.includes(path)) return true;
     return false;
   };
 
   return (
-    <View style={[styles.container, { paddingBottom: Math.max(insets.bottom, 10) }]}>
+    <View style={[
+      styles.container,
+      { paddingBottom: Math.max(insets.bottom, 10) },
+      dk && { backgroundColor: '#252525' },
+    ]}>
       <View style={styles.navRow}>
         
         {/* 1. Donations */}
@@ -29,22 +36,26 @@ export function BottomNav({ state, descriptors, navigation }: BottomTabBarProps)
           <TouchableOpacity style={styles.navItem}>
             <HeartHandshake 
               size={22} 
-              color={checkIsActive('donations') ? '#5A2D82' : 'rgba(43,43,43,0.4)'} 
+              color={checkIsActive('donations') ? activeColor : inactiveColor} 
               strokeWidth={checkIsActive('donations') ? 2.5 : 2} 
             />
-            <Text style={[styles.navText, checkIsActive('donations') && styles.navTextActive]}>
+            <Text style={[
+              styles.navText,
+              { color: inactiveColor },
+              checkIsActive('donations') && { color: activeColor, transform: [{ scale: 1.1 }] }
+            ]}>
               Donations
             </Text>
           </TouchableOpacity>
         </Link>
-
 
         {/* 3. Swipe - Center Fixed */}
         <Link href="/" asChild onPress={() => setView('swipe')}>
           <TouchableOpacity style={styles.centerItem} activeOpacity={0.9}>
             <View style={[
               styles.centerCircle, 
-              checkIsActive('/') ? styles.centerCircleActive : styles.centerCircleInactive
+              checkIsActive('/') ? styles.centerCircleActive : styles.centerCircleInactive,
+              dk && { borderColor: '#252525' },
             ]}>
               <Layers 
                 size={26} 
@@ -52,7 +63,11 @@ export function BottomNav({ state, descriptors, navigation }: BottomTabBarProps)
                 strokeWidth={checkIsActive('/') ? 2.5 : 2} 
               />
             </View>
-            <Text style={[styles.centerText, checkIsActive('/') && styles.centerTextActive]}>
+            <Text style={[
+              styles.centerText,
+              { color: inactiveColor },
+              checkIsActive('/') && { color: activeColor }
+            ]}>
               Swipe
             </Text>
           </TouchableOpacity>
@@ -63,10 +78,14 @@ export function BottomNav({ state, descriptors, navigation }: BottomTabBarProps)
           <TouchableOpacity style={styles.navItem}>
             <UserCircle 
               size={22} 
-              color={checkIsActive('profile') ? '#5A2D82' : 'rgba(43,43,43,0.4)'} 
+              color={checkIsActive('profile') ? activeColor : inactiveColor} 
               strokeWidth={checkIsActive('profile') ? 2.5 : 2} 
             />
-            <Text style={[styles.navText, checkIsActive('profile') && styles.navTextActive]}>
+            <Text style={[
+              styles.navText,
+              { color: inactiveColor },
+              checkIsActive('profile') && { color: activeColor, transform: [{ scale: 1.1 }] }
+            ]}>
               Profile
             </Text>
           </TouchableOpacity>
@@ -77,14 +96,13 @@ export function BottomNav({ state, descriptors, navigation }: BottomTabBarProps)
   );
 }
 
-// ... păstrează restul stilurilor neschimbate
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
     alignSelf: 'center',
-    maxWidth: 448, // Păstrăm lățimea maximă pentru tablete/web (max-w-md)
+    maxWidth: 448,
     backgroundColor: '#FAF7F2',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
@@ -121,15 +139,11 @@ const styles = StyleSheet.create({
     color: 'rgba(43,43,43,0.4)',
     marginTop: 2,
   },
-  navTextActive: {
-    color: '#5A2D82',
-    transform: [{ scale: 1.1 }], // Efect de mărire ușoară când e activ
-  },
   centerItem: {
     width: 80,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    top: -24, // Îl ridicăm în afara barei (-top-6 din tailwind)
+    top: -24,
   },
   centerCircle: {
     width: 64,
@@ -165,7 +179,4 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     color: 'rgba(43,43,43,0.4)',
   },
-  centerTextActive: {
-    color: '#5A2D82',
-  }
 });

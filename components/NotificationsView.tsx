@@ -25,7 +25,8 @@ import { RatingModal } from './RatingModal';
 
 export function NotificationsView() {
   const insets = useSafeAreaInsets();
-  const { user } = useAppStore();
+  const { user, isDarkMode } = useAppStore();
+  const dk = isDarkMode;
   const { fetchNotifications, submitRating, loading } = useClothes();
   
   const [notifications, setNotifications] = useState<any[]>([]);
@@ -100,15 +101,15 @@ export function NotificationsView() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, dk && { backgroundColor: '#1E1E1E' }]}>
       {/* Premium Header */}
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+      <View style={[styles.header, { paddingTop: insets.top + 10 }, dk && { backgroundColor: '#1A1A2E', borderBottomColor: 'rgba(255,255,255,0.05)' }]}>
         <View>
           <View style={styles.headerTag}>
             <Sparkles size={14} color="#F4C542" />
             <Text style={styles.tagText}>Activitate</Text>
           </View>
-          <Text style={styles.title}>Notificări</Text>
+          <Text style={[styles.title, dk && { color: '#FFFFFF' }]}>Notificări</Text>
         </View>
         <TouchableOpacity 
           style={styles.markReadBtn} 
@@ -149,7 +150,7 @@ export function NotificationsView() {
               onPress={() => handleNotificationPress(notification)}
               style={[
                 styles.card,
-                notification.unread ? styles.unreadCard : styles.readCard,
+                notification.unread ? [styles.unreadCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }] : [styles.readCard, dk && { backgroundColor: 'rgba(43,43,43,0.4)' }],
                 notification.status === 'completed' && { opacity: 0.5 }
               ]}
             >
@@ -166,7 +167,8 @@ export function NotificationsView() {
                 <View style={styles.cardHeader}>
                   <Text style={[
                     styles.cardTitle,
-                    { fontWeight: notification.unread ? '900' : '700', opacity: notification.unread ? 1 : 0.7 }
+                    { fontWeight: notification.unread ? '900' : '700', opacity: notification.unread ? 1 : 0.7 },
+                    dk && { color: '#FFFFFF' }
                   ]}>
                     {notification.title}
                   </Text>
@@ -174,7 +176,7 @@ export function NotificationsView() {
                 </View>
                 <Text style={[
                   styles.messageText,
-                  { color: '#2B2B2B', opacity: notification.unread ? 1 : 0.6 }
+                  { color: dk ? 'rgba(255,255,255,0.75)' : '#2B2B2B', opacity: notification.unread ? 1 : 0.6 }
                 ]}>
                   {notification.status === 'completed' ? 'Evaluare trimisă ✅' : notification.message}
                 </Text>

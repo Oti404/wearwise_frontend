@@ -16,7 +16,8 @@ import { useClothes } from '@/hooks/useClothes';
 import { DB } from '@/config/firebase';
 
 const CartView = () => {
-  const { cart, removeFromCart, clearCart, user } = useAppStore();
+  const { cart, removeFromCart, clearCart, user, isDarkMode } = useAppStore();
+  const dk = isDarkMode;
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { checkout, loading: checkoutLoading } = useClothes();
@@ -90,15 +91,15 @@ const CartView = () => {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 10 }]}>
+    <View style={[styles.container, { paddingTop: insets.top + 10 }, dk && { backgroundColor: '#1E1E1E' }]}>
       {/* ─── HEADER ─── */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backBtn} onPress={() => router.back()} activeOpacity={0.7}>
-          <ArrowLeft size={20} color="#1A1A2E" strokeWidth={2.5} />
+        <TouchableOpacity style={[styles.backBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.06)' }]} onPress={() => router.back()} activeOpacity={0.7}>
+          <ArrowLeft size={20} color={dk ? '#FFFFFF' : '#1A1A2E'} strokeWidth={2.5} />
         </TouchableOpacity>
 
         <View style={styles.headerCenter}>
-          <Text style={styles.headerTitle}>My Cart</Text>
+          <Text style={[styles.headerTitle, dk && { color: '#FFFFFF' }]}>My Cart</Text>
           {cart.length > 0 && (
             <View style={styles.countBadge}>
               <Text style={styles.countText}>{cart.length}</Text>
@@ -136,7 +137,7 @@ const CartView = () => {
             {/* ─── CART ITEMS ─── */}
             <View style={styles.itemsList}>
               {cart.map((item: any, index: number) => (
-                <View key={item.id || index} style={styles.cartCard}>
+                <View key={item.id || index} style={[styles.cartCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.05)' }]}>
                   {/* Product Image */}
                   <View style={styles.imageWrapper}>
                     <Image
@@ -154,7 +155,7 @@ const CartView = () => {
                   {/* Details */}
                   <View style={styles.itemDetails}>
                     <View style={styles.itemNameRow}>
-                      <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
+                      <Text style={[styles.itemName, dk && { color: '#FFFFFF' }]} numberOfLines={1}>{item.name}</Text>
                       <TouchableOpacity
                         style={styles.deleteBtnSmall}
                         onPress={() => handleRemoveItem(item.id)}
@@ -171,7 +172,7 @@ const CartView = () => {
                     )}
                     
                     <View style={styles.priceRow}>
-                      <Text style={styles.priceText}>
+                      <Text style={[styles.priceText, dk && { color: '#FFFFFF' }]}>
                         {item.price > 0 ? `${item.price.toFixed(2)} RON` : 'FREE / TRADE'}
                       </Text>
                       {item.distance !== undefined && (
@@ -186,25 +187,25 @@ const CartView = () => {
             </View>
 
             {/* ─── ORDER SUMMARY ─── */}
-            <View style={styles.summaryCard}>
+            <View style={[styles.summaryCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.05)' }]}>
               <View style={styles.summaryHeader}>
                 <Package size={18} color="#5A2D82" />
-                <Text style={styles.summaryTitle}>Order Summary</Text>
+                <Text style={[styles.summaryTitle, dk && { color: '#FFFFFF' }]}>Order Summary</Text>
               </View>
 
               <View style={styles.summaryRows}>
                 <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>Products ({cart.length})</Text>
-                  <Text style={styles.summaryValue}>{totalFormatted} RON</Text>
+                  <Text style={[styles.summaryLabel, dk && { color: 'rgba(255,255,255,0.5)' }]}>Products ({cart.length})</Text>
+                  <Text style={[styles.summaryValue, dk && { color: '#FFFFFF' }]}>{totalFormatted} RON</Text>
                 </View>
 
                 <View style={styles.summaryRow}>
-                  <Text style={styles.summaryLabel}>Home Delivery</Text>
+                  <Text style={[styles.summaryLabel, dk && { color: 'rgba(255,255,255,0.5)' }]}>Home Delivery</Text>
                   <Text style={[styles.summaryValue, { color: '#27AE60' }]}>FREE</Text>
                 </View>
 
-                <View style={[styles.summaryRow, styles.totalRow]}>
-                  <Text style={styles.totalLabel}>Total to pay</Text>
+                <View style={[styles.summaryRow, styles.totalRow, dk && { borderTopColor: 'rgba(255,255,255,0.08)' }]}>
+                  <Text style={[styles.totalLabel, dk && { color: '#FFFFFF' }]}>Total to pay</Text>
                   <Text style={styles.totalValue}>{totalFormatted} RON</Text>
                 </View>
               </View>

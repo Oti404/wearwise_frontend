@@ -10,6 +10,8 @@ import {
   Platform,
   ActivityIndicator,
   Alert,
+  Modal,
+  Switch,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -23,6 +25,11 @@ import {
   LogOut,
   ShoppingBag,
   Gift,
+  User,
+  Clock,
+  Moon,
+  X,
+  ChevronRight,
 } from 'lucide-react-native';
 import { useAppStore } from '@/store/useAppStore';
 import { useAuth } from '@/hooks/useAuth';
@@ -41,7 +48,7 @@ const API_URL = 'https://wearwise-api.onrender.com';
 export function ProfilePage() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { user, login } = useAppStore();
+  const { user, login, isDarkMode, setDarkMode } = useAppStore();
   const { signOut } = useAuth();
   const { fetchUserCloset, reList, loading: clothesLoading } = useClothes();
   const { changeAvatar, updateProfile, loading: avatarLoading } = useUser();
@@ -50,6 +57,7 @@ export function ProfilePage() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [isProfileLoading, setIsProfileLoading] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // EFECT: Dacă profilul nu are date (firstName), le cerem de la backend-ul de pe Render
   useEffect(() => {
@@ -57,7 +65,6 @@ export function ProfilePage() {
       console.log('[ProfilePage] User has no firstName, refetching profile from backend...');
       setIsProfileLoading(true);
       
-      // ✅ CORECTAT: Folosim adresa Render, nu localhost
       fetch(`${API_URL}/user/${user.uid}`)
         .then(async (res) => {
           const data = await res.json();
@@ -105,12 +112,94 @@ export function ProfilePage() {
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.auraPurple} />
-      <View style={styles.auraGold} />
+  // ─── Dark helpers ─────────────────────────────────────────────────
+  const dk = isDarkMode;
 
-      <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+  return (
+    <View style={[styles.container, dk && { backgroundColor: '#1E1E1E' }]}>
+      {!dk && <View style={styles.auraPurple} />}
+      {!dk && <View style={styles.auraGold} />}
+
+      {/* ─── SETTINGS MODAL ─── */}
+      <Modal
+        visible={isSettingsOpen}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setIsSettingsOpen(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <TouchableOpacity
+            style={styles.modalBackdrop}
+            activeOpacity={1}
+            onPress={() => setIsSettingsOpen(false)}
+          />
+          <View style={[styles.modalSheet, dk && { backgroundColor: '#2B2B2B' }]}>
+            {/* Handle */}
+            <View style={[styles.modalHandle, dk && { backgroundColor: 'rgba(255,255,255,0.15)' }]} />
+
+            {/* Header row */}
+            <View style={styles.modalHeader}>
+              <Text style={[styles.modalTitle, dk && { color: '#FFFFFF' }]}>Settings</Text>
+              <TouchableOpacity onPress={() => setIsSettingsOpen(false)} style={styles.modalCloseBtn}>
+                <X size={20} color={dk ? 'rgba(255,255,255,0.6)' : '#9CA3AF'} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Edit Profile */}
+            <TouchableOpacity
+              style={[styles.modalRow, dk && { borderBottomColor: 'rgba(255,255,255,0.07)' }]}
+              activeOpacity={0.75}
+              onPress={() => {
+                setIsSettingsOpen(false);
+                Alert.alert('Edit Profile', 'Coming soon!');
+              }}
+            >
+              <View style={[styles.modalRowIcon, dk && { backgroundColor: 'rgba(192,132,252,0.12)' }]}>
+                <User size={18} color={dk ? '#C084FC' : '#5A2D82'} />
+              </View>
+              <Text style={[styles.modalRowLabel, dk && { color: '#FFFFFF' }]}>Edit Profile</Text>
+              <ChevronRight size={18} color={dk ? 'rgba(255,255,255,0.35)' : 'rgba(43,43,43,0.3)'} />
+            </TouchableOpacity>
+
+            {/* Istoric */}
+            <TouchableOpacity
+              style={[styles.modalRow, dk && { borderBottomColor: 'rgba(255,255,255,0.07)' }]}
+              activeOpacity={0.75}
+              onPress={() => {
+                setIsSettingsOpen(false);
+                Alert.alert('Istoric', 'Istoricul cumpărăturilor și vânzărilor — coming soon!');
+              }}
+            >
+              <View style={[styles.modalRowIcon, dk && { backgroundColor: 'rgba(244,197,66,0.12)' }]}>
+                <Clock size={18} color={dk ? '#F4C542' : '#5A2D82'} />
+              </View>
+              <Text style={[styles.modalRowLabel, dk && { color: '#FFFFFF' }]}>Istoric (cumpărări / vânzări)</Text>
+              <ChevronRight size={18} color={dk ? 'rgba(255,255,255,0.35)' : 'rgba(43,43,43,0.3)'} />
+            </TouchableOpacity>
+
+            {/* Dark Theme toggle */}
+            <View style={[styles.modalRow, { borderBottomWidth: 0 }, dk && { borderBottomColor: 'transparent' }]}>
+              <View style={[styles.modalRowIcon, dk && { backgroundColor: 'rgba(192,132,252,0.12)' }]}>
+                <Moon size={18} color={dk ? '#C084FC' : '#5A2D82'} />
+              </View>
+              <Text style={[styles.modalRowLabel, dk && { color: '#FFFFFF' }]}>Dark Theme</Text>
+              <Switch
+                value={isDarkMode}
+                onValueChange={setDarkMode}
+                trackColor={{ false: 'rgba(43,43,43,0.15)', true: '#7C3AED' }}
+                thumbColor={isDarkMode ? '#C084FC' : '#FFF'}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* ─── HEADER ─── */}
+      <View style={[
+        styles.header,
+        { paddingTop: insets.top + 10 },
+        dk && { backgroundColor: '#1A1A2E', borderBottomColor: 'rgba(255,255,255,0.05)' },
+      ]}>
         <View style={styles.headerContent}>
           <View style={styles.userInfoRow}>
             <View style={styles.avatarWrapper}>
@@ -129,12 +218,12 @@ export function ProfilePage() {
                 </View>
               </View>
               <TouchableOpacity 
-                style={styles.cameraBtn} 
+                style={[styles.cameraBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.08)' }]} 
                 activeOpacity={0.8}
                 onPress={handlePickAvatar}
                 disabled={avatarLoading}
               >
-                <Camera size={10} color="#5A2D82" strokeWidth={3} />
+                <Camera size={10} color={dk ? '#C084FC' : '#5A2D82'} strokeWidth={3} />
               </TouchableOpacity>
             </View>
 
@@ -143,19 +232,21 @@ export function ProfilePage() {
                 <ActivityIndicator size="small" color="#5A2D82" />
               ) : (
                 <View style={styles.nameSection}>
-                  <Text style={styles.userName}>
+                  <Text style={[styles.userName, dk && { color: '#FFFFFF' }]}>
                     {user?.firstName && user?.lastName 
                       ? `${user.firstName} ${user.lastName}` 
                       : (user?.email?.split('@')[0] || 'WearWise User')}
                   </Text>
                   <View style={styles.reputationRow}>
-                    <View style={styles.locationContainer}>
+                    <View style={[styles.locationContainer, dk && { backgroundColor: 'rgba(255,255,255,0.06)' }]}>
                       <MapPin size={12} color="#F4C542" />
-                      <Text style={styles.userLocation}>{user?.city || user?.address || 'Location not set'}</Text>
+                      <Text style={[styles.userLocation, dk && { color: '#FFFFFF' }]}>
+                        {user?.city || user?.address || 'Location not set'}
+                      </Text>
                     </View>
-                    <View style={styles.ratingBadge}>
+                    <View style={[styles.ratingBadge, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.08)' }]}>
                       <Star size={10} color="#F4C542" fill="#F4C542" />
-                      <Text style={styles.ratingValue}>{user?.rating || '0.0'}</Text>
+                      <Text style={[styles.ratingValue, dk && { color: '#FFFFFF' }]}>{user?.rating || '0.0'}</Text>
                       <Text style={styles.reviewCount}>({user?.reviewCount || 0})</Text>
                     </View>
                   </View>
@@ -165,11 +256,17 @@ export function ProfilePage() {
           </View>
 
           <View style={{ flexDirection: 'row', gap: 8 }}>
-            <TouchableOpacity style={styles.settingsBtn} onPress={signOut}>
+            <TouchableOpacity
+              style={[styles.settingsBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.08)' }]}
+              onPress={signOut}
+            >
               <LogOut size={20} color="#E74C3C" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.settingsBtn}>
-              <Settings size={20} color="rgba(43, 43, 43, 0.4)" />
+            <TouchableOpacity
+              style={[styles.settingsBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.08)' }]}
+              onPress={() => setIsSettingsOpen(true)}
+            >
+              <Settings size={20} color={dk ? '#C084FC' : 'rgba(43, 43, 43, 0.4)'} />
             </TouchableOpacity>
           </View>
         </View>
@@ -200,40 +297,41 @@ export function ProfilePage() {
         contentContainerStyle={styles.scrollContent}
         style={styles.scrollView}
       >
-        <View style={styles.statsBar}>
+        {/* Stats Bar */}
+        <View style={[styles.statsBar, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.05)' }]}>
           <View style={styles.statItem}>
-            <View style={[styles.statIconCircle, { backgroundColor: 'rgba(90, 45, 130, 0.1)' }]}>
-              <ArrowRightLeft size={14} color="#5A2D82" />
+            <View style={[styles.statIconCircle, { backgroundColor: dk ? 'rgba(142,68,173,0.18)' : 'rgba(90, 45, 130, 0.1)' }]}>
+              <ArrowRightLeft size={14} color={dk ? '#8E44AD' : '#5A2D82'} />
             </View>
             <View style={styles.statTextContainer}>
-              <Text style={styles.statNumber}>{user?.tradesCount || 0}</Text>
-              <Text style={styles.statLabel}>TRADES</Text>
+              <Text style={[styles.statNumber, dk && { color: '#FFFFFF' }]}>{user?.tradesCount || 0}</Text>
+              <Text style={[styles.statLabel, dk && { color: '#8E44AD' }]}>TRADES</Text>
             </View>
           </View>
           
-          <View style={styles.statDivider} />
+          <View style={[styles.statDivider, dk && { backgroundColor: 'rgba(255,255,255,0.08)' }]} />
           
           <View style={styles.statItem}>
-            <View style={[styles.statIconCircle, { backgroundColor: 'rgba(244, 197, 66, 0.1)' }]}>
+            <View style={[styles.statIconCircle, { backgroundColor: dk ? 'rgba(244,197,66,0.15)' : 'rgba(244, 197, 66, 0.1)' }]}>
               <Gift size={14} color="#F4C542" />
             </View>
             <View style={styles.statTextContainer}>
-              <Text style={styles.statNumber}>{user?.donationsCount || 0}</Text>
-              <Text style={styles.statLabel}>DONATIONS</Text>
+              <Text style={[styles.statNumber, dk && { color: '#FFFFFF' }]}>{user?.donationsCount || 0}</Text>
+              <Text style={[styles.statLabel, dk && { color: '#F4C542' }]}>DONATIONS</Text>
             </View>
           </View>
 
-          <View style={styles.statDivider} />
+          <View style={[styles.statDivider, dk && { backgroundColor: 'rgba(255,255,255,0.08)' }]} />
 
           <View style={styles.statItem}>
-            <View style={[styles.statIconCircle, { backgroundColor: 'rgba(39, 174, 96, 0.1)' }]}>
+            <View style={[styles.statIconCircle, { backgroundColor: dk ? 'rgba(39,174,96,0.15)' : 'rgba(39, 174, 96, 0.1)' }]}>
               <Sparkles size={14} color="#27AE60" />
             </View>
             <View style={styles.statTextContainer}>
-              <Text style={styles.statNumber}>
+              <Text style={[styles.statNumber, dk && { color: '#FFFFFF' }]}>
                 {(user?.tradesCount || 0) + (user?.donationsCount || 0) + (user?.salesCount || 0)}
               </Text>
-              <Text style={styles.statLabel}>SAVED</Text>
+              <Text style={[styles.statLabel, dk && { color: '#27AE60' }]}>SAVED</Text>
             </View>
           </View>
         </View>
@@ -258,16 +356,19 @@ export function ProfilePage() {
             <Text style={styles.addItemText}>ADD ITEM</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.editBtn}>
-            <Text style={styles.editBtnText}>EDIT</Text>
+          <TouchableOpacity
+            style={[styles.editBtn, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.08)' }]}
+            onPress={() => Alert.alert('Edit Profile', 'Coming soon!')}
+          >
+            <Text style={[styles.editBtnText, dk && { color: '#C084FC' }]}>EDIT</Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.galleryContainer}>
             <View style={styles.sectionTitleRow}>
-              <Text style={styles.sectionTitle}>Your Wardrobe</Text>
-              <View style={styles.countBadge}>
-                <Text style={styles.countText}>{closet.length} ITEMS</Text>
+              <Text style={[styles.sectionTitle, dk && { color: '#FFFFFF' }]}>Your Wardrobe</Text>
+              <View style={[styles.countBadge, dk && { backgroundColor: 'rgba(192,132,252,0.12)' }]}>
+                <Text style={[styles.countText, dk && { color: '#C084FC' }]}>{closet.length} ITEMS</Text>
               </View>
             </View>
 
@@ -283,7 +384,7 @@ export function ProfilePage() {
                   return (
                     <TouchableOpacity 
                       key={item.id || index} 
-                      style={styles.closetItem}
+                      style={[styles.closetItem, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.05)' }]}
                       activeOpacity={0.8}
                       onPress={() => item.id && router.push({ pathname: '/item/[id]', params: { id: item.id } })}
                     >
@@ -338,7 +439,7 @@ export function ProfilePage() {
                         )}
                       </View>
                       <View style={styles.closetItemInfo}>
-                        <Text style={styles.closetItemName} numberOfLines={1}>{item.name}</Text>
+                        <Text style={[styles.closetItemName, dk && { color: '#FFFFFF' }]} numberOfLines={1}>{item.name}</Text>
                         <Text style={styles.closetItemPrice}>
                           {isBoughtByMe ? 'IN WARDROBE' : isSold ? 'SOLD' : item.mode === 'trade' ? 'TRADE' : item.mode === 'donate' ? 'DONATION' : `${item.price} RON`}
                         </Text>
@@ -348,11 +449,11 @@ export function ProfilePage() {
                 })}
               </View>
             ) : (
-              <View style={styles.emptyContainer}>
-                <Sparkles size={40} color="rgba(43, 43, 43, 0.1)" />
-                <Text style={styles.sectionPlaceholder}>Your wardrobe is empty.</Text>
+              <View style={[styles.emptyContainer, dk && { backgroundColor: 'rgba(43,43,43,0.5)', borderColor: 'rgba(255,255,255,0.08)' }]}>
+                <Sparkles size={40} color={dk ? 'rgba(255,255,255,0.1)' : 'rgba(43, 43, 43, 0.1)'} />
+                <Text style={[styles.sectionPlaceholder, dk && { color: 'rgba(255,255,255,0.3)' }]}>Your wardrobe is empty.</Text>
                 <TouchableOpacity onPress={() => router.push('/add-item')}>
-                  <Text style={styles.emptyActionText}>Add your first item</Text>
+                  <Text style={[styles.emptyActionText, dk && { color: '#C084FC' }]}>Add your first item</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -385,6 +486,73 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(244, 197, 66, 0.08)',
     borderRadius: 90,
   },
+  // ── Settings Modal ────────────────────────────────────────────────
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  modalBackdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+  },
+  modalSheet: {
+    backgroundColor: '#FFFFFF',
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
+    paddingHorizontal: 24,
+    paddingBottom: 40,
+    paddingTop: 12,
+    ...Platform.select({
+      ios: { shadowColor: '#000', shadowOffset: { width: 0, height: -8 }, shadowOpacity: 0.12, shadowRadius: 20 },
+      android: { elevation: 20 },
+    }),
+  },
+  modalHandle: {
+    width: 40,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: 'rgba(43,43,43,0.15)',
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: '900',
+    color: '#1A1A2E',
+    letterSpacing: -0.5,
+  },
+  modalCloseBtn: {
+    padding: 6,
+  },
+  modalRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(43,43,43,0.06)',
+    gap: 14,
+  },
+  modalRowIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 14,
+    backgroundColor: 'rgba(90,45,130,0.08)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modalRowLabel: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '700',
+    color: '#1A1A2E',
+  },
+  // ── Header ────────────────────────────────────────────────────────
   header: {
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
     borderBottomWidth: 1,
