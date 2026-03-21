@@ -193,7 +193,7 @@ export function AddItemModal({ isOpen, onClose }: AddItemModalProps) {
                   <Text style={styles.currencyText}>RON</Text>
                 </View>
               </View>
-              <Text style={styles.helperText}>Leave at 0 for Trade / Donation only.</Text>
+              <Text style={styles.helperText}>Leave at 0 for Trade only.</Text>
             </View>
 
             {/* 4. DESCRIPTION */}

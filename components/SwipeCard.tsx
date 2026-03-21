@@ -68,7 +68,7 @@ const SwipeCard = ({ item, cardWidth, cardHeight }: SwipeCardProps) => {
           )}
           {isBuy && (
             <View style={[styles.badge, styles.buyBadge]}>
-              <Text style={styles.badgeText}>★ PREMIUM</Text>
+              <Text style={styles.badgeText}>BUY</Text>
             </View>
           )}
           {isDonate && (

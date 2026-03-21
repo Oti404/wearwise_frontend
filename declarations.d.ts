@@ -20,5 +20,10 @@ declare module '*.jpeg' {
 
 declare module '*.gif' {
   const value: any;
-  export default value;
+}
+
+declare module 'react-native-deck-swiper' {
+  import { Component } from 'react';
+  class Swiper<T> extends Component<any> {}
+  export default Swiper;
 }

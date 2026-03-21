@@ -25,6 +25,7 @@ import {
   ShieldCheck,
 } from 'lucide-react-native';
 import { useClothes, ClothingItem } from '@/hooks/useClothes';
+import { useAppStore } from '@/store/useAppStore';
 
 const { width } = Dimensions.get('window');
 
@@ -33,10 +34,13 @@ export default function ItemDetailsScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { fetchItemDetails, loading, error: apiError } = useClothes();
+  const addToCart = useAppStore((state) => state.addToCart);
+  const cart = useAppStore((state) => state.cart);
 
   const [item, setItem] = useState<ClothingItem | null>(null);
   const [notFound, setNotFound] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const isInCart = cart.some((c) => String(c.id) === String(id));
 
   useEffect(() => {
     loadItem();
@@ -62,6 +66,21 @@ export default function ItemDetailsScreen() {
     }
   };
 
+  const handleAddToCart = () => {
+    if (!item) return;
+    addToCart({
+      id: item.id!,
+      name: item.name,
+      price: item.price || 0,
+      image: (item.images && item.images.length > 0) ? item.images[0] : 'https://via.placeholder.com/400',
+      seller: item.userId,
+      size: item.size,
+      distance: item.distance || 0,
+    });
+    // Return to the main swipe screen
+    router.replace('/(tabs)');
+  };
+
   const renderModeBadge = (mode: string) => {
     switch (mode) {
       case 'trade':
@@ -75,7 +94,7 @@ export default function ItemDetailsScreen() {
         return (
           <View style={[styles.badge, styles.buyBadge]}>
             <ShoppingBag size={12} color="#5A2D82" />
-            <Text style={[styles.badgeText, { color: '#5A2D82' }]}>FOR SALE</Text>
+            <Text style={[styles.badgeText, { color: '#5A2D82' }]}>BUY</Text>
           </View>
         );
       case 'donate':
@@ -298,9 +317,13 @@ export default function ItemDetailsScreen() {
             <Heart size={24} color="#5A2D82" />
          </TouchableOpacity>
          
-         <TouchableOpacity style={styles.primaryActionBtn}>
-            <Text style={styles.primaryActionText}>
-              {item.mode === 'sell' ? 'ADD TO CART' : 'PROPOSE TRADE'}
+         <TouchableOpacity 
+            style={[styles.primaryActionBtn, isInCart && styles.disabledBtn]} 
+            onPress={handleAddToCart}
+            disabled={isInCart}
+          >
+            <Text style={[styles.primaryActionText, isInCart && styles.disabledBtnText]}>
+              {isInCart ? 'ALREADY IN CART' : (item.mode === 'sell' ? 'ADD TO CART' : 'PROPOSE TRADE')}
             </Text>
          </TouchableOpacity>
       </View>
@@ -489,5 +512,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  disabledBtn: {
+    backgroundColor: 'rgba(90, 45, 130, 0.1)',
+  },
   primaryActionText: { color: '#5A2D82', fontSize: 14, fontWeight: '900', letterSpacing: 1 },
+  disabledBtnText: {
+    color: 'rgba(90, 45, 130, 0.4)',
+  },
 });

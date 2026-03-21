@@ -33,8 +33,7 @@ const SIZES = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
 const CONDITIONS = ['New with tags', 'Like new', 'Good', 'Used'];
 const MODES = [
   { id: 'trade', label: 'Trade' },
-  { id: 'sell', label: 'Sell' },
-  { id: 'donate', label: 'Donate' }
+  { id: 'sell', label: 'Buy' }
 ];
 const SORT_OPTIONS = [
   { id: 'newest', label: 'Newest arrival' },

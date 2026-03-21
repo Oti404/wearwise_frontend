@@ -71,20 +71,8 @@ const CartView = () => {
           )}
         </View>
 
-        {cart.length > 0 && (
-          <TouchableOpacity
-            style={styles.clearBtn}
-            onPress={() =>
-              Alert.alert('Empty cart', 'Are you sure you want to remove all items?', [
-                { text: 'Cancel', style: 'cancel' },
-                { text: 'Empty', style: 'destructive', onPress: clearCart },
-              ])
-            }
-            activeOpacity={0.7}
-          >
-            <Trash2 size={18} color="#E74C3C" strokeWidth={2.5} />
-          </TouchableOpacity>
-        )}
+        {/* Placeholder to keep title centered */}
+        <View style={{ width: 44 }} />
       </View>
 
       <ScrollView
@@ -114,7 +102,12 @@ const CartView = () => {
             {/* ─── CART ITEMS ─── */}
             <View style={styles.itemsList}>
               {cart.map((item: any, index: number) => (
-                <View key={item.id || index} style={styles.cartCard}>
+                <TouchableOpacity
+                  key={item.id || index}
+                  style={styles.cartCard}
+                  activeOpacity={0.8}
+                  onPress={() => router.push(`/item/${item.id}`)}
+                >
                   {/* Product Image */}
                   <View style={styles.imageWrapper}>
                     <Image
@@ -159,7 +152,7 @@ const CartView = () => {
                       )}
                     </View>
                   </View>
-                </View>
+                </TouchableOpacity>
               ))}
             </View>
 

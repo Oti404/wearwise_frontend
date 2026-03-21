@@ -32,14 +32,14 @@ const LISTING_OPTIONS: {
   accent: string;
   lightBg: string;
 }[] = [
-  { value: "buy", label: "Sell", sublabel: "List for direct purchase", icon: ShoppingBag, accent: "#5A2D82", lightBg: "#F3EBF7" },
+  { value: "buy", label: "Buy", sublabel: "List for direct purchase", icon: ShoppingBag, accent: "#5A2D82", lightBg: "#F3EBF7" },
   { value: "trade", label: "Trade", sublabel: "Accept fashion swaps", icon: ArrowRightLeft, accent: "#F4C542", lightBg: "#FFF9E6" },
   { value: "trade_buy", label: "Hybrid", sublabel: "Accept cash or swap", icon: Layers, accent: "#8E44AD", lightBg: "#F7F0FA" },
   { value: "donate", label: "Donate", sublabel: "Give away for free", icon: HeartHandshake, accent: "#10b981", lightBg: "#ECFDF5" },
 ];
 
 const BADGE_STYLES: Record<ListingType, { bg: string; color: string; label: string } | null> = {
-  buy: { bg: "#5A2D82", color: "#FFF", label: "SELL" },
+  buy: { bg: "#5A2D82", color: "#FFF", label: "BUY" },
   trade: { bg: "#F4C542", color: "#5A2D82", label: "TRADE" },
   trade_buy: { bg: "#8E44AD", color: "#FFF", label: "HYBRID" },
   donate: { bg: "#10b981", color: "#FFF", label: "DONATE" },
@@ -171,7 +171,7 @@ export default function ClosetGallery() {
 
         {/* Grid */}
         <View style={styles.grid}>
-          {myClosetItems.map((item) => {
+          {myClosetItems.map((item: ClothingItem) => {
             const badge = BADGE_STYLES[item.listing];
             const imageSource = typeof item.image === 'string' ? { uri: item.image } : item.image;
 

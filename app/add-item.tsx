@@ -278,7 +278,7 @@ const AddItemScreen = () => {
             <Text style={styles.smallSectionTitle}>How do you want to offer it?</Text>
             <View style={styles.modeGrid}>
               {renderModeOption('trade', 'Trade', <ArrowRightLeft size={18} color={form.mode === 'trade' ? '#FAF7F2' : '#5A2D82'} />)}
-              {renderModeOption('sell', 'Sell', <DollarSign size={18} color={form.mode === 'sell' ? '#FAF7F2' : '#5A2D82'} />)}
+              {renderModeOption('sell', 'Buy', <DollarSign size={18} color={form.mode === 'sell' ? '#FAF7F2' : '#5A2D82'} />)}
               {renderModeOption('both', 'Both', <Sparkles size={18} color={form.mode === 'both' ? '#FAF7F2' : '#5A2D82'} />)}
               {renderModeOption('donate', 'Donate', <Heart size={18} color={form.mode === 'donate' ? '#FAF7F2' : '#E74C3C'} />)}
             </View>

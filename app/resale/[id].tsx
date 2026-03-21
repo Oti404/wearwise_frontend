@@ -199,7 +199,7 @@ const ResaleScreen = () => {
             <View style={styles.infoBox}>
                <Sparkles size={16} color="#F4C542" />
                <Text style={styles.infoText}>
-                 Relisting will move the product to your sell list and make it visible to others.
+                 Relisting will move the product to your buy list and make it visible to others.
                </Text>
             </View>
           </View>

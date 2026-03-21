@@ -29,7 +29,7 @@ const CARD_HEIGHT = CARD_WIDTH * (16 / 9);
 const SwipeView = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const swiperRef = useRef<Swiper<any>>(null);
+  const swiperRef = useRef<Swiper<ClothingItem>>(null);
   const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress } = useAppStore();
 
   const { fetchExploreFeed } = useClothes();
@@ -54,6 +54,9 @@ const SwipeView = () => {
 
   const filteredItems = useMemo<ClothingItem[]>(() => {
     let result = items.filter((item: ClothingItem) => {
+      // Excludem donațiile din feed-ul de explore (swipe)
+      if (item.mode === 'donate') return false;
+
       const isAvailable = !skipped.includes(item.id!) && !cart.find((c) => c.id === item.id);
       if (!isAvailable) return false;
 
@@ -239,17 +242,17 @@ const SwipeView = () => {
             key={`${deckKey}-${radius}-${availableHeight > 0 ? 1 : 0}`}
             ref={swiperRef}
             cards={filteredItems}
-            renderCard={(card) => (
+            renderCard={(card: ClothingItem) => (
               <SwipeCard
                 item={card}
                 cardWidth={CARD_WIDTH}
                 cardHeight={availableHeight ? availableHeight - 20 : CARD_HEIGHT}
               />
             )}
-            onSwipedLeft={(index) => {
+            onSwipedLeft={(index: number) => {
               handleSwipeLeft(index);
             }}
-            onSwipedRight={(index) => {
+            onSwipedRight={(index: number) => {
               handleSwipeRight(index);
             }}
             cardIndex={0}
