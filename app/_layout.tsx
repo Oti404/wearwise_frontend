@@ -22,10 +22,10 @@ import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
-// 1. Petic pentru ViewPropTypes (eroarea de Web)
+// 1. Petic pentru ViewPropTypes (eroarea de Web) fără dependențe externe
 Object.defineProperty(ReactNative, 'ViewPropTypes', {
   get() {
-    return require('deprecated-react-native-prop-types').ViewPropTypes;
+    return {}; // Dummy object to bypass the crash on web
   },
 });
 
