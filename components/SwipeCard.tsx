@@ -11,6 +11,7 @@ import {
 import { Heart, X, MapPin, ShoppingBag, ArrowRightLeft, Gift, Tag } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { ClothingItem } from "@/hooks/useClothes";
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -51,28 +52,29 @@ const SwipeCard = ({ item, cardWidth, cardHeight }: SwipeCardProps) => {
           resizeMode="cover"
         />
 
-        {/* ── Gradient Overlay (simulated) ── */}
-        <View style={styles.gradientTop} />
-        <View style={styles.gradientBottom} />
+        {/* ── Gradient Overlay ── */}
+        <LinearGradient
+          colors={['transparent', 'rgba(58,28,86,0.95)']}
+          style={styles.gradientBottom}
+        />
 
         {/* ── Mode Badges (top-left) ── */}
         <View style={styles.badgesContainer}>
           {isTrade && (
             <View style={[styles.badge, styles.tradeBadge]}>
-              <ArrowRightLeft size={9} color="#FAF7F2" />
-              <Text style={styles.badgeText}>TRADE</Text>
+              <ArrowRightLeft size={9} color="#FFF" />
+              <Text style={[styles.badgeText, { color: '#FFF' }]}>TRADE</Text>
             </View>
           )}
           {isBuy && (
             <View style={[styles.badge, styles.buyBadge]}>
-              <ShoppingBag size={9} color="#5A2D82" />
-              <Text style={[styles.badgeText, { color: '#5A2D82' }]}>BUY</Text>
+              <Text style={styles.badgeText}>★ PREMIUM</Text>
             </View>
           )}
           {isDonate && (
             <View style={[styles.badge, styles.donateBadge]}>
               <Gift size={9} color="#FAF7F2" />
-              <Text style={styles.badgeText}>DONAȚIE</Text>
+              <Text style={styles.badgeText}>DONATE</Text>
             </View>
           )}
         </View>
@@ -80,32 +82,22 @@ const SwipeCard = ({ item, cardWidth, cardHeight }: SwipeCardProps) => {
         {/* ── Info Overlay (bottom) ── */}
         <View style={styles.infoOverlay}>
           <View style={styles.infoContent}>
-            {/* Size tag */}
-            {item.size ? (
-              <View style={styles.sizeTag}>
-                <Tag size={10} color="#F4C542" />
-                <Text style={styles.sizeText}>{item.size.toUpperCase()}</Text>
-              </View>
-            ) : null}
-
-            {/* Item name */}
-            <Text style={styles.itemName} numberOfLines={1}>{item.name}</Text>
-
-            {/* Price + Distance row */}
-            <View style={styles.priceRow}>
+            
+            <View style={styles.titlePriceRow}>
+              <Text style={styles.itemName} numberOfLines={2}>{item.name}</Text>
               <Text style={styles.priceText}>
                 {(item.price !== null && item.price !== undefined && item.price > 0)
-                  ? `${item.price} RON`
-                  : item.mode === 'donate' ? 'DONAȚIE' : 'TRADE'}
+                  ? `${item.price}\nRON`
+                  : item.mode === 'donate' ? 'DONATE' : 'TRADE'}
               </Text>
-
-              {item.distance !== undefined && (
-                <View style={styles.distancePill}>
-                  <MapPin size={11} color="#F4C542" />
-                  <Text style={styles.distanceText}>{item.distance.toFixed(1)} km</Text>
-                </View>
-              )}
             </View>
+
+            {item.distance !== undefined && (
+              <View style={styles.distanceRow}>
+                <MapPin size={11} color="#FFF" />
+                <Text style={styles.distanceText}>{item.distance.toFixed(1)} km away</Text>
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -137,22 +129,13 @@ const styles = StyleSheet.create({
     }),
   },
 
-  // ── Gradient Simulation ─────────────────────────────────────────
-  gradientTop: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: '30%',
-    // backgroundColor: 'rgba(0,0,0,0.28)',
-  },
+  // ── Gradient ─────────────────────────────────────────
   gradientBottom: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    height: '55%',
-    // backgroundColor: 'rgba(0,0,0,0.6)',
+    height: '45%',
   },
 
   // ── Badges ─────────────────────────────────────────────────────
@@ -178,8 +161,10 @@ const styles = StyleSheet.create({
   },
   buyBadge: {
     backgroundColor: '#F4C542',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
+    borderWidth: 0,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
   donateBadge: {
     backgroundColor: '#E74C3C',
@@ -187,10 +172,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.2)',
   },
   badgeText: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: '900',
-    color: '#FAF7F2',
-    letterSpacing: 1,
+    color: '#3B1C56',
+    letterSpacing: 0.5,
   },
 
   // ── Info Overlay ────────────────────────────────────────────────
@@ -201,75 +186,60 @@ const styles = StyleSheet.create({
     right: 0,
     paddingHorizontal: 20,
     paddingBottom: 22,
-    paddingTop: 16,
+    paddingTop: 40,
   },
   infoContent: {
-    gap: 6,
+    gap: 2,
   },
-  sizeTag: {
+  titlePriceRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    marginBottom: 2,
-  },
-  sizeText: {
-    fontSize: 11,
-    fontWeight: '800',
-    color: '#F4C542',
-    letterSpacing: 1.5,
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    gap: 10,
   },
   itemName: {
-    fontSize: 24,
-    fontWeight: '900',
+    flex: 1,
+    fontSize: 26,
+    fontFamily: 'Outfit_600SemiBold',
     color: '#FFF',
-    letterSpacing: -0.3,
+    lineHeight: 30,
     ...Platform.select({
       web: {
-        textShadow: '0px 1px 4px rgba(0,0,0,0.4)',
+        textShadow: '0px 1px 2px rgba(0,0,0,0.4)',
       } as any,
       default: {
         textShadowColor: 'rgba(0,0,0,0.4)',
         textShadowOffset: { width: 0, height: 1 },
-        textShadowRadius: 4,
+        textShadowRadius: 2,
       }
     }),
-  },
-  priceRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 4,
   },
   priceText: {
     fontSize: 22,
-    fontWeight: '900',
-    color: '#F4C542',
+    fontFamily: 'Outfit_600SemiBold',
+    color: '#FFF',
+    textAlign: 'center',
+    lineHeight: 24,
     ...Platform.select({
       web: {
-        textShadow: '0px 1px 3px rgba(0,0,0,0.3)',
+        textShadow: '0px 1px 2px rgba(0,0,0,0.4)',
       } as any,
       default: {
-        textShadowColor: 'rgba(0,0,0,0.3)',
+        textShadowColor: 'rgba(0,0,0,0.4)',
         textShadowOffset: { width: 0, height: 1 },
-        textShadowRadius: 3,
+        textShadowRadius: 2,
       }
     }),
   },
-  distancePill: {
+  distanceRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    backgroundColor: 'rgba(255,255,255,0.15)',
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
+    gap: 4,
+    marginTop: 4,
   },
   distanceText: {
     fontSize: 12,
-    fontWeight: '800',
     color: '#FFF',
-    letterSpacing: 0.3,
+    opacity: 0.9,
   },
 });

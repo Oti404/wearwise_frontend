@@ -8,6 +8,14 @@ import 'react-native-reanimated';
 import { AUTH } from '@/config/firebase';
 import { useAppStore } from '@/store/useAppStore';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useFonts, Quicksand_400Regular, Quicksand_500Medium, Quicksand_700Bold } from '@expo-google-fonts/quicksand';
+import { Mali_400Regular, Mali_500Medium, Mali_600SemiBold, Mali_700Bold } from '@expo-google-fonts/mali';
+import { Manrope_400Regular, Manrope_500Medium, Manrope_600SemiBold, Manrope_700Bold, Manrope_800ExtraBold } from '@expo-google-fonts/manrope';
+import { Outfit_400Regular, Outfit_500Medium, Outfit_600SemiBold, Outfit_700Bold } from '@expo-google-fonts/outfit';
+import { PlayfairDisplay_700Bold, PlayfairDisplay_900Black } from '@expo-google-fonts/playfair-display';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -60,8 +68,35 @@ export default function RootLayout() {
   const router = useRouter();
   const navigationState = useRootNavigationState();
 
+  const [fontsLoaded] = useFonts({
+    Quicksand_400Regular,
+    Quicksand_500Medium,
+    Quicksand_700Bold,
+    Mali_400Regular,
+    Mali_500Medium,
+    Mali_600SemiBold,
+    Mali_700Bold,
+    Manrope_400Regular,
+    Manrope_500Medium,
+    Manrope_600SemiBold,
+    Manrope_700Bold,
+    Manrope_800ExtraBold,
+    Outfit_400Regular,
+    Outfit_500Medium,
+    Outfit_600SemiBold,
+    Outfit_700Bold,
+    PlayfairDisplay_700Bold,
+    PlayfairDisplay_900Black,
+  });
+
   const [isLayoutMounted, setIsLayoutMounted] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync().catch(() => {});
+    }
+  }, [fontsLoaded]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -143,6 +178,10 @@ export default function RootLayout() {
       router.replace('/(tabs)');
     }
   }, [isLoggedIn, isAuthLoading, segments, navigationState?.key, isLayoutMounted, _hasHydrated]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   if (isAuthLoading || !_hasHydrated) {
     return (

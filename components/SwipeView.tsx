@@ -1,7 +1,7 @@
 import { ClothingItem, useClothes } from '@/hooks/useClothes';
 import { useAppStore } from "@/store/useAppStore";
 import { useRouter } from 'expo-router';
-import { Bell, Heart, MapPin, RotateCcw, Search, ShoppingBag, SlidersHorizontal, Sparkles, X as XIcon } from 'lucide-react-native';
+import { Bell, Heart, MapPin, RotateCcw, Search, ShoppingBag, SlidersHorizontal, Sparkles, X as XIcon, Menu } from 'lucide-react-native';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
@@ -157,21 +157,20 @@ const SwipeView = () => {
       <View style={styles.header}>
         {/* Row 1: Title + Cart */}
         <View style={styles.topRow}>
-          <View>
-            <View style={styles.tagRow}>
-              <Sparkles size={12} color="#F4C542" />
-              <Text style={styles.tagText}>DISCOVER</Text>
-            </View>
+          <View style={styles.titleContainer}>
+            <TouchableOpacity onPress={() => {}} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+              <Menu size={24} color="#3B1C56" strokeWidth={2.5} />
+            </TouchableOpacity>
             <Text style={styles.titleText}>For You</Text>
           </View>
 
           <View style={styles.headerActionBox}>
-            <TouchableOpacity style={styles.iconCircleBtn} onPress={() => router.push('/notifications')} activeOpacity={0.8}>
-              <Bell size={22} color="#5A2D82" strokeWidth={2.5} />
+            <TouchableOpacity onPress={() => router.push('/notifications')} activeOpacity={0.8} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+              <Bell size={24} color="#3B1C56" strokeWidth={2.5} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.iconCircleBtn} onPress={() => router.push('/(tabs)/cart')} activeOpacity={0.8}>
-              <ShoppingBag size={22} color="#5A2D82" strokeWidth={2.5} />
+            <TouchableOpacity onPress={() => router.push('/(tabs)/cart')} activeOpacity={0.8} hitSlop={{top: 10, bottom: 10, left: 10, right: 10}}>
+              <ShoppingBag size={24} color="#3B1C56" fill="#3B1C56" strokeWidth={2} />
               {cart.length > 0 && (
                 <View style={styles.cartBadge}>
                   <Text style={styles.cartBadgeText}>{cart.length}</Text>
@@ -187,7 +186,7 @@ const SwipeView = () => {
             <Search size={17} color="#9B59B6" />
             <TextInput
               style={styles.searchInput}
-              placeholder="Search clothes, brands..."
+              placeholder="Search unique items..."
               placeholderTextColor="rgba(90,45,130,0.35)"
               value={searchQuery}
               onChangeText={setSearchQuery}
@@ -195,14 +194,14 @@ const SwipeView = () => {
           </View>
 
           <TouchableOpacity
-            style={[styles.iconBtn, radiusVisible && styles.iconBtnActive]}
+            style={[styles.iconBtn, radiusVisible && styles.iconBtnActive, { borderRadius: 25 }]}
             onPress={() => setRadiusVisible(v => !v)}
           >
             <MapPin size={19} color={radiusVisible ? '#FFF' : '#5A2D82'} />
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={[styles.iconBtn, hasActiveFilters && styles.iconBtnDot]}
+            style={[styles.iconBtn, hasActiveFilters && styles.iconBtnDot, { borderRadius: 25 }]}
             onPress={() => setFilterVisible(true)}
           >
             <SlidersHorizontal size={19} color="#5A2D82" strokeWidth={2.5} />
@@ -385,6 +384,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 14,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
   tagRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -399,8 +403,8 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 28,
-    fontWeight: '900',
-    color: '#1A1A2E',
+    fontFamily: 'Quicksand_700Bold',
+    color: '#3B1C56',
     letterSpacing: -0.5,
   },
   headerActionBox: {
