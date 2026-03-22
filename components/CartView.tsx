@@ -103,16 +103,12 @@ const CartView = () => {
             {/* ─── CART ITEMS ─── */}
             <View style={styles.itemsList}>
               {cart.map((item: any, index: number) => (
-<<<<<<< HEAD
                 <TouchableOpacity
                   key={item.id || index}
-                  style={styles.cartCard}
+                  style={[styles.cartCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.05)' }]}
                   activeOpacity={0.8}
                   onPress={() => router.push(`/item/${item.id}`)}
                 >
-=======
-                <View key={item.id || index} style={[styles.cartCard, dk && { backgroundColor: '#2B2B2B', borderColor: 'rgba(255,255,255,0.05)' }]}>
->>>>>>> 08326b14916045e8df756ba6935cc853c2329ec1
                   {/* Product Image */}
                   <View style={styles.imageWrapper}>
                     <Image

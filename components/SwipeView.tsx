@@ -29,14 +29,9 @@ const CARD_HEIGHT = CARD_WIDTH * (16 / 9);
 const SwipeView = () => {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-<<<<<<< HEAD
-  const swiperRef = useRef<Swiper<ClothingItem>>(null);
-  const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress } = useAppStore();
-=======
   const swiperRef = useRef<Swiper<any>>(null);
   const { radius, cart, skipped, addToCart, skipItem, addingItem, uploadProgress, isDarkMode } = useAppStore();
   const dk = isDarkMode;
->>>>>>> 08326b14916045e8df756ba6935cc853c2329ec1
 
   const { fetchExploreFeed } = useClothes();
 
@@ -60,9 +55,6 @@ const SwipeView = () => {
 
   const filteredItems = useMemo<ClothingItem[]>(() => {
     let result = items.filter((item: ClothingItem) => {
-      // Excludem donațiile din feed-ul de explore (swipe)
-      if (item.mode === 'donate') return false;
-
       const isAvailable = !skipped.includes(item.id!) && !cart.find((c) => c.id === item.id);
       if (!isAvailable) return false;
 
